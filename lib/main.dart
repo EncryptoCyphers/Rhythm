@@ -26,7 +26,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: const Text('Rhythm'),
+        title: Center(child: const Text('Rhythm')),
       ),
       drawer: Drawer(
         child: Container(
