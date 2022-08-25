@@ -8,18 +8,20 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: Center(
-          child: Text('Rythm'),
+        title: const Center(
+          child: Text('Rhythm'),
         ),
       ),
       drawer: Drawer(
         child: Container(
-          margin:
-          const EdgeInsets.only(top: 50, left: 20, bottom: 50, right: 20),
+          color: const Color.fromARGB(255, 167, 147, 240),
+          margin: EdgeInsets.zero,
+          padding: const EdgeInsets.fromLTRB(0, 40, 0, 25),
+          // margin:
+          //     const EdgeInsets.only(top: 30, left: 20, bottom: 30, right: 20),
           // ignore: sized_box_for_whitespace
           child: Container(
             alignment: Alignment.topCenter,
-            padding: const EdgeInsets.all(15),
             child: const Text(
               'Menu',
               style: TextStyle(

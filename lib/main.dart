@@ -11,17 +11,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AnimatedSplashScreen(
-    splash: Image.asset('images/app_icon.jpg'),
-    duration: 3000,
-    splashTransition: SplashTransition.fadeTransition,
-    backgroundColor: Colors.black,
-    nextScreen: HomePage(),
-    )
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: AnimatedSplashScreen(
+          splash: Image.asset('images/app_icon.jpg'),
+          duration: 3000,
+          splashTransition: SplashTransition.rotationTransition,
+          backgroundColor: Colors.black,
+          nextScreen: const HomePage(),
+        ));
   }
 }
