@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:music_player_app/home_page.dart';
+import './fetch_songs.dart';
+import './home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           duration: 3000,
           splashTransition: SplashTransition.rotationTransition,
           backgroundColor: Colors.black,
-          nextScreen: const HomePage(),
+          nextScreen: const Tracks(),
         ));
   }
 }
