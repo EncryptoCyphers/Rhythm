@@ -38,6 +38,7 @@ dependencies:
   on_audio_query: ^2.6.1
   permission_handler: ^10.0.0
   just_audio: ^0.9.28
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:

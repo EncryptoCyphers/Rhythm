@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player_app/onboarding_screen.dart';
 import './fetch_songs.dart';
 import './home_page.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           duration: 3000,
           splashTransition: SplashTransition.rotationTransition,
           backgroundColor: Colors.black,
-          nextScreen: const Tracks(),
+          nextScreen: const OnboardingPage(),
         ));
   }
 }
