@@ -14,6 +14,7 @@ class Tracks extends StatefulWidget {
 class _TracksState extends State<Tracks> {
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     requestPermission();
