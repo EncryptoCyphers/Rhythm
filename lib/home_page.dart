@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: const Center(
-          child: Text('Rhythm'),
+          child: Text("RHYTHM"),
         ),
       ),
       drawer: Drawer(
@@ -35,6 +35,16 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+        ),
+      ),
+      body: Container(
+        child: Text(
+          'Welcome ${nm}',
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple
           ),
         ),
       ),
