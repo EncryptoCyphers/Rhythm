@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.purpleAccent,
         title: const Center(
@@ -20,12 +21,14 @@ class HomePage extends StatelessWidget {
       drawer: const DrawerMenu(),
       // ignore: avoid_unnecessary_containers
       body: Container(
+        alignment: Alignment.topCenter,
         child: Text(
           'Welcome $nm',
           style: const TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple),
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple,
+          ),
         ),
       ),
     );
