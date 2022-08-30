@@ -91,17 +91,18 @@ class _PlayerState extends State<Player> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(
-                        Icons.skip_previous_rounded,
-                        size: 70,
-                      ),
+                      icon: const Icon(Icons.skip_previous_rounded),
+                      iconSize: 60,
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(
-                        Icons.pause_circle,
-                        size: 70,
-                      ),
+                      icon: const Icon(Icons.pause_circle_filled),
+                      iconSize: 60,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.skip_next_rounded),
+                      iconSize: 60,
                     ),
                   ],
                 ),
