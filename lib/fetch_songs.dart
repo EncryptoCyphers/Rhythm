@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
+import './audioplayer.dart';
 
 //import './audioplayer.dart';
 
@@ -32,7 +33,17 @@ class _TracksState extends State<Tracks> {
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
         title: const Text('All Songs'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search),
+          )
+        ],
       ),
       body: FutureBuilder<List<SongModel>>(
           future: _audioQuery.querySongs(
@@ -62,7 +73,14 @@ class _TracksState extends State<Tracks> {
                       subtitle: Text(item.data![index].artist.toString()),
                       trailing: const Icon(Icons.more_horiz),
                       onTap: () {
-                        //playSong(item.data![index].uri);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Player(
+                              songmodel: item.data![index],
+                            ),
+                          ),
+                        );
                       },
                     ),
                   )),
