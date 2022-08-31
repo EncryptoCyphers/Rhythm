@@ -39,8 +39,9 @@ dependencies:
   permission_handler: ^10.0.0
   just_audio: ^0.9.28
   smooth_page_indicator: ^1.0.0+2
+  marquee_text: ^2.5.0+1
   fluttertoast: ^8.0.9
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

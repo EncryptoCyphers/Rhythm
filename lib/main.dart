@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/home_page.dart';
 import 'package:music_player_app/onboarding_screen.dart';
 //import 'package:music_player_app/onboarding_screen.dart';
-import './fetch_songs.dart';
 
 void main() {
   runApp(const MyApp());

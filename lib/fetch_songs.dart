@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import './audioplayer.dart';
@@ -25,6 +26,7 @@ class _TracksState extends State<Tracks> {
     Permission.storage.request();
   }
 
+  final AudioPlayer _audioPlayer = AudioPlayer();
   final _audioQuery = OnAudioQuery();
 
   @override
@@ -78,6 +80,7 @@ class _TracksState extends State<Tracks> {
                           MaterialPageRoute(
                             builder: (context) => Player(
                               songmodel: item.data![index],
+                              audioPlayer: _audioPlayer,
                             ),
                           ),
                         );

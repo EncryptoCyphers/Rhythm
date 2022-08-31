@@ -1,30 +1,40 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/foundation/key.dart';
 import 'package:just_audio/just_audio.dart';
-import 'dart:ui';
+import 'package:marquee_text/marquee_text.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 
-final _audioPlayer = AudioPlayer();
-playSong(String? uri) {
-  try {
-    _audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-    _audioPlayer.play();
-  } on Exception {
-    log("Error Parsing Song");
-  }
-}
-
 class Player extends StatefulWidget {
-  const Player({Key? key, required this.songmodel}) : super(key: key);
+  const Player({Key? key, required this.songmodel, required this.audioPlayer})
+      : super(key: key);
   final SongModel songmodel;
+  final AudioPlayer audioPlayer;
   @override
   State<Player> createState() => _PlayerState();
 }
 
 class _PlayerState extends State<Player> {
+  bool _isPlaying = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    playSong();
+  }
+
+  playSong() {
+    try {
+      widget.audioPlayer
+          .setAudioSource(AudioSource.uri(Uri.parse(widget.songmodel.uri!)));
+      widget.audioPlayer.play();
+      _isPlaying = true;
+    } on Exception {
+      log("Error Parsing Song");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,21 +67,39 @@ class _PlayerState extends State<Player> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  "Song Name",
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28,
+
+                //Song Name in Marquee.......................................................................................//
+
+                Container(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: MarqueeText(
+                    text: TextSpan(
+                      text: widget.songmodel.displayNameWOExt.toString(),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 28,
+                    ),
+                    speed: 10,
                   ),
                 ),
-                const Text(
-                  "Artist Name",
-                  overflow: TextOverflow.fade,
-                  style: TextStyle(
-                    fontSize: 18,
+
+                //Artist Name in Marquee.......................................................................................//
+
+                Container(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: MarqueeText(
+                    text: TextSpan(
+                      text: widget.songmodel.artist.toString() == '<unknown>'
+                          ? 'Unknown Artist'
+                          : widget.songmodel.artist.toString(),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                    speed: 10,
                   ),
                 ),
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -95,8 +123,19 @@ class _PlayerState extends State<Player> {
                       iconSize: 60,
                     ),
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.pause_circle_filled),
+                      onPressed: () {
+                        setState(() {
+                          if (_isPlaying) {
+                            widget.audioPlayer.pause();
+                          } else {
+                            widget.audioPlayer.play();
+                          }
+                          _isPlaying = !_isPlaying;
+                        });
+                      },
+                      icon: _isPlaying
+                          ? const Icon(Icons.pause_circle_filled)
+                          : const Icon(Icons.play_circle_filled),
                       iconSize: 60,
                     ),
                     IconButton(
