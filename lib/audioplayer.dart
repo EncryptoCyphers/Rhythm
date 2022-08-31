@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Player extends StatefulWidget {
@@ -57,6 +56,8 @@ class _PlayerState extends State<Player> {
           Center(
             child: Column(
               children: [
+                //Song Banner..........................................................//
+
                 const CircleAvatar(
                   radius: 150,
                   child: Icon(
@@ -64,6 +65,7 @@ class _PlayerState extends State<Player> {
                     size: 80,
                   ),
                 ),
+
                 const SizedBox(
                   height: 10,
                 ),
@@ -103,6 +105,9 @@ class _PlayerState extends State<Player> {
                 const SizedBox(
                   height: 10,
                 ),
+
+                //Current and End Time of songs....................................//
+
                 Container(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: Row(
@@ -113,15 +118,26 @@ class _PlayerState extends State<Player> {
                     ],
                   ),
                 ),
+
+                // PlayBack Slider ...................................................//
+
                 Slider(value: 0.0, onChanged: (val) {}),
+
+                //Control Buttons....................................................//
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    // Previous Song Button..........................................//
+
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.skip_previous_rounded),
                       iconSize: 60,
                     ),
+
+                    // Play--Pause Button.............................................//
+
                     IconButton(
                       onPressed: () {
                         setState(() {
@@ -138,6 +154,9 @@ class _PlayerState extends State<Player> {
                           : const Icon(Icons.play_circle_filled),
                       iconSize: 60,
                     ),
+
+                    // Next Song Button..........................................//
+
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.skip_next_rounded),

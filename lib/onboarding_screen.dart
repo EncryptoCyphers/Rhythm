@@ -3,10 +3,11 @@
 import 'package:music_player_app/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:just_audio/just_audio.dart';
 
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
-
+  const OnboardingPage({Key? key, required this.audioPlayer}) : super(key: key);
+  final AudioPlayer audioPlayer;
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
@@ -159,8 +160,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            HomePage(nm: textcontroller.text)));
+                        builder: (context) => HomePage(
+                              nm: textcontroller.text,
+                              audioPlayer: widget.audioPlayer,
+                            )));
               },
             )
           // ignore: sized_box_for_whitespace

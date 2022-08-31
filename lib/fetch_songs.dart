@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+//.............................Created Imports....................................................................//
 import './audioplayer.dart';
 
-//import './audioplayer.dart';
-
 class Tracks extends StatefulWidget {
-  const Tracks({Key? key}) : super(key: key);
-
+  const Tracks({Key? key, required this.audioPlayer}) : super(key: key);
+  final AudioPlayer audioPlayer;
   @override
   State<Tracks> createState() => _TracksState();
 }
@@ -26,7 +26,7 @@ class _TracksState extends State<Tracks> {
     Permission.storage.request();
   }
 
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  //final  _audioPlayer = widget.audioPlayer;
   final _audioQuery = OnAudioQuery();
 
   @override
@@ -80,7 +80,7 @@ class _TracksState extends State<Tracks> {
                           MaterialPageRoute(
                             builder: (context) => Player(
                               songmodel: item.data![index],
-                              audioPlayer: _audioPlayer,
+                              audioPlayer: widget.audioPlayer,
                             ),
                           ),
                         );
