@@ -14,7 +14,14 @@ class Player extends StatefulWidget {
 }
 
 class _PlayerState extends State<Player> {
+  //checks if Player is actually playing...............................................................................//
+
   bool _isPlaying = false;
+
+  //Gets Current time and Duration...........................................................................//
+
+  Duration _duration = const Duration();
+  Duration _position = const Duration();
 
   @override
   void initState() {
@@ -22,6 +29,8 @@ class _PlayerState extends State<Player> {
     super.initState();
     playSong();
   }
+
+  //Method to play Song..................................................................//
 
   playSong() {
     try {
@@ -32,6 +41,16 @@ class _PlayerState extends State<Player> {
     } on Exception {
       log("Error Parsing Song");
     }
+    widget.audioPlayer.durationStream.listen((duration) {
+      setState(() {
+        _duration = duration!;
+      });
+    });
+    widget.audioPlayer.positionStream.listen((currPosition) {
+      setState(() {
+        _position = currPosition;
+      });
+    });
   }
 
   @override
@@ -112,16 +131,25 @@ class _PlayerState extends State<Player> {
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text("0:0"),
-                      Text("1:0"),
+                    children: [
+                      Text(_position.toString().split(".")[0]),
+                      Text(_duration.toString().split(".")[0]),
                     ],
                   ),
                 ),
 
                 // PlayBack Slider ...................................................//
 
-                Slider(value: 0.0, onChanged: (val) {}),
+                Slider(
+                    min: const Duration(microseconds: 0).inSeconds.toDouble(),
+                    value: _position.inSeconds.toDouble(),
+                    max: _duration.inSeconds.toDouble(),
+                    onChanged: (val) {
+                      setState(() {
+                        changeToSeconds(val.toInt());
+                        val = val;
+                      });
+                    }),
 
                 //Control Buttons....................................................//
 
@@ -170,5 +198,10 @@ class _PlayerState extends State<Player> {
         ],
       ),
     )));
+  }
+
+  changeToSeconds(int seconds) {
+    Duration duration = Duration(seconds: seconds);
+    widget.audioPlayer.seek(duration);
   }
 }
