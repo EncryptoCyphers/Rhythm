@@ -1,12 +1,45 @@
 import 'dart:developer';
+//import 'dart:io';
+//import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'dart:ui';
+
+//To build the SongBanner Outside.......................//Fixed: Flickring Banner Problem..................//
+
+var pixelRatio = window.devicePixelRatio;
+var physicalScreenSize = window.physicalSize;
+var logicalScreenSize = window.physicalSize / pixelRatio;
+var logicalWidth = logicalScreenSize.width;
+
+int audiobannerIndex = 0;
+String? audiobannerUri = "";
+QueryArtworkWidget artwork = QueryArtworkWidget(
+  id: audiobannerIndex,
+  type: ArtworkType.AUDIO,
+  artworkQuality: FilterQuality.high,
+);
+getaudiobannerindex({required String? uri, required int index}) {
+  audiobannerIndex = index;
+  audiobannerUri = uri;
+  artwork = QueryArtworkWidget(
+    id: audiobannerIndex,
+    type: ArtworkType.AUDIO,
+    artworkScale: 5,
+    artworkWidth: (logicalWidth * 0.8),
+    artworkHeight: (logicalWidth * 0.8),
+    artworkQuality: FilterQuality.high,
+  );
+}
 
 class Player extends StatefulWidget {
-  const Player({Key? key, required this.songmodel, required this.audioPlayer})
-      : super(key: key);
+  const Player({
+    Key? key,
+    required this.songmodel,
+    required this.audioPlayer,
+  }) : super(key: key);
   final SongModel songmodel;
   final AudioPlayer audioPlayer;
   @override
@@ -15,21 +48,18 @@ class Player extends StatefulWidget {
 
 class _PlayerState extends State<Player> {
   //checks if Player is actually playing...............................................................................//
-
   bool _isPlaying = false;
 
   //Gets Current time and Duration...........................................................................//
 
   Duration _duration = const Duration();
   Duration _position = const Duration();
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     playSong();
   }
-
   //Method to play Song..................................................................//
 
   playSong() {
@@ -70,27 +100,18 @@ class _PlayerState extends State<Player> {
             icon: const Icon(Icons.arrow_back_ios_new),
           ),
           const SizedBox(
-            height: 80,
+            height: 60,
           ),
           Center(
             child: Column(
               children: [
                 //Song Banner..........................................................//
 
-                const CircleAvatar(
-                  radius: 150,
-                  child: Icon(
-                    Icons.music_note,
-                    size: 80,
-                  ),
-                ),
-
-                const SizedBox(
-                  height: 10,
-                ),
-
+                artwork,
                 //Song Name in Marquee.......................................................................................//
-
+                const SizedBox(
+                  height: 50,
+                ),
                 Container(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: MarqueeText(
