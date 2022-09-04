@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -14,18 +16,27 @@ class DrawerMenu extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.black,
             ),
-            child: Text('MENU',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                )),
+            child: Text(
+              'MENU',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           ListTile(
             leading: const Icon(
               Icons.home,
+              color: Colors.purple,
             ),
-            title: const Text('Home'),
+            title: const Text(
+              'Home',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
@@ -33,8 +44,15 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.storage,
+              color: Colors.purple,
             ),
-            title: const Text('Local Music'),
+            title: const Text(
+              'Local Music',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
@@ -42,8 +60,15 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.download,
+              color: Colors.purple,
             ),
-            title: const Text('Downloads'),
+            title: const Text(
+              'Downloads',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
@@ -51,8 +76,15 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.playlist_play_rounded,
+              color: Colors.purple,
             ),
-            title: const Text('Playlist'),
+            title: const Text(
+              'Playlist',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
@@ -60,8 +92,15 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.settings,
+              color: Colors.purple,
             ),
-            title: const Text('Settings'),
+            title: const Text(
+              'Settings',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },
@@ -69,8 +108,15 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: const Icon(
               Icons.info_outline,
+              color: Colors.purple,
             ),
-            title: const Text('About'),
+            title: const Text(
+              'About',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             onTap: () {
               Navigator.pop(context);
             },

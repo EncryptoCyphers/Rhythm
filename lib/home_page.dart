@@ -449,10 +449,10 @@ class HomePage extends StatelessWidget {
 /*return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
-        final isExitWarning = difference >= Duration(seconds: 2);
+        final isExitWarning = difference >= const Duration(seconds: 2);
         timeBackPressed = DateTime.now();
         if (isExitWarning) {
-          final msgg = 'Press Back Again to exit';
+          const msgg = 'Press Back Again to exit';
           Fluttertoast.showToast(msg: msgg, fontSize: 18);
           return false;
         } else {
@@ -465,8 +465,9 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.purpleAccent,
           centerTitle: true,
-          title: const Text("RYTHM"),
+          title: const Text("RHYTHM"),
         ),
+        bottomNavigationBar: const BottomNavBar(),
         drawer: const DrawerMenu(),
         // ignore: avoid_unnecessary_containers
         body: Column(
