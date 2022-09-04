@@ -6,6 +6,7 @@ import './fetch_songs.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import './animated_searchbar.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({required this.nm, required this.audioPlayer});
@@ -18,8 +19,19 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        centerTitle: true,
-        title: const Text("RYTHM"),
+        /*centerTitle: true,
+        title: const Text("RYTHM"),*/
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              size: 28,
+            ),
+            onPressed: () {
+              const SearchBar();
+            },
+          )
+        ],
       ),
       drawer: const DrawerMenu(),
       backgroundColor: Colors.black,
@@ -31,7 +43,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'MUSIC',
+                  'Hello, $nm',
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
@@ -43,18 +55,18 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: Icon(
+                      padding: const EdgeInsets.only(right: 0),
+                      /*child: Icon(
                         Icons.search,
                         size: 28,
                         color: Colors.white,
-                      ),
+                      ),*/
                     ),
-                    Icon(
+                    /*Icon(
                       Icons.settings,
                       size: 28,
                       color: Colors.white,
-                    ),
+                    ),*/
                   ],
                 ),
               ],
