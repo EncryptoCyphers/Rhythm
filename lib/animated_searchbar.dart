@@ -4,6 +4,7 @@ class SearchBar extends StatefulWidget with PreferredSizeWidget {
   const SearchBar({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchBarState createState() => _SearchBarState();
 
   @override

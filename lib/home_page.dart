@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import './drawerMenu.dart';
-import './fetch_songs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import './animated_searchbar.dart';
+import './bottomNavigationBar.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({required this.nm, required this.audioPlayer});
@@ -34,6 +33,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       drawer: const DrawerMenu(),
+      bottomNavigationBar: const BottomNavBar(),
       backgroundColor: Colors.black,
       body: ListView(
         children: [
@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Text(
                   'Hello, $nm',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -53,9 +53,9 @@ class HomePage extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.only(right: 0),
+                      padding: EdgeInsets.only(right: 0),
                       /*child: Icon(
                         Icons.search,
                         size: 28,
@@ -72,13 +72,13 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           CarouselSlider(
               items: [
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: AssetImage('images/pop.jpg'),
@@ -87,7 +87,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: AssetImage('images/party.jpg'),
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: AssetImage('images/newrelease.jpg'),
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: AssetImage('images/edm.jpg'),
@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: AssetImage('images/rock.jpg'),
@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                     image: DecorationImage(
                       image: AssetImage('images/classics.jpg'),
@@ -138,8 +138,8 @@ class HomePage extends StatelessWidget {
                 autoPlayCurve: Curves.easeInOut,
                 enlargeCenterPage: true,
               )),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 20, top: 20),
             child: Text(
               'Most Popular',
               style: TextStyle(
@@ -152,6 +152,7 @@ class HomePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
+            // ignore: sized_box_for_whitespace
             child: Container(
               height: 110,
               child: ListView(
@@ -159,7 +160,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/pop.jpg'),
@@ -167,12 +168,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/party.jpg'),
@@ -180,12 +181,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/classics.jpg'),
@@ -193,12 +194,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/edm.jpg'),
@@ -206,12 +207,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/newrelease.jpg'),
@@ -219,12 +220,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/rock.jpg'),
@@ -232,15 +233,15 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 20),
             child: Text(
               'Favourites',
               style: TextStyle(
@@ -253,6 +254,7 @@ class HomePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
+            // ignore: sized_box_for_whitespace
             child: Container(
               height: 110,
               child: ListView(
@@ -260,7 +262,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/pop.jpg'),
@@ -268,12 +270,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/party.jpg'),
@@ -281,12 +283,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/classics.jpg'),
@@ -294,12 +296,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/edm.jpg'),
@@ -307,12 +309,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/newrelease.jpg'),
@@ -320,12 +322,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/rock.jpg'),
@@ -333,15 +335,15 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                 ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20),
+          const Padding(
+            padding: EdgeInsets.only(left: 20),
             child: Text(
               'Recently Played',
               style: TextStyle(
@@ -354,6 +356,7 @@ class HomePage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(20.0),
+            // ignore: sized_box_for_whitespace
             child: Container(
               height: 110,
               child: ListView(
@@ -361,7 +364,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/pop.jpg'),
@@ -369,12 +372,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/party.jpg'),
@@ -382,12 +385,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/classics.jpg'),
@@ -395,12 +398,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/edm.jpg'),
@@ -408,12 +411,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/newrelease.jpg'),
@@ -421,12 +424,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
                     width: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
                         image: AssetImage('images/rock.jpg'),
@@ -434,7 +437,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                 ],
