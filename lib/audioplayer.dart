@@ -56,7 +56,6 @@ class _PlayerState extends State<Player> {
   Duration _position = const Duration();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     playSong();
   }
