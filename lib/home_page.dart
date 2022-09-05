@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import './drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import './animated_searchbar.dart';
 import './bottomNavigationBar.dart';
+import 'package:anim_search_bar/anim_search_bar.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({required this.nm, required this.audioPlayer});
@@ -15,26 +15,40 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.purpleAccent,
         /*centerTitle: true,
         title: const Text("RYTHM"),*/
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              size: 28,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: AnimSearchBar(
+              prefixIcon: const Icon(
+                Icons.search_rounded,
+                color: Colors.black,
+              ),
+              width: 330,
+              textController: textController,
+              onSuffixTap: () {
+                textController.clear();
+              }, // Search function is to be implemented
+              rtl: false,
+              color: Colors.white,
+              closeSearchOnSuffixTap: true,
+              helpText: 'Search artists, songs...',
+              suffixIcon: const Icon(
+                Icons.close_rounded,
+                color: Colors.black,
+              ),
             ),
-            onPressed: () {
-              const SearchBar();
-            },
-          )
+          ),
         ],
       ),
       drawer: const DrawerMenu(),
       bottomNavigationBar: const BottomNavBar(),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: ListView(
         children: [
           Padding(
@@ -47,7 +61,7 @@ class HomePage extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.black,
                     fontFamily: 'Ubuntu',
                   ),
                 ),
@@ -145,7 +159,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black,
                 fontFamily: 'Ubuntu',
               ),
             ),
@@ -247,7 +261,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.black,
                 fontFamily: 'Ubuntu',
               ),
             ),
