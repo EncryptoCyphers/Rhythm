@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use, file_names
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
