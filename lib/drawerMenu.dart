@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:music_player_app/aboutPage.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -16,12 +17,14 @@ class DrawerMenu extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.purple,
             ),
-            child: Text(
-              'MENU',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            child: Center(
+              child: Text(
+                'MENU',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -118,7 +121,8 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AppInfo()));
             },
           ),
         ],
