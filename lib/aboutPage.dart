@@ -1,3 +1,7 @@
+// ignore_for_file: deprecated_member_use, file_names
+
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
@@ -7,13 +11,16 @@ final Uri _url2 = Uri.parse('https://www.linkedin.com/in/arpan-de-001ab31b9/');
 final Uri _url3 = Uri.parse('https://www.linkedin.com/in/arnab7070/');
 final Uri _url4 =
     Uri.parse('https://www.linkedin.com/in/bishal-karmakar-2a234623a/');
+final Uri _url5 = Uri.parse('https://github.com/arnab7070/music_player_app');
 
 class AppInfo extends StatelessWidget {
+  const AppInfo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About'),
+        title: const Text('About'),
         backgroundColor: Colors.purple,
       ),
       body: Column(
@@ -24,70 +31,92 @@ class AppInfo extends StatelessWidget {
             width: double.infinity,
           ),
           Image.asset('images/app_icon.jpg', height: 150),
-          Text(
+          const Text(
             'RHYTHM Music & MP3 Player',
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: Colors.deepPurple),
           ),
-          Text(
+          const Text(
             'v1.0.0',
             style: TextStyle(fontSize: 20, color: Colors.deepPurple),
           ),
           Container(
             height: 40,
           ),
-          Text(
+          const Text(
             'This is an open source project and can be found on',
             style: TextStyle(
               fontSize: 15,
             ),
           ),
-          FlatButton(
-            onPressed: () {},
-            child: Text(
-              'GitHub',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                iconSize: 50,
+                onPressed: _launchUrl5,
+                icon: Image.asset('images/github.png'),
               ),
-            ),
+              const FlatButton(
+                onPressed: _launchUrl5,
+                child: Text(
+                  'GitHub',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Text(
+          const Text(
             'If you liked our work',
             style: TextStyle(
               fontSize: 15,
             ),
           ),
-          Text(
+          const Text(
             'show some ❤ and ⭐ the repository',
             style: TextStyle(
               fontSize: 15,
             ),
           ),
-          Text(
+          const Text(
             'and rate us on',
             style: TextStyle(
               fontSize: 15,
             ),
           ),
-          FlatButton(
-            onPressed: () {
-              LaunchReview.launch(androidAppId: "com.android.chrome");
-            },
-            child: Text(
-              'Google Play',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  LaunchReview.launch(androidAppId: "com.android.chrome");
+                },
+                icon: Image.asset('images/google_play.png'),
+                iconSize: 50,
               ),
-            ),
+              FlatButton(
+                onPressed: () {
+                  LaunchReview.launch(androidAppId: "com.android.chrome");
+                },
+                child: const Text(
+                  'Download & Install Now',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              )
+            ],
           ),
           Container(
-            height: 40,
+            height: 10,
           ),
-          Text(
+          const Text(
             'Made with ❤ by',
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -95,7 +124,7 @@ class AppInfo extends StatelessWidget {
               fontSize: 15,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
             child: FlatButton(
               onPressed: _launchUrl3,
@@ -107,7 +136,7 @@ class AppInfo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
             child: FlatButton(
               onPressed: _launchUrl4,
@@ -119,7 +148,7 @@ class AppInfo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
             child: FlatButton(
               onPressed: _launchUrl,
@@ -131,7 +160,7 @@ class AppInfo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
             child: FlatButton(
               onPressed: _launchUrl2,
@@ -170,5 +199,11 @@ Future<void> _launchUrl3() async {
 Future<void> _launchUrl4() async {
   if (!await launchUrl(_url4)) {
     throw 'Could not launch $_url4';
+  }
+}
+
+Future<void> _launchUrl5() async {
+  if (!await launchUrl(_url5)) {
+    throw 'Could not launch $_url5';
   }
 }

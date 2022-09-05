@@ -121,8 +121,8 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => AppInfo()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AppInfo()));
             },
           ),
         ],
