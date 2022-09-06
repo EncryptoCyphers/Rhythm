@@ -20,17 +20,19 @@ class MyApp extends StatelessWidget {
     final AudioPlayer audioPlayer = AudioPlayer();
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: AnimatedSplashScreen(
+        splash: Image.asset('images/app_icon.jpg'),
+        duration: 3000,
+        splashTransition: SplashTransition.rotationTransition,
+        backgroundColor: Colors.black,
+        nextScreen: OnboardingPage(
+          audioPlayer: audioPlayer,
         ),
-        home: AnimatedSplashScreen(
-            splash: Image.asset('images/app_icon.jpg'),
-            duration: 3000,
-            splashTransition: SplashTransition.rotationTransition,
-            backgroundColor: Colors.black,
-            nextScreen: OnboardingPage(
-              audioPlayer: audioPlayer,
-            )));
+      ),
+    );
   }
 }
