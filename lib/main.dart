@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         splash: Image.asset('images/app_icon.jpg'),
         duration: 3000,
         splashTransition: SplashTransition.rotationTransition,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         nextScreen: OnboardingPage(
           audioPlayer: audioPlayer,
         ),
