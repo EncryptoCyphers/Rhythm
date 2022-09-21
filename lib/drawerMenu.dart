@@ -1,11 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/aboutPage.dart';
+import './fetch_songs.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key}) : super(key: key);
-
+  const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
+  final AudioPlayer audioPlayer;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,6 +60,13 @@ class DrawerMenu extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Tracks(
+                          audioPlayer: audioPlayer,
+                        )),
+              );
             },
           ),
           ListTile(

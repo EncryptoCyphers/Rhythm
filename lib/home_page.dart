@@ -46,7 +46,9 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const DrawerMenu(),
+      drawer: DrawerMenu(
+        audioPlayer: audioPlayer,
+      ),
       bottomNavigationBar: const BottomNavBar(),
       backgroundColor: Colors.white,
       body: ListView(
