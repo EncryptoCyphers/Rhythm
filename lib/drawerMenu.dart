@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/aboutPage.dart';
 import './fetch_songs.dart';
+import './settings.dart';
+import './downloads.dart';
+import './playlist.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
@@ -82,7 +85,8 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Downloads()));
             },
           ),
           ListTile(
@@ -98,7 +102,8 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Playlist()));
             },
           ),
           ListTile(
@@ -114,7 +119,8 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Settings()));
             },
           ),
           ListTile(
