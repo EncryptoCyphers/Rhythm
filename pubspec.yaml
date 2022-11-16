@@ -45,6 +45,8 @@ dependencies:
   url_launcher: ^6.1.5
   launch_review: ^3.0.1
   flutter_launcher_icons: ^0.10.0
+  email_validator: ^2.1.17
+  firebase_core: ^2.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,10 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import './drawerMenu.dart';
+import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import './bottomNavigationBar.dart';
+import '../widgets/bottomNavigationBar.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 
 class HomePage extends StatelessWidget {

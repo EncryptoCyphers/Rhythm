@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_player_app/aboutPage.dart';
-import './fetch_songs.dart';
-import './settings.dart';
-import './downloads.dart';
-import './playlist.dart';
+import '../pages/aboutPage.dart';
+import '../services/fetch_songs.dart';
+import '../pages/settings.dart';
+import '../pages/downloads.dart';
+import '../pages/playlist.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
@@ -138,6 +138,22 @@ class DrawerMenu extends StatelessWidget {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const AppInfo()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.logout_rounded,
+              color: Colors.purple,
+            ),
+            title: const Text(
+              'Log Out',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onTap: () {
+              //Firebase logout implementation will be done
             },
           ),
         ],
