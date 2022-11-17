@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/pages/onboarding_screen.dart';
 import '../pages/about_page.dart';
-import '../services/fetch_songs.dart';
+import '../pages/fetch_songs.dart';
 import '../pages/settings.dart';
 import '../pages/downloads.dart';
 import '../pages/playlist.dart';
