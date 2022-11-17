@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, duplicate_ignore
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/home_page.dart';
-import 'package:music_player_app/pages/passwordReset.dart';
+import 'package:music_player_app/pages/password_reset.dart';
 import 'package:music_player_app/pages/signup.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:just_audio/just_audio.dart';
