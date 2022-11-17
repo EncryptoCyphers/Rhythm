@@ -6,6 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 //.............................Created Imports....................................................................//
 import '../services/audioplayer.dart';
 
+var dummy = bool;
+
 class Tracks extends StatefulWidget {
   const Tracks({super.key, required this.audioPlayer});
   final AudioPlayer audioPlayer;
@@ -46,9 +48,9 @@ class _TracksState extends State<Tracks> {
         }
         if (item.data!.isEmpty) {
           return const Center(
-            child: (Text(
+            child: Text(
               'No Songs Found',
-            )),
+            ),
           );
         }
         return ListView.builder(

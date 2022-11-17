@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
 
 int pageIndex = 0;
+ValueNotifier<int> navIndexListener = ValueNotifier<int>(0);
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -12,43 +13,47 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  void _onItemTapped(int index) {
-    setState(() {
-      pageIndex = index;
-      Pages.currPageIndex.value = index;
-    });
+  void onItemTapped(int index) {
+    pageIndex = index;
+    Pages.currPageIndex.value = index;
+    navIndexListener.value = index;
     // print(Pages.currPageIndex.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      enableFeedback: true,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_rounded),
-          label: 'Home',
-          backgroundColor: Colors.deepPurple,
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.public_rounded),
-          label: 'Web',
-          backgroundColor: Colors.green,
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.storage_rounded),
-          label: 'Local',
-          backgroundColor: Colors.pink,
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings_rounded),
-          label: 'Settings',
-          backgroundColor: Colors.deepOrange,
-        ),
-      ],
-      currentIndex: pageIndex,
-      selectedItemColor: Colors.yellow,
-      onTap: _onItemTapped,
+    return ValueListenableBuilder<int>(
+      builder: (BuildContext context, int value, Widget? child) {
+        return BottomNavigationBar(
+          enableFeedback: true,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              label: 'Home',
+              backgroundColor: Colors.deepPurple,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.public_rounded),
+              label: 'Web',
+              backgroundColor: Colors.green,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.storage_rounded),
+              label: 'Local',
+              backgroundColor: Colors.pink,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings_rounded),
+              label: 'Settings',
+              backgroundColor: Colors.deepOrange,
+            ),
+          ],
+          currentIndex: pageIndex,
+          selectedItemColor: Colors.yellow,
+          onTap: onItemTapped,
+        );
+      },
+      valueListenable: navIndexListener,
     );
   }
 }

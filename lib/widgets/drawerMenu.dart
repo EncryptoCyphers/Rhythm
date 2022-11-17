@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/pages/onboarding_screen.dart';
+import 'package:music_player_app/widgets/bottomNavigationBar.dart';
 import '../pages/about_page.dart';
-import '../pages/fetch_songs.dart';
 import '../pages/settings.dart';
 import '../pages/downloads.dart';
 import '../pages/playlist.dart';
+import '../pages/switch_pages.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
@@ -65,13 +66,9 @@ class DrawerMenu extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Tracks(
-                          audioPlayer: audioPlayer,
-                        )),
-              );
+              pageIndex = 2;
+              navIndexListener.value = 2; //To build navbar
+              Pages.currPageIndex.value = 2; //To build pages
             },
           ),
           ListTile(
