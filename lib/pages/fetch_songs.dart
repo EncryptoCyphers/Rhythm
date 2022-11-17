@@ -4,7 +4,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 //.............................Created Imports....................................................................//
-import './audioplayer.dart';
+import '../services/audioplayer.dart';
 
 class Tracks extends StatefulWidget {
   const Tracks({Key? key, required this.audioPlayer}) : super(key: key);
