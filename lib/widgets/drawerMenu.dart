@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_player_app/pages/onboarding_screen.dart';
 import '../pages/aboutPage.dart';
 import '../services/fetch_songs.dart';
 import '../pages/settings.dart';
@@ -152,8 +154,24 @@ class DrawerMenu extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            onTap: () {
+            onTap: () async {
               //Firebase logout implementation will be done
+              await FirebaseAuth.instance.signOut();
+
+              FirebaseAuth.instance.authStateChanges().listen((User? user) {
+                if (user == null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OnboardingPage(
+                        audioPlayer: audioPlayer,
+                      ),
+                    ),
+                  );
+                } else {
+                  // print('User is signed in!');
+                }
+              });
             },
           ),
         ],

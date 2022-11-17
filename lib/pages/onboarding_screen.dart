@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_unnecessary_containers, duplicate_ignore
-
-import 'package:music_player_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player_app/pages/home_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key, required this.audioPlayer}) : super(key: key);
@@ -14,7 +14,9 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   final _formkey = GlobalKey<FormState>();
+  bool isLoading = false;
   // ignore: non_constant_identifier_names
   final Controller = PageController();
   bool isLastPage = false;
@@ -135,6 +137,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       margin: const EdgeInsets.all(10),
                       child: TextFormField(
                         autofocus: false,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           labelStyle:
@@ -172,6 +175,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       margin: const EdgeInsets.all(10),
                       child: TextFormField(
                         autofocus: false,
+                        obscureText: true,
                         cursorColor: Colors.purple,
                         decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
@@ -240,57 +244,148 @@ class _OnboardingPageState extends State<OnboardingPage> {
           //     },
           //   )
           ? Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(0),
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
+                  backgroundColor: Colors.purple,
+                  padding: const EdgeInsets.all(12),
                   animationDuration: const Duration(seconds: 2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   shadowColor: Colors.purple,
-                  primary: Colors.purple,
                 ),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-                onPressed: () {
+                child: isLoading
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 24),
+                          Text(
+                            'Please Wait...',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
+                      )
+                    : const Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
+                onPressed: () async {
+                  //Login Method
+
                   if (_formkey.currentState!.validate()) {
-                    setState(
-                      () {
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
                         const snackBar = SnackBar(
-                          content: Text('Added Succesfully'),
-                          backgroundColor: Colors.green,
-                          dismissDirection: DismissDirection.horizontal,
-                          elevation: 10,
+                          content: Text(
+                            'No user found for that email.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          backgroundColor: Colors.amber,
                         );
-                        var name =
-                            _emailController.text.split('@')[0].toUpperCase();
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else if (e.code == 'wrong-password') {
+                        const snackBar = SnackBar(
+                          content: Text(
+                            'Wrong password !!!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          backgroundColor: Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else if (e.code == 'invalid-email') {
+                        const snackBar = SnackBar(
+                          content: Text(
+                            'Invalid email !!!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          backgroundColor: Colors.blue,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else if (e.code == 'user-disabled') {
+                        const snackBar = SnackBar(
+                          content: Text(
+                            'User is disabled by admin',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          backgroundColor: Colors.orangeAccent,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    } catch (e) {
+                      // print(e);
+                    }
+                  }
+
+                  //Check Method
+                  FirebaseAuth.instance
+                      .authStateChanges()
+                      .listen((User? user) async {
+                    if (user != null) {
+                      if (isLoading) return;
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await Future.delayed(const Duration(seconds: 3));
+                      setState(() {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
-                              nm: name,
+                              nm: _emailController.text
+                                  .split('@')[0]
+                                  .toUpperCase(),
                               audioPlayer: widget.audioPlayer,
                             ),
                           ),
                         );
-                      },
-                    );
-                  }
-
-                  // print(_emailController.text.split(' ').toString());
+                      });
+                    }
+                  });
                 },
               ),
             )
+
           // ignore: sized_box_for_whitespace
-          : Container(
+
+          // Navigator.push(
+          //                   context,
+          //                   MaterialPageRoute(
+          //                     builder: (context) => HomePage(
+          //                       nm: name,
+          //                       audioPlayer: widget.audioPlayer,
+          //                     ),
+          //                   ),
+          //                 );
+
+          : SizedBox(
               height: 80,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

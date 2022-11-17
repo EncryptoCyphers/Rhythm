@@ -61,7 +61,7 @@ class AppInfo extends StatelessWidget {
                 onPressed: _launchUrl5,
                 icon: Image.asset('images/github.png'),
               ),
-              const FlatButton(
+              const TextButton(
                 onPressed: _launchUrl5,
                 child: Text(
                   'GitHub',
@@ -101,7 +101,7 @@ class AppInfo extends StatelessWidget {
                 icon: Image.asset('images/google_play.png'),
                 iconSize: 50,
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () {
                   LaunchReview.launch(androidAppId: "com.android.chrome");
                 },
@@ -128,7 +128,7 @@ class AppInfo extends StatelessWidget {
           ),
           const SizedBox(
             height: 25,
-            child: FlatButton(
+            child: TextButton(
               onPressed: _launchUrl3,
               child: Text(
                 'Arnab Nandi',
@@ -140,7 +140,7 @@ class AppInfo extends StatelessWidget {
           ),
           const SizedBox(
             height: 25,
-            child: FlatButton(
+            child: TextButton(
               onPressed: _launchUrl4,
               child: Text(
                 'Bishal Karmakar',
@@ -152,7 +152,7 @@ class AppInfo extends StatelessWidget {
           ),
           const SizedBox(
             height: 25,
-            child: FlatButton(
+            child: TextButton(
               onPressed: _launchUrl,
               child: Text(
                 'Ankit Paul',
@@ -164,7 +164,7 @@ class AppInfo extends StatelessWidget {
           ),
           const SizedBox(
             height: 25,
-            child: FlatButton(
+            child: TextButton(
               onPressed: _launchUrl2,
               child: Text(
                 'Arpan De',

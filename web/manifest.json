@@ -1,6 +1,6 @@
 {
-    "name": "music_player_app",
-    "short_name": "music_player_app",
+    "name": "rhythm",
+    "short_name": "rhythm",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

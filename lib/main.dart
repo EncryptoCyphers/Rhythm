@@ -1,15 +1,16 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import './pages/onboarding_screen.dart';
+import 'package:music_player_app/pages/login.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:firebase_core/firebase_core.dart';
+import './firebase_options.dart';
 // import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -32,12 +33,13 @@ class MyApp extends StatelessWidget {
       ),
       home: AnimatedSplashScreen(
         splash: Image.asset('images/app_icon.jpg'),
-        duration: 3000,
+        duration: 500,
         splashTransition: SplashTransition.rotationTransition,
         backgroundColor: Colors.white,
-        nextScreen: OnboardingPage(
-          audioPlayer: audioPlayer,
-        ),
+        // nextScreen: OnboardingPage(
+        //   audioPlayer: audioPlayer,
+        // ),
+        nextScreen: Login(audioPlayer: audioPlayer),
       ),
     );
   }
