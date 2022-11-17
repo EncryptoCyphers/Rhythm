@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_unnecessary_containers, duplicate_ignore
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/home_page.dart';
+import 'package:music_player_app/pages/passwordReset.dart';
+import 'package:music_player_app/pages/signup.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:email_validator/email_validator.dart';
@@ -34,6 +36,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.only(bottom: 80),
         child: PageView(
@@ -109,7 +112,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       'RHYTHM Music',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 50,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
                           color: Colors.purple),
                     ),
@@ -117,16 +120,27 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       'and',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
                     const Text(
-                      'MP3 Player.',
+                      'MP3 Player',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 50,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      'Sign In',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Colors.purple),
                     ),
@@ -212,6 +226,45 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         },
                       ),
                     ),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(10),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    SignUp(audioPlayer: widget.audioPlayer),
+                              ));
+                        },
+                        child: const Text(
+                          'Not a member? Create account here',
+                          style: TextStyle(
+                            color: Colors.purple,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: GestureDetector(
+                        child: const Text(
+                          'Forgot Password?',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.red,
+                            fontSize: 15,
+                          ),
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PasswordReset(),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -291,15 +344,29 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       );
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
-                        const snackBar = SnackBar(
-                          content: Text(
-                            'No user found for that email.',
-                            textAlign: TextAlign.center,
+                        final snackBar = SnackBar(
+                          content: const Text(
+                            'No user found',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 20,
                             ),
                           ),
-                          backgroundColor: Colors.amber,
+                          action: SnackBarAction(
+                            label: 'Create Account',
+                            textColor: Colors.white,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) => SignUp(
+                                        audioPlayer: widget.audioPlayer,
+                                      )),
+                                ),
+                              );
+                            },
+                          ),
+                          backgroundColor: Colors.pink,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else if (e.code == 'wrong-password') {
@@ -353,7 +420,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       setState(() {
                         isLoading = true;
                       });
-                      await Future.delayed(const Duration(seconds: 3));
+                      await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         Navigator.push(
                           context,
