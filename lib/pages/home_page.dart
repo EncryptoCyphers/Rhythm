@@ -2,12 +2,11 @@
 
 import 'package:flutter/material.dart';
 // import 'package:music_player_app/pages/fetch_songs.dart';
-import 'package:music_player_app/pages/home.dart';
+import 'package:music_player_app/pages/switch_pages.dart';
 import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
 import '../widgets/bottomNavigationBar.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
-import './songs.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({required this.nm, required this.audioPlayer});
@@ -53,13 +52,11 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: const BottomNavBar(),
       backgroundColor: Colors.white,
-      body: Home(
-        nm: nm,
+      body: Pages(
+        // Defined in switch_pages.dart
         audioPlayer: audioPlayer,
+        nm: nm,
       ),
-      // body: Tracks(
-      //   audioPlayer: audioPlayer,
-      // ),
     );
   }
 }

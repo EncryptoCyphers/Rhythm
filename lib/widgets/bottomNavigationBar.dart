@@ -1,6 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:music_player_app/pages/switch_pages.dart';
+
+int pageIndex = 0;
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -9,12 +12,12 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0;
-
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      pageIndex = index;
+      Pages.currPageIndex.value = index;
     });
+    // print(Pages.currPageIndex.value);
   }
 
   @override
@@ -43,7 +46,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           backgroundColor: Colors.deepOrange,
         ),
       ],
-      currentIndex: _selectedIndex,
+      currentIndex: pageIndex,
       selectedItemColor: Colors.yellow,
       onTap: _onItemTapped,
     );
