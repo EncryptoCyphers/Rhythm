@@ -5,18 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'dart:ui';
+import '../services/screen_sizes.dart';
 
+// bool of is Playing
+bool isPlaying = false;
 //To build the SongBanner Outside.......................//Fixed: Flickring Banner Problem..................//
-
-var pixelRatio = window.devicePixelRatio;
-var physicalScreenSize = window.physicalSize;
-var logicalScreenSize = window.physicalSize / pixelRatio;
-var logicalWidth = logicalScreenSize.width;
 
 int audiobannerIndex = 0;
 String? audiobannerUri = "";
 QueryArtworkWidget artwork = QueryArtworkWidget(
+  nullArtworkWidget: const Icon(Icons.music_note),
   id: audiobannerIndex,
   type: ArtworkType.AUDIO,
   artworkQuality: FilterQuality.high,
@@ -25,6 +23,7 @@ getaudiobannerindex({required String? uri, required int index}) {
   audiobannerIndex = index;
   audiobannerUri = uri;
   artwork = QueryArtworkWidget(
+    nullArtworkWidget: const Icon(Icons.music_note),
     id: audiobannerIndex,
     type: ArtworkType.AUDIO,
     artworkScale: 5,
@@ -48,7 +47,6 @@ class Player extends StatefulWidget {
 
 class _PlayerState extends State<Player> {
   //checks if Player is actually playing...............................................................................//
-  bool _isPlaying = false;
 
   //Gets Current time and Duration...........................................................................//
 
@@ -57,7 +55,7 @@ class _PlayerState extends State<Player> {
   @override
   void initState() {
     super.initState();
-    playSong();
+    // playSong();
   }
   //Method to play Song..................................................................//
 
@@ -66,7 +64,7 @@ class _PlayerState extends State<Player> {
       widget.audioPlayer
           .setAudioSource(AudioSource.uri(Uri.parse(widget.songmodel.uri!)));
       widget.audioPlayer.play();
-      _isPlaying = true;
+      isPlaying = true;
     } on Exception {
       log("Error Parsing Song");
     }
@@ -85,139 +83,141 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new),
-          ),
-          const SizedBox(
-            height: 60,
-          ),
-          Center(
-            child: Column(
-              children: [
-                //Song Banner..........................................................//
+        body: SingleChildScrollView(
+      child: SafeArea(
+          child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // IconButton(
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //   },
+            //   icon: const Icon(Icons.arrow_back_ios_new),
+            // ),
+            const SizedBox(
+              height: 60,
+            ),
+            Center(
+              child: Column(
+                children: [
+                  //Song Banner..........................................................//
 
-                artwork,
-                //Song Name in Marquee.......................................................................................//
-                const SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: MarqueeText(
-                    text: TextSpan(
-                      text: widget.songmodel.displayNameWOExt.toString(),
-                    ),
-                    style: const TextStyle(
-                      fontSize: 28,
-                    ),
-                    speed: 10,
+                  artwork,
+                  //Song Name in Marquee.......................................................................................//
+                  const SizedBox(
+                    height: 50,
                   ),
-                ),
-
-                //Artist Name in Marquee.......................................................................................//
-
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: MarqueeText(
-                    text: TextSpan(
-                      text: widget.songmodel.artist.toString() == '<unknown>'
-                          ? 'Unknown Artist'
-                          : widget.songmodel.artist.toString(),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: MarqueeText(
+                      text: TextSpan(
+                        text: widget.songmodel.displayNameWOExt.toString(),
+                      ),
+                      style: const TextStyle(
+                        fontSize: 28,
+                      ),
+                      speed: 10,
                     ),
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                    speed: 10,
                   ),
-                ),
 
-                const SizedBox(
-                  height: 10,
-                ),
+                  //Artist Name in Marquee.......................................................................................//
 
-                //Current and End Time of songs....................................//
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: MarqueeText(
+                      text: TextSpan(
+                        text: widget.songmodel.artist.toString() == '<unknown>'
+                            ? 'Unknown Artist'
+                            : widget.songmodel.artist.toString(),
+                      ),
+                      style: const TextStyle(
+                        fontSize: 18,
+                      ),
+                      speed: 10,
+                    ),
+                  ),
 
-                Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  //Current and End Time of songs....................................//
+
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(_position.toString().split(".")[0]),
+                        Text(_duration.toString().split(".")[0]),
+                      ],
+                    ),
+                  ),
+
+                  // PlayBack Slider ...................................................//
+
+                  Slider(
+                      min: const Duration(microseconds: 0).inSeconds.toDouble(),
+                      value: _position.inSeconds.toDouble(),
+                      max: _duration.inSeconds.toDouble(),
+                      onChanged: (val) {
+                        setState(() {
+                          changeToSeconds(val.toInt());
+                          val = val;
+                        });
+                      }),
+
+                  //Control Buttons....................................................//
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(_position.toString().split(".")[0]),
-                      Text(_duration.toString().split(".")[0]),
+                      // Previous Song Button..........................................//
+
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.skip_previous_rounded),
+                        iconSize: 60,
+                      ),
+
+                      // Play--Pause Button.............................................//
+
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (isPlaying) {
+                              widget.audioPlayer.pause();
+                            } else {
+                              widget.audioPlayer.play();
+                            }
+                            isPlaying = !isPlaying;
+                          });
+                        },
+                        icon: isPlaying
+                            ? const Icon(Icons.pause_circle_filled)
+                            : const Icon(Icons.play_circle_filled),
+                        iconSize: 60,
+                      ),
+
+                      // Next Song Button..........................................//
+
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.skip_next_rounded),
+                        iconSize: 60,
+                      ),
                     ],
                   ),
-                ),
-
-                // PlayBack Slider ...................................................//
-
-                Slider(
-                    min: const Duration(microseconds: 0).inSeconds.toDouble(),
-                    value: _position.inSeconds.toDouble(),
-                    max: _duration.inSeconds.toDouble(),
-                    onChanged: (val) {
-                      setState(() {
-                        changeToSeconds(val.toInt());
-                        val = val;
-                      });
-                    }),
-
-                //Control Buttons....................................................//
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // Previous Song Button..........................................//
-
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.skip_previous_rounded),
-                      iconSize: 60,
-                    ),
-
-                    // Play--Pause Button.............................................//
-
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          if (_isPlaying) {
-                            widget.audioPlayer.pause();
-                          } else {
-                            widget.audioPlayer.play();
-                          }
-                          _isPlaying = !_isPlaying;
-                        });
-                      },
-                      icon: _isPlaying
-                          ? const Icon(Icons.pause_circle_filled)
-                          : const Icon(Icons.play_circle_filled),
-                      iconSize: 60,
-                    ),
-
-                    // Next Song Button..........................................//
-
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.skip_next_rounded),
-                      iconSize: 60,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-    )));
+                ],
+              ),
+            )
+          ],
+        ),
+      )),
+    ));
   }
 
   changeToSeconds(int seconds) {

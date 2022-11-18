@@ -37,6 +37,7 @@ dependencies:
   on_audio_query: ^2.6.1
   permission_handler: ^10.0.0
   just_audio: ^0.9.28
+  miniplayer: ^1.0.1
   smooth_page_indicator: ^1.0.0+2
   marquee_text: ^2.5.0+1
   fluttertoast: ^8.0.9

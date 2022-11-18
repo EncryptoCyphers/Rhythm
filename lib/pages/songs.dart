@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 //.............................Created Imports....................................................................//
 import '../services/audioplayer.dart';
+import '../services/mini_player.dart';
 
 var dummy = bool;
 
@@ -65,18 +66,26 @@ class _TracksState extends State<Tracks> {
                   subtitle: Text(item.data![index].artist.toString()),
                   trailing: const Icon(Icons.more_horiz),
                   onTap: () {
-                    getaudiobannerindex(
-                        index: item.data![index].id,
-                        uri: item.data![index].uri);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Player(
-                          songmodel: item.data![index],
-                          audioPlayer: widget.audioPlayer,
-                        ),
-                      ),
+                    isPlayingValueListenable.value = true;
+                    miniaudiobannerIndex.value = item.data![index].id;
+                    getSongInfo(
+                      name: item.data![index].displayNameWOExt,
+                      artist: item.data![index].artist.toString(),
                     );
+                    getaudiobannerindex(
+                      index: item.data![index].id,
+                      uri: item.data![index].uri,
+                    );
+                    model = item.data![index];
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => Player(
+                    //       songmodel: item.data![index],
+                    //       audioPlayer: widget.audioPlayer,
+                    //     ),
+                    //   ),
+                    // );
                   },
                 ),
               )),
