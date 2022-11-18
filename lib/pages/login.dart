@@ -21,6 +21,7 @@ class _LoginState extends State<Login> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            isDrawerOpen.value = false;
             return HomePage(
               audioPlayer: widget.audioPlayer,
               nm: user!.email.toString().split('@')[0],
