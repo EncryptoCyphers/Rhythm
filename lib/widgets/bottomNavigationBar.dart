@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
+import '../services/colours.dart';
 
 int pageIndex = 0;
 ValueNotifier<int> navIndexListener = ValueNotifier<int>(0);
@@ -26,26 +27,26 @@ class _BottomNavBarState extends State<BottomNavBar> {
       builder: (BuildContext context, int value, Widget? child) {
         return BottomNavigationBar(
           enableFeedback: true,
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
+              icon: const Icon(Icons.home_rounded),
               label: 'Home',
-              backgroundColor: Colors.deepPurple,
+              backgroundColor: fgPurple,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.public_rounded),
+              icon: const Icon(Icons.public_rounded),
               label: 'Web',
-              backgroundColor: Colors.green,
+              backgroundColor: fgPurple,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.storage_rounded),
+              icon: const Icon(Icons.storage_rounded),
               label: 'Local',
-              backgroundColor: Colors.pink,
+              backgroundColor: fgPurple,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings_rounded),
+              icon: const Icon(Icons.settings_rounded),
               label: 'Settings',
-              backgroundColor: Colors.deepOrange,
+              backgroundColor: fgPurple,
             ),
           ],
           currentIndex: pageIndex,

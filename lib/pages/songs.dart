@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -8,6 +10,13 @@ import '../services/audioplayer.dart';
 import '../services/mini_player.dart';
 
 var dummy = bool;
+//Gets Current time and Duration...........................................................................//
+
+ValueNotifier<Duration> songPositionListenable =
+    ValueNotifier<Duration>(const Duration());
+
+Duration songDuration = const Duration();
+Duration songPosition = const Duration();
 
 class Tracks extends StatefulWidget {
   const Tracks({super.key, required this.audioPlayer});
@@ -17,6 +26,31 @@ class Tracks extends StatefulWidget {
 }
 
 class _TracksState extends State<Tracks> {
+  playSong() {
+    try {
+      widget.audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(audioUri!)));
+      widget.audioPlayer.play();
+      isPlaying = true;
+    } on Exception {
+      log("Error Parsing Song");
+    }
+    widget.audioPlayer.durationStream.listen(
+      (duration) {
+        // setState(() {
+        songDuration = duration!;
+        // });
+      },
+    );
+    widget.audioPlayer.positionStream.listen(
+      (currPosition) {
+        // setState(() {
+        songPositionListenable.value = currPosition;
+        songPosition = currPosition;
+        // });
+      },
+    );
+  }
+
   @override
   void initState() {
     // ignore: todo
@@ -62,13 +96,18 @@ class _TracksState extends State<Tracks> {
                     type: ArtworkType.AUDIO,
                     nullArtworkWidget: const Icon(Icons.music_note),
                   ),
-                  title: Text(item.data![index].displayNameWOExt),
+                  title: Text(
+                    item.data![index].displayNameWOExt,
+                    maxLines: 2,
+                  ),
                   subtitle: Text(item.data![index].artist.toString()),
                   trailing: const Icon(Icons.more_horiz),
                   onTap: () {
-                    isPlayingValueListenable.value = true;
+                    isPlayingListenable.value = true;
+                    miniPlayerVisibilityListenable.value = true;
                     miniaudiobannerIndex.value = item.data![index].id;
                     getSongInfo(
+                      uri: item.data![index].uri,
                       name: item.data![index].displayNameWOExt,
                       artist: item.data![index].artist.toString(),
                     );
@@ -77,6 +116,8 @@ class _TracksState extends State<Tracks> {
                       uri: item.data![index].uri,
                     );
                     model = item.data![index];
+                    playSong();
+
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(

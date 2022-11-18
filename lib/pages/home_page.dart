@@ -2,11 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
+import '../services/colours.dart';
 import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
 import '../widgets/bottomNavigationBar.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import '../services/mini_player.dart';
+
+ValueNotifier<bool> isDrawerOpen = ValueNotifier<bool>(false);
 
 class HomePage extends StatelessWidget {
   HomePage({required this.nm, required this.audioPlayer});
@@ -21,7 +24,13 @@ class HomePage extends StatelessWidget {
       children: [
         Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.purpleAccent,
+            leading: IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                isDrawerOpen.value = true;
+              },
+            ),
+            backgroundColor: fgPurple,
             /*centerTitle: true,
             title: const Text("RYTHM"),*/
             actions: [
@@ -49,9 +58,9 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          drawer: DrawerMenu(
-            audioPlayer: audioPlayer,
-          ),
+          // drawer: DrawerMenu(
+          //   audioPlayer: audioPlayer,
+          // ),
           bottomNavigationBar: const BottomNavBar(),
           backgroundColor: Colors.white,
           body: Stack(
@@ -70,6 +79,21 @@ class HomePage extends StatelessWidget {
             audioPlayer: audioPlayer,
           ),
         ),
+        ValueListenableBuilder(
+          valueListenable: isDrawerOpen,
+          builder: (BuildContext context, bool state, Widget? child) {
+            if (state) {
+              return DrawerMenu(
+                audioPlayer: audioPlayer,
+              );
+            } else {
+              return const SizedBox(
+                height: 0,
+                width: 0,
+              );
+            }
+          },
+        )
       ],
     );
   }
