@@ -72,93 +72,96 @@ class MiniPlayerInfo extends StatelessWidget {
     return ValueListenableBuilder<int>(
       valueListenable: miniaudiobannerIndex,
       builder: (BuildContext context, int index, Widget? child) {
-        return Column(
-          children: [
-            ValueListenableBuilder<Duration>(
-              valueListenable: songPositionListenable,
-              builder:
-                  (BuildContext context, Duration songPosition, Widget? child) {
-                return LinearProgressIndicator(
-                  backgroundColor: bgPurple,
-                  color: fgPurple,
-                  value: songPosition.inSeconds.toDouble() /
-                      songDuration.inSeconds.toDouble(),
-                );
-              },
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-              leading: QueryArtworkWidget(
-                nullArtworkWidget: const Icon(Icons.music_note),
-                id: index,
-                type: ArtworkType.AUDIO,
-                artworkScale: 1,
-                artworkWidth: 60,
-                artworkHeight: 60,
-                artworkQuality: FilterQuality.high,
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ValueListenableBuilder<Duration>(
+                valueListenable: songPositionListenable,
+                builder: (BuildContext context, Duration songPosition,
+                    Widget? child) {
+                  return LinearProgressIndicator(
+                    backgroundColor: bgPurple,
+                    color: fgPurple,
+                    value: songPosition.inSeconds.toDouble() /
+                        songDuration.inSeconds.toDouble(),
+                  );
+                },
               ),
-              title: MarqueeText(
-                text: TextSpan(
-                  text: songname,
+              ListTile(
+                contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                leading: QueryArtworkWidget(
+                  nullArtworkWidget: const Icon(Icons.music_note),
+                  id: index,
+                  type: ArtworkType.AUDIO,
+                  artworkScale: 1,
+                  artworkWidth: 60,
+                  artworkHeight: 60,
+                  artworkQuality: FilterQuality.high,
                 ),
-                style: const TextStyle(
-                  fontSize: 18,
+                title: MarqueeText(
+                  text: TextSpan(
+                    text: songname,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                  speed: 10,
                 ),
-                speed: 10,
-              ),
-              subtitle: MarqueeText(
-                text: TextSpan(
-                  text: artistname,
+                subtitle: MarqueeText(
+                  text: TextSpan(
+                    text: artistname,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                  speed: 10,
                 ),
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
-                speed: 10,
-              ),
-              trailing: SizedBox(
-                height: 70,
-                width: 107,
-                child: Row(
-                  children: [
-                    IconButton(
-                      color: const Color.fromARGB(255, 37, 37, 37),
-                      iconSize: 40,
-                      onPressed: () {
-                        if (isPlaying) {
-                          isPlayingListenable.value = false;
-                          audioPlayer.pause();
-                        } else {
-                          isPlayingListenable.value = true;
-                          audioPlayer.play();
-                        }
-                        isPlaying = !isPlaying;
-                      },
-                      icon: ValueListenableBuilder<bool>(
-                        builder: (BuildContext context,
-                            bool isPlayingListenable, Widget? child) {
+                trailing: SizedBox(
+                  height: 70,
+                  width: 107,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        color: const Color.fromARGB(255, 37, 37, 37),
+                        iconSize: 40,
+                        onPressed: () {
                           if (isPlaying) {
-                            return const Icon(Icons.pause);
+                            isPlayingListenable.value = false;
+                            audioPlayer.pause();
                           } else {
-                            return const Icon(Icons.play_arrow);
+                            isPlayingListenable.value = true;
+                            audioPlayer.play();
                           }
+                          isPlaying = !isPlaying;
                         },
-                        valueListenable: isPlayingListenable,
+                        icon: ValueListenableBuilder<bool>(
+                          builder: (BuildContext context,
+                              bool isPlayingListenable, Widget? child) {
+                            if (isPlaying) {
+                              return const Icon(Icons.pause);
+                            } else {
+                              return const Icon(Icons.play_arrow);
+                            }
+                          },
+                          valueListenable: isPlayingListenable,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      color: const Color.fromARGB(255, 37, 37, 37),
-                      iconSize: 35,
-                      onPressed: () {
-                        audioPlayer.stop();
-                        miniPlayerVisibilityListenable.value = false;
-                      },
-                      icon: const Icon(Icons.close),
-                    ),
-                  ],
+                      IconButton(
+                        color: const Color.fromARGB(255, 37, 37, 37),
+                        iconSize: 35,
+                        onPressed: () {
+                          audioPlayer.stop();
+                          miniPlayerVisibilityListenable.value = false;
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
