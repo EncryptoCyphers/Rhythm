@@ -25,7 +25,7 @@ class DrawerMenu extends StatelessWidget {
         child: Row(
           children: [
             Drawer(
-              width: logicalWidth * 0.8,
+              width: logicalWidth * 0.7,
               child: ListView(
                 // Important: Remove any padding from the ListView.
                 padding: EdgeInsets.zero,
@@ -48,7 +48,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.home,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'Home',
@@ -67,7 +67,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.storage,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'Local Music',
@@ -86,7 +86,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.download,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'Downloads',
@@ -106,7 +106,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.playlist_play_rounded,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'Playlist',
@@ -126,7 +126,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.settings,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'Settings',
@@ -145,7 +145,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.info_outline,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'About',
@@ -164,7 +164,7 @@ class DrawerMenu extends StatelessWidget {
                   ListTile(
                     leading: const Icon(
                       Icons.logout_rounded,
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                     ),
                     title: const Text(
                       'Log Out',

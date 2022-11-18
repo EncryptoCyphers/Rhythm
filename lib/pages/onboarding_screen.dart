@@ -108,41 +108,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 child: ListView(
                   children: [
-                    const Text(
-                      'RHYTHM Music',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple),
-                    ),
-                    const Text(
-                      'and',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Text(
-                      'MP3 Player',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    Image.asset('images/login.png'),
                     const Text(
                       'Sign In',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
-                          color: Colors.purple),
+                          color: Colors.deepPurple),
                     ),
                     const SizedBox(
                       height: 40,
@@ -234,8 +207,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    SignUp(audioPlayer: widget.audioPlayer),
+                                builder: (context) => SignUp(
+                                  audioPlayer: widget.audioPlayer,
+                                  name: _emailController.text
+                                      .split('@')[0]
+                                      .toUpperCase(),
+                                ),
                               ));
                         },
                         child: const Text(
@@ -303,13 +280,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
-                  backgroundColor: Colors.purple,
+                  backgroundColor: Colors.deepPurple,
                   padding: const EdgeInsets.all(12),
                   animationDuration: const Duration(seconds: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  shadowColor: Colors.purple,
+                  shadowColor: Colors.redAccent,
                 ),
                 child: isLoading
                     ? Row(
@@ -327,11 +304,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           ),
                         ],
                       )
-                    : const Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.login_outlined),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                        ],
                       ),
                 onPressed: () async {
                   //Login Method
@@ -361,6 +347,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                 MaterialPageRoute(
                                   builder: ((context) => SignUp(
                                         audioPlayer: widget.audioPlayer,
+                                        name: _emailController.text
+                                            .split('@')[0]
+                                            .toUpperCase(),
                                       )),
                                 ),
                               );
@@ -420,7 +409,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       setState(() {
                         isLoading = true;
                       });
-                      await Future.delayed(const Duration(seconds: 1));
+                      // await Future.delayed(const Duration(seconds: 1));
                       setState(() {
                         Navigator.push(
                           context,
