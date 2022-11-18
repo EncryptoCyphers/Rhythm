@@ -13,6 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,7 @@ class _LoginState extends State<Login> {
           if (snapshot.hasData) {
             return HomePage(
               audioPlayer: widget.audioPlayer,
-              nm: 'It\'s Rhythm time',
+              nm: user!.email.toString().split('@')[0],
             );
           } else {
             return OnboardingPage(

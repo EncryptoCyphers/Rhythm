@@ -2,12 +2,14 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_player_app/services/screen_sizes.dart';
 
 import 'home_page.dart';
 
 class SignUp extends StatefulWidget {
   final AudioPlayer audioPlayer;
-  const SignUp({super.key, required this.audioPlayer});
+  final String name;
+  const SignUp({super.key, required this.audioPlayer, required this.name});
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -44,13 +46,32 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(
               height: 60,
             ),
-            const Text(
-              'Create Account',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.purpleAccent,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.edit,
+                  color: Colors.deepPurple,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'Create Account',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 150,
+              child: Image.asset(
+                'images/sign_up.png',
+                fit: BoxFit.contain,
               ),
             ),
             const SizedBox(
@@ -209,11 +230,20 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ],
                       )
-                    : const Text(
-                        'Create Account',
-                        style: TextStyle(
-                          fontSize: 25,
-                        ),
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.account_box),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Create Account',
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
+                        ],
                       ),
                 onPressed: () async {
                   //Sign Up Method
@@ -236,9 +266,7 @@ class _SignUpState extends State<SignUp> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
-                              nm: _emailController.text
-                                  .split('@')[0]
-                                  .toUpperCase(),
+                              nm: widget.name,
                               audioPlayer: widget.audioPlayer,
                             ),
                           ),
