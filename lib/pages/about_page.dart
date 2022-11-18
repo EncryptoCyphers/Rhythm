@@ -127,7 +127,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 30,
             child: TextButton(
               onPressed: _launchUrl3,
               child: Text(
@@ -139,7 +139,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 30,
             child: TextButton(
               onPressed: _launchUrl4,
               child: Text(
@@ -151,7 +151,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 30,
             child: TextButton(
               onPressed: _launchUrl,
               child: Text(
@@ -163,7 +163,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 25,
+            height: 30,
             child: TextButton(
               onPressed: _launchUrl2,
               child: Text(
