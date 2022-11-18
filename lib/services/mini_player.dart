@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/services/audioplayer.dart';
+import '../pages/home_page.dart';
 import '../pages/songs.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import './colours.dart';
+
+ValueNotifier<double> playerExpandProgress = ValueNotifier(76);
 
 ValueNotifier<bool> miniPlayerVisibilityListenable = ValueNotifier<bool>(false);
 ValueNotifier<bool> isPlayingListenable = ValueNotifier<bool>(false);
@@ -41,21 +44,25 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
               width: logicalWidth,
             );
           } else {
-            return Miniplayer(
-              minHeight: 76,
-              maxHeight: logicalHeight,
-              builder: (height, percentage) {
-                if (height < 80) {
-                  return MiniPlayerInfo(
-                    audioPlayer: widget.audioPlayer,
-                  );
-                } else {
-                  return Player(
-                    songmodel: model!,
-                    audioPlayer: widget.audioPlayer,
-                  );
-                }
-              },
+            return GestureDetector(
+              child: Miniplayer(
+                valueNotifier: playerExpandProgress,
+                minHeight: 76,
+                maxHeight: logicalHeight,
+                builder: (height, percentage) {
+                  // playerExpandProgress.value = height;
+                  if (height < 80) {
+                    return MiniPlayerInfo(
+                      audioPlayer: widget.audioPlayer,
+                    );
+                  } else {
+                    return Player(
+                      songmodel: model!,
+                      audioPlayer: widget.audioPlayer,
+                    );
+                  }
+                },
+              ),
             );
           }
         });

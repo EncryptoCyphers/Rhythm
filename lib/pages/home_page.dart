@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
+import 'package:music_player_app/services/screen_sizes.dart';
 import '../services/colours.dart';
 import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
@@ -61,7 +62,7 @@ class HomePage extends StatelessWidget {
           // drawer: DrawerMenu(
           //   audioPlayer: audioPlayer,
           // ),
-          bottomNavigationBar: const BottomNavBar(),
+          // bottomNavigationBar: const BottomNavBar(),
           backgroundColor: Colors.white,
           body: Stack(
             children: [
@@ -73,11 +74,28 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 55),
-          child: MiniPlayerWidget(
-            audioPlayer: audioPlayer,
-          ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MiniPlayerWidget(
+              audioPlayer: audioPlayer,
+            ),
+            ValueListenableBuilder<double>(
+              valueListenable: playerExpandProgress,
+              builder: (BuildContext context, double minPlayerHeight,
+                  Widget? child) {
+                if (minPlayerHeight <= 76) {
+                  // print('in');
+                  return const BottomNavBar();
+                } else {
+                  return SizedBox(
+                    height: 0,
+                    width: logicalWidth,
+                  );
+                }
+              },
+            ),
+          ],
         ),
         ValueListenableBuilder(
           valueListenable: isDrawerOpen,
