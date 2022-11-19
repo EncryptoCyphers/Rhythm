@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/services/audioplayer.dart';
-import '../pages/home_page.dart';
 import '../pages/songs.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';

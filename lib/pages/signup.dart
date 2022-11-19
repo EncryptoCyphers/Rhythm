@@ -2,7 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_player_app/services/screen_sizes.dart';
 
 import 'home_page.dart';
 
@@ -33,6 +32,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Sign Up'),
         elevation: 8,
@@ -68,7 +68,7 @@ class _SignUpState extends State<SignUp> {
               ],
             ),
             SizedBox(
-              height: 150,
+              height: 200,
               child: Image.asset(
                 'images/sign_up.png',
                 fit: BoxFit.contain,

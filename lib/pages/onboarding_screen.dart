@@ -415,9 +415,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
-                              nm: _emailController.text
-                                  .split('@')[0]
-                                  .toUpperCase(),
+                              nm: _emailController.text.split('@')[0],
                               audioPlayer: widget.audioPlayer,
                             ),
                           ),

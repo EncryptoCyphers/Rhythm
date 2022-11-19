@@ -175,24 +175,69 @@ class DrawerMenu extends StatelessWidget {
                     ),
                     onTap: () async {
                       //Firebase logout implementation will be done
-                      await FirebaseAuth.instance.signOut();
 
-                      FirebaseAuth.instance
-                          .authStateChanges()
-                          .listen((User? user) {
-                        if (user == null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OnboardingPage(
-                                audioPlayer: audioPlayer,
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          title: const Text(
+                            'Log Out',
+                            style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          content: const Text(
+                            'Are you sure ?',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          );
-                        } else {
-                          // print('User is signed in!');
-                        }
-                      });
+                            TextButton(
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
+
+                                FirebaseAuth.instance
+                                    .authStateChanges()
+                                    .listen((User? user) {
+                                  if (user == null) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OnboardingPage(
+                                          audioPlayer: audioPlayer,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    // print('User is signed in!');
+                                  }
+                                });
+                              },
+                              child: const Text(
+                                'Log Out',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 ],
