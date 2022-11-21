@@ -7,7 +7,6 @@ import '../services/colours.dart';
 import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
 import '../widgets/bottomNavigationBar.dart';
-// import 'package:anim_search_bar/anim_search_bar.dart';
 import '../services/mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 

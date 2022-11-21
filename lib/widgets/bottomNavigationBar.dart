@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
 import '../services/colours.dart';
@@ -33,20 +32,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: 'Home',
               backgroundColor: fgPurple,
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.public_rounded),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.public_rounded),
               label: 'Web',
-              backgroundColor: fgPurple,
+              backgroundColor: Colors.pink,
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.storage_rounded),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.storage_rounded),
               label: 'Local',
-              backgroundColor: fgPurple,
+              backgroundColor: Colors.green,
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.settings_rounded),
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.settings_rounded),
               label: 'Settings',
-              backgroundColor: fgPurple,
+              backgroundColor: Colors.deepOrange,
             ),
           ],
           currentIndex: pageIndex,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/pages/home.dart';
+import 'package:music_player_app/pages/settings.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/widgets/bottomNavigationBar.dart';
 
@@ -23,10 +24,9 @@ class Pages extends StatelessWidget {
         // else if ((value == 1)) {
         //   return ;
         // }
-        // else if ((value == 3)) {
-        //   return ;
-        // }
-        else {
+        else if ((value == 3)) {
+          return const Settings();
+        } else {
           return Home(
             nm: nm,
             audioPlayer: audioPlayer,
