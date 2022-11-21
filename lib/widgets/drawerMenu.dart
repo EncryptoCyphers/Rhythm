@@ -15,10 +15,12 @@ import '../pages/playlist.dart';
 import '../pages/switch_pages.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
+  DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
   final AudioPlayer audioPlayer;
+
   @override
   Widget build(BuildContext context) {
+    final _userEmail = FirebaseAuth.instance.currentUser!.email;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
@@ -32,17 +34,37 @@ class DrawerMenu extends StatelessWidget {
                 children: [
                   DrawerHeader(
                     decoration: BoxDecoration(
-                      color: fgPurple,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'MENU',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.pink,
+                          Colors.deepPurple.shade600,
+                          Colors.deepPurple.shade600,
+                        ],
                       ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Material(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
+                          child: Image.asset(
+                            //Later it will be implemented with user image using firebase storage.
+                            'images/app_icon.jpg',
+                            height: 100,
+                            width: 100,
+                          ),
+                        ),
+                        Text(
+                          'Email: $_userEmail',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   ListTile(
