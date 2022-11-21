@@ -18,8 +18,9 @@ class DataService {
 
     var url = Uri.parse('https://spotify23.p.rapidapi.com/search/?$query');
     var res = await http.get(url, headers: headers);
-    if (res.statusCode != 200)
+    if (res.statusCode != 200) {
       throw Exception('http.get error: statusCode= ${res.statusCode}');
+    }
     print(res.body);
   }
 }

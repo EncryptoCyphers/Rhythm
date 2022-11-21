@@ -7,8 +7,9 @@ import '../services/colours.dart';
 import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
 import '../widgets/bottomNavigationBar.dart';
-import 'package:anim_search_bar/anim_search_bar.dart';
+// import 'package:anim_search_bar/anim_search_bar.dart';
 import '../services/mini_player.dart';
+import 'package:searchbar_animation/searchbar_animation.dart';
 
 ValueNotifier<bool> isDrawerOpen = ValueNotifier<bool>(false);
 
@@ -37,23 +38,36 @@ class HomePage extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: AnimSearchBar(
-                  prefixIcon: const Icon(
-                    Icons.search_rounded,
-                    color: Colors.black,
-                  ),
-                  width: 330,
-                  textController: textController,
-                  onSuffixTap: () {
-                    textController.clear();
-                  }, // Search function is to be implemented
-                  rtl: false,
-                  color: Colors.white,
-                  closeSearchOnSuffixTap: true,
-                  helpText: 'Search artists, songs...',
-                  suffixIcon: const Icon(
-                    Icons.close_rounded,
-                    color: Colors.black,
+                // child: AnimSearchBar(
+                //   prefixIcon: const Icon(
+                //     Icons.search_rounded,
+                //     color: Colors.black,
+                //   ),
+                //   width: 330,
+                //   textController: textController,
+                //   onSuffixTap: () {
+                //     textController.clear();
+                //   }, // Search function is to be implemented
+                //   rtl: false,
+                //   color: Colors.white,
+                //   closeSearchOnSuffixTap: true,
+                //   helpText: 'Search artists, songs...',
+                //   suffixIcon: const Icon(
+                //     Icons.close_rounded,
+                //     color: Colors.black,
+                //   ),
+                // ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  child: SearchBarAnimation(
+                    textEditingController: textController,
+                    isOriginalAnimation: true,
+                    trailingWidget: const Icon(Icons.search),
+                    secondaryButtonWidget: const Icon(Icons.close),
+                    buttonWidget: const Icon(Icons.search),
+                    isSearchBoxOnRightSide: true,
+                    hintText: "Search Songs, Artists...",
+                    enableKeyboardFocus: true,
                   ),
                 ),
               ),
