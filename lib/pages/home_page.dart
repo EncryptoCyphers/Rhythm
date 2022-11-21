@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
+import 'package:music_player_app/services/data_service.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import '../services/colours.dart';
 import '../widgets/drawerMenu.dart';
@@ -17,10 +18,11 @@ class HomePage extends StatelessWidget {
   String nm;
   final AudioPlayer audioPlayer;
   DateTime timeBackPressed = DateTime.now();
+  final _dataService = DataService();
+  final _musicController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textController = TextEditingController();
     return Stack(
       children: [
         Scaffold(
@@ -59,15 +61,18 @@ class HomePage extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: SearchBarAnimation(
-                    textEditingController: textController,
-                    isOriginalAnimation: true,
-                    trailingWidget: const Icon(Icons.search),
-                    secondaryButtonWidget: const Icon(Icons.close),
-                    buttonWidget: const Icon(Icons.search),
-                    isSearchBoxOnRightSide: true,
-                    hintText: "Search Songs, Artists...",
-                    enableKeyboardFocus: true,
-                  ),
+                      textEditingController: _musicController,
+                      isOriginalAnimation: true,
+                      trailingWidget: const Icon(Icons.search),
+                      secondaryButtonWidget: const Icon(Icons.close),
+                      buttonWidget: const Icon(Icons.search),
+                      isSearchBoxOnRightSide: true,
+                      hintText: "Search Songs, Artists...",
+                      //hintTextColour: Colors.deepPurple,
+                      enableKeyboardFocus: true,
+                      onFieldSubmitted: (String value) {
+                        _dataService.getMusic(_musicController.text);
+                      }),
                 ),
               ),
             ],
