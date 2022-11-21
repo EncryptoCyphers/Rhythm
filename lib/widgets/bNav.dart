@@ -39,8 +39,8 @@ class _BNavState extends State<BNav> {
           iconColors: iconLinearGradiant,
         ),
         SweetNavBarItem(
-          sweetActive: const Icon(Icons.public_rounded),
-          sweetIcon: const Icon(Icons.public_outlined),
+          sweetActive: const Icon(Icons.cloud_queue_sharp),
+          sweetIcon: const Icon(Icons.cloud),
           sweetLabel: 'Web',
           iconColors: iconLinearGradiant,
         ),
