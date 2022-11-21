@@ -19,15 +19,18 @@ class _BNavState extends State<BNav> {
   }
 
   final iconLinearGradiant = List<Color>.from([
-    const Color.fromARGB(255, 251, 2, 197),
-    const Color.fromARGB(255, 72, 3, 80)
+    const Color(0xffdf1b0c),
+    const Color(0xff5062c2),
   ]);
   @override
   Widget build(BuildContext context) {
     return SweetNavBar(
       // paddingGradientColor: iconLinearGradiant,
       currentIndex: cIndex,
-      paddingBackgroundColor: Colors.deepPurple.shade400,
+      // paddingBackgroundColor: ,
+      height: 10,
+      padding: EdgeInsets.zero,
+      borderRadius: 0,
       items: [
         SweetNavBarItem(
           sweetActive: const Icon(Icons.home_rounded),
@@ -39,16 +42,19 @@ class _BNavState extends State<BNav> {
           sweetActive: const Icon(Icons.public_rounded),
           sweetIcon: const Icon(Icons.public_outlined),
           sweetLabel: 'Web',
+          iconColors: iconLinearGradiant,
         ),
         SweetNavBarItem(
           sweetActive: const Icon(Icons.sd_storage_rounded),
           sweetIcon: const Icon(Icons.sd_storage_outlined),
           sweetLabel: 'Local',
+          iconColors: iconLinearGradiant,
         ),
         SweetNavBarItem(
           sweetActive: const Icon(Icons.settings),
           sweetIcon: const Icon(Icons.settings_outlined),
           sweetLabel: 'Settings',
+          iconColors: iconLinearGradiant,
         ),
       ],
       onTap: (index) {
