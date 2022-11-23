@@ -525,6 +525,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliding_clipped_nav_bar:
+    dependency: "direct main"
+    description:
+      name: sliding_clipped_nav_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0+3"
   smooth_page_indicator:
     dependency: "direct main"
     description:

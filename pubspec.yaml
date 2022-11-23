@@ -51,6 +51,7 @@ dependencies:
   http: ^0.13.5
   searchbar_animation: ^0.0.4
   sweet_nav_bar: ^1.0.5
+  sliding_clipped_nav_bar: ^3.1.0+3
 
 dev_dependencies:
   flutter_test:
