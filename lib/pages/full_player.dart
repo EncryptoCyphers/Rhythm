@@ -3,9 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
-import 'package:music_player_app/services/mini_player.dart';
+import 'package:music_player_app/pages/mini_player.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import '../pages/songs.dart';
+import 'songs.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 

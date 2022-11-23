@@ -4,8 +4,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 //.............................Created Imports....................................................................//
-import '../services/audioplayer.dart';
-import '../services/mini_player.dart';
+import 'full_player.dart';
+import 'mini_player.dart';
 import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
-import 'package:music_player_app/services/audioplayer.dart';
+import 'package:music_player_app/pages/full_player.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import './colours.dart';
+import '../services/colours.dart';
 import '../services/player_logic.dart';
 
 ValueNotifier<double> playerExpandProgress = ValueNotifier(76);

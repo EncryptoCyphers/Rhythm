@@ -9,7 +9,7 @@ import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
-import '../services/mini_player.dart';
+import 'mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
 class HomePage extends StatelessWidget {
