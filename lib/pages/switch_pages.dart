@@ -3,7 +3,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/pages/home.dart';
 import 'package:music_player_app/pages/settings.dart';
 import 'package:music_player_app/pages/songs.dart';
-import 'package:music_player_app/widgets/bottomNavigationBar.dart';
 
 class Pages extends StatelessWidget {
   const Pages({super.key, required this.nm, required this.audioPlayer});
@@ -16,7 +15,7 @@ class Pages extends StatelessWidget {
     return Center(
         child: ValueListenableBuilder<int>(
       builder: (BuildContext context, int value, Widget? child) {
-        if (pageIndex == 2) {
+        if (value == 2) {
           return Tracks(
             audioPlayer: audioPlayer,
           );
