@@ -79,6 +79,7 @@ class DrawerMenu extends StatelessWidget {
                 onTap: () {
                   navIndexListener.value = 0; //To build navbar
                   Pages.currPageIndex.value = 0;
+                  Navigator.pop(context); //to pop out the drawer instantly
                 },
               ),
               ListTile(
@@ -96,6 +97,7 @@ class DrawerMenu extends StatelessWidget {
                 onTap: () {
                   navIndexListener.value = 2; //To build navbar
                   Pages.currPageIndex.value = 2; //To build pages
+                  Navigator.pop(context); //to pop out the drawer instantly
                 },
               ),
               ListTile(
