@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
+import 'package:music_player_app/services/colours.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'songs.dart';
 import '../services/screen_sizes.dart';
@@ -28,15 +29,16 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
             colors: [
-              Colors.white,
-              Color.fromARGB(255, 208, 176, 224),
+              fgPurple,
+              fgPurple,
+              veryLightPurple,
             ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(0.0, 1.0),
-            stops: [0.0, 1.0],
+            begin: const FractionalOffset(0.0, 0.0),
+            end: const FractionalOffset(0.0, 1.0),
+            stops: const [0.0, 0.6, 1.0],
             tileMode: TileMode.clamp),
       ),
       child: Scaffold(
@@ -73,6 +75,7 @@ class _PlayerState extends State<Player> {
                           child: MarqueeText(
                             text: TextSpan(
                               text: currSongName,
+                              style: const TextStyle(color: Colors.white),
                             ),
                             style: const TextStyle(
                               fontSize: 28,
@@ -88,6 +91,7 @@ class _PlayerState extends State<Player> {
                           child: MarqueeText(
                             text: TextSpan(
                               text: currSongArtistName,
+                              style: const TextStyle(color: Colors.white),
                             ),
                             style: const TextStyle(
                               fontSize: 18,
@@ -112,8 +116,14 @@ class _PlayerState extends State<Player> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(songPosition.toString().split(".")[0]),
-                                  Text(songDuration.toString().split(".")[0]),
+                                  Text(
+                                    songPosition.toString().split(".")[0],
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  Text(
+                                    songDuration.toString().split(".")[0],
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 ],
                               ),
                             );
@@ -132,6 +142,8 @@ class _PlayerState extends State<Player> {
                                     .toDouble(),
                                 value: songPosition.inSeconds.toDouble(),
                                 max: songDuration.inSeconds.toDouble(),
+                                activeColor: Colors.white,
+                                inactiveColor: veryLightPurple,
                                 onChanged: (val) {
                                   setState(() {
                                     changeToSeconds(val.toInt());
@@ -172,6 +184,7 @@ class _PlayerState extends State<Player> {
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },
+                              color: Colors.white,
                               icon: const Icon(Icons.skip_previous_rounded),
                               iconSize: 60,
                             ),
@@ -191,6 +204,7 @@ class _PlayerState extends State<Player> {
                                   isPlaying = !isPlaying;
                                 });
                               },
+                              color: Colors.white,
                               icon: isPlaying
                                   ? const Icon(Icons.pause_circle_filled)
                                   : const Icon(Icons.play_circle_filled),
@@ -223,6 +237,7 @@ class _PlayerState extends State<Player> {
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },
+                              color: Colors.white,
                               icon: const Icon(Icons.skip_next_rounded),
                               iconSize: 60,
                             ),
