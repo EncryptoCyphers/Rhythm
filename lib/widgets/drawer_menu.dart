@@ -36,7 +36,7 @@ class DrawerMenu extends StatelessWidget {
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [
-                      Color.fromARGB(255, 116, 92, 201),
+                      veryLightPurple,
                       fgPurple,
                       fgPurple,
                     ],
