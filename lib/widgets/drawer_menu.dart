@@ -8,7 +8,6 @@ import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 // import 'package:music_player_app/widgets/bottomNavigationBar.dart';
 import '../pages/about_page.dart';
-import '../pages/settings.dart';
 import '../pages/downloads.dart';
 import '../pages/playlist.dart';
 import '../pages/switch_pages.dart';
@@ -78,7 +77,11 @@ class DrawerMenu extends StatelessWidget {
                 ),
                 onTap: () {
                   navIndexListener.value = 0; //To build navbar
-                  Pages.currPageIndex.value = 0;
+                  pageController.animateToPage(
+                    0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  );
                   Navigator.pop(context); //to pop out the drawer instantly
                 },
               ),
@@ -96,7 +99,11 @@ class DrawerMenu extends StatelessWidget {
                 ),
                 onTap: () {
                   navIndexListener.value = 2; //To build navbar
-                  Pages.currPageIndex.value = 2; //To build pages
+                  pageController.animateToPage(
+                    2,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  ); //To build pages
                   Navigator.pop(context); //to pop out the drawer instantly
                 },
               ),
@@ -153,11 +160,13 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  navIndexListener.value = 3; //To build navbar
+                  pageController.animateToPage(
+                    3,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  ); //To build pages
                   Navigator.pop(context); //to pop out the drawer instantly
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Settings()));
                 },
               ),
               ListTile(

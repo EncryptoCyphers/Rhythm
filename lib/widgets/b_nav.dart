@@ -52,7 +52,12 @@ class _BNavState extends State<BNav> {
           selectedIndex: navIndexListener.value,
           onButtonPressed: (index) {
             navIndexListener.value = index;
-            Pages.currPageIndex.value = index;
+            pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOutQuad,
+            );
+            // pageController =
           },
         );
         // return SweetNavBar(
