@@ -43,25 +43,27 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
               width: logicalWidth,
             );
           } else {
-            return GestureDetector(
-              child: Miniplayer(
-                valueNotifier: playerExpandProgress,
-                minHeight: 76,
-                maxHeight: logicalHeight,
-                builder: (height, percentage) {
-                  // playerExpandProgress.value = height;
-                  if (height < 80) {
-                    return MiniPlayerInfo(
-                      audioPlayer: widget.audioPlayer,
-                    );
-                  } else {
-                    return Player(
-                      songmodel: model!,
-                      audioPlayer: widget.audioPlayer,
-                    );
-                  }
-                },
-              ),
+            return Miniplayer(
+              onDismissed: () {
+                widget.audioPlayer.stop();
+                miniPlayerVisibilityListenable.value = false;
+              },
+              valueNotifier: playerExpandProgress,
+              minHeight: 76,
+              maxHeight: logicalHeight,
+              builder: (height, percentage) {
+                // playerExpandProgress.value = height;
+                if (height < 100) {
+                  return MiniPlayerInfo(
+                    audioPlayer: widget.audioPlayer,
+                  );
+                } else {
+                  return Player(
+                    songmodel: model!,
+                    audioPlayer: widget.audioPlayer,
+                  );
+                }
+              },
             );
           }
         });
@@ -81,22 +83,22 @@ class MiniPlayerInfo extends StatelessWidget {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // ValueListenableBuilder<Duration>(
-            //   valueListenable: songPositionListenable,
-            //   builder:
-            //       (BuildContext context, Duration songPosition, Widget? child) {
-            //     return SizedBox(
-            //       height: 3,
-            //       child: LinearProgressIndicator(
-            //         minHeight: 2,
-            //         backgroundColor: bgPurple,
-            //         color: fgPurple,
-            //         value: songPosition.inSeconds.toDouble() /
-            //             songDuration.inSeconds.toDouble(),
-            //       ),
-            //     );
-            //   },
-            // ),
+            ValueListenableBuilder<Duration>(
+              valueListenable: songPositionListenable,
+              builder:
+                  (BuildContext context, Duration songPosition, Widget? child) {
+                return SizedBox(
+                  height: 3,
+                  child: LinearProgressIndicator(
+                    minHeight: 2,
+                    backgroundColor: bgPurple,
+                    color: fgPurple,
+                    value: songPosition.inSeconds.toDouble() /
+                        songDuration.inSeconds.toDouble(),
+                  ),
+                );
+              },
+            ),
             SizedBox(
               height: 73,
               child: ListTile(
