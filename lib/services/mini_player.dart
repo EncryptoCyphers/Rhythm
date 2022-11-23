@@ -53,7 +53,7 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
               maxHeight: logicalHeight,
               builder: (height, percentage) {
                 // playerExpandProgress.value = height;
-                if (height < 80) {
+                if (height < 100) {
                   return MiniPlayerInfo(
                     audioPlayer: widget.audioPlayer,
                   );
