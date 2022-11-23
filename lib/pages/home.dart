@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key, required this.nm, required this.audioPlayer});
+  const Home({
+    super.key,
+    required this.nm,
+  });
   final String nm;
-  final AudioPlayer audioPlayer;
   @override
   Widget build(BuildContext context) {
     return ListView(

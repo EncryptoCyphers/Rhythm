@@ -1,14 +1,12 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 
 import 'home_page.dart';
 
 class SignUp extends StatefulWidget {
-  final AudioPlayer audioPlayer;
   final String name;
-  const SignUp({super.key, required this.audioPlayer, required this.name});
+  const SignUp({super.key, required this.name});
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -267,7 +265,6 @@ class _SignUpState extends State<SignUp> {
                           MaterialPageRoute(
                             builder: (context) => HomePage(
                               nm: widget.name,
-                              audioPlayer: widget.audioPlayer,
                             ),
                           ),
                         );

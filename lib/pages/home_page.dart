@@ -8,15 +8,15 @@ import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
 import '../widgets/drawer_menu.dart';
-import 'package:just_audio/just_audio.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../services/mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({required this.nm, required this.audioPlayer});
+  HomePage({
+    required this.nm,
+  });
   String nm;
-  final AudioPlayer audioPlayer;
   DateTime timeBackPressed = DateTime.now();
   final _dataService = DataService();
   final _musicController = TextEditingController();
@@ -90,16 +90,12 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: DrawerMenu(
-        audioPlayer: audioPlayer,
-      ),
+      drawer: const DrawerMenu(),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          MiniPlayerWidget(
-            audioPlayer: audioPlayer,
-          ),
+          const MiniPlayerWidget(),
           ValueListenableBuilder<double>(
             valueListenable: playerExpandProgress,
             builder:
@@ -123,7 +119,6 @@ class HomePage extends StatelessWidget {
         children: [
           // Defined in switch_pages.dart
           Pages(
-            audioPlayer: audioPlayer,
             nm: nm,
           ),
         ],

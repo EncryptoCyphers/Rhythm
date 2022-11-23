@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/pages/onboarding_screen.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
@@ -14,8 +13,7 @@ import '../services/switch_pages.dart';
 import '../widgets/b_nav.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
-  final AudioPlayer audioPlayer;
+  const DrawerMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -243,9 +241,8 @@ class DrawerMenu extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => OnboardingPage(
-                                      audioPlayer: audioPlayer,
-                                    ),
+                                    builder: (context) =>
+                                        const OnboardingPage(),
                                   ),
                                 );
                               } else {

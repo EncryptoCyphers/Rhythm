@@ -4,13 +4,13 @@ import 'package:music_player_app/pages/home_page.dart';
 import 'package:music_player_app/pages/password_reset.dart';
 import 'package:music_player_app/pages/signup.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({Key? key, required this.audioPlayer}) : super(key: key);
-  final AudioPlayer audioPlayer;
+  const OnboardingPage({
+    Key? key,
+  }) : super(key: key);
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
@@ -208,7 +208,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => SignUp(
-                                  audioPlayer: widget.audioPlayer,
                                   name: _emailController.text
                                       .split('@')[0]
                                       .toUpperCase(),
@@ -346,7 +345,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: ((context) => SignUp(
-                                        audioPlayer: widget.audioPlayer,
                                         name: _emailController.text
                                             .split('@')[0]
                                             .toUpperCase(),
@@ -416,7 +414,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           MaterialPageRoute(
                             builder: (context) => HomePage(
                               nm: _emailController.text.split('@')[0],
-                              audioPlayer: widget.audioPlayer,
                             ),
                           ),
                         );
