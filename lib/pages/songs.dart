@@ -80,7 +80,7 @@ class _TracksState extends State<Tracks> {
     return ValueListenableBuilder<bool>(
       valueListenable: storagePermissionListener,
       builder: (BuildContext context, bool permission, Widget? child) {
-        if (storagePermissionListener.value == true) {
+        if (storagePermissionListener.value == false) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
