@@ -7,7 +7,7 @@ import 'package:music_player_app/services/data_service.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
-import '../widgets/drawerMenu.dart';
+import '../widgets/drawer_menu.dart';
 import 'package:just_audio/just_audio.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../services/mini_player.dart';
@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
             valueListenable: playerExpandProgress,
             builder:
                 (BuildContext context, double minPlayerHeight, Widget? child) {
-              if (minPlayerHeight <= 76) {
+              if (minPlayerHeight <= 100) {
                 // print('in');
                 // return const BottomNavBar();
                 return const BNav();

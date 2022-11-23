@@ -10,14 +10,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Settings'),
-      //   backgroundColor: Colors.purple,
-      // ),
-      body: Center(
-        child: Text('Dummy Settings Page'),
-      ),
+    return const Center(
+      child: Text('Dummy Settings Page'),
     );
   }
 }
