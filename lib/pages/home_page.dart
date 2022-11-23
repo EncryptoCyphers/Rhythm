@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:music_player_app/pages/switch_pages.dart';
 import 'package:music_player_app/services/data_service.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
@@ -37,6 +38,14 @@ class HomePage extends StatelessWidget {
         //     );
         //   },
         // ),
+        systemOverlayStyle: SystemUiOverlayStyle(
+          // Status bar color
+          statusBarColor: fgPurple,
+
+          // Status bar brightness (optional)
+          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+          statusBarBrightness: Brightness.light, // For iOS (dark icons)
+        ),
         backgroundColor: fgPurple,
         /*centerTitle: true,
             title: const Text("RYTHM"),*/
