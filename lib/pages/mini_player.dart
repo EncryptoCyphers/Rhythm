@@ -7,21 +7,15 @@ import 'package:on_audio_query/on_audio_query.dart';
 import '../services/colours.dart';
 import '../services/player_logic.dart';
 
+List<SongModel>? localList;
+getLocalMiniPlayerSongList(List<SongModel> item) {
+  localList = item;
+}
+
 ValueNotifier<double> playerExpandProgress = ValueNotifier(76);
 
 ValueNotifier<bool> miniPlayerVisibilityListenable = ValueNotifier<bool>(false);
 ValueNotifier<bool> isPlayingListenable = ValueNotifier<bool>(false);
-
-// String songname = 'Song Name';
-// String artistname = 'Artist Name';
-// String? audioUri;
-// getSongInfo({required name, required artist, required uri}) {
-//   songname = name;
-//   artistname = artist;
-//   audioUri = uri;
-// }
-
-SongModel? model;
 
 class MiniPlayerWidget extends StatefulWidget {
   const MiniPlayerWidget({super.key});
@@ -145,13 +139,29 @@ class MiniPlayerInfo extends StatelessWidget {
                         ),
                       ),
                       IconButton(
+                        onPressed: () {
+                          if (currSongIndex >= 0 &&
+                              currSongIndex < localList!.length &&
+                              localList!.length > 1) {
+                            // print(currSongIndex);
+
+                            currSongIndex++;
+                            getCurrSongInfo(
+                              id: localList![currSongIndex].id,
+                              uri: localList![currSongIndex].uri,
+                              name: localList![currSongIndex].displayNameWOExt,
+                              artist:
+                                  localList![currSongIndex].artist.toString(),
+                              songIndex: currSongIndex,
+                            );
+                            currSongIdListenable.value =
+                                localList![currSongIndex].id;
+                            playSong(audioPlayer: audioPlayer);
+                          }
+                        },
                         color: const Color.fromARGB(255, 37, 37, 37),
                         iconSize: 35,
-                        onPressed: () {
-                          audioPlayer.stop();
-                          miniPlayerVisibilityListenable.value = false;
-                        },
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Icons.skip_next_rounded),
                       ),
                     ],
                   ),

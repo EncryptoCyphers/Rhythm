@@ -134,6 +134,7 @@ class _TracksState extends State<Tracks> {
                       songIndex: index,
                     );
                     playSong(audioPlayer: audioPlayer);
+                    getLocalMiniPlayerSongList(allSongs);
                   },
                 ),
               );
