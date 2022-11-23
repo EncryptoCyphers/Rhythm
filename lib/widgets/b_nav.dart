@@ -31,13 +31,13 @@ class _BNavState extends State<BNav> {
               inactiveColor: Colors.orange,
             ),
             BarItem(
-              icon: Icons.public_rounded,
+              icon: Icons.cloud,
               title: 'Web',
               activeColor: Colors.pink,
               inactiveColor: Colors.green,
             ),
             BarItem(
-              icon: Icons.storage_rounded,
+              icon: Icons.sd_storage_rounded,
               title: 'Local',
               activeColor: Colors.teal,
               inactiveColor: Colors.red,
