@@ -8,11 +8,9 @@ import 'package:music_player_app/widgets/bNav.dart';
 import '../services/colours.dart';
 import '../widgets/drawerMenu.dart';
 import 'package:just_audio/just_audio.dart';
-import '../widgets/bottomNavigationBar.dart';
+//import '../widgets/bottomNavigationBar.dart';
 import '../services/mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
-
-ValueNotifier<bool> isDrawerOpen = ValueNotifier<bool>(false);
 
 class HomePage extends StatelessWidget {
   HomePage({required this.nm, required this.audioPlayer});
@@ -24,115 +22,103 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                isDrawerOpen.value = true;
-              },
-            ),
-            backgroundColor: fgPurple,
-            /*centerTitle: true,
+    return Scaffold(
+      appBar: AppBar(
+        // leading: IconButton(
+        //   icon: const Icon(Icons.menu),
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //         builder: (context) => DrawerMenu(
+        //           audioPlayer: audioPlayer,
+        //         ),
+        //       ),
+        //     );
+        //   },
+        // ),
+        backgroundColor: fgPurple,
+        /*centerTitle: true,
             title: const Text("RYTHM"),*/
-            actions: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                // child: AnimSearchBar(
-                //   prefixIcon: const Icon(
-                //     Icons.search_rounded,
-                //     color: Colors.black,
-                //   ),
-                //   width: 330,
-                //   textController: textController,
-                //   onSuffixTap: () {
-                //     textController.clear();
-                //   }, // Search function is to be implemented
-                //   rtl: false,
-                //   color: Colors.white,
-                //   closeSearchOnSuffixTap: true,
-                //   helpText: 'Search artists, songs...',
-                //   suffixIcon: const Icon(
-                //     Icons.close_rounded,
-                //     color: Colors.black,
-                //   ),
-                // ),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  child: SearchBarAnimation(
-                      textEditingController: _musicController,
-                      isOriginalAnimation: true,
-                      trailingWidget: const Icon(Icons.search),
-                      secondaryButtonWidget: const Icon(Icons.close),
-                      buttonWidget: const Icon(Icons.search),
-                      isSearchBoxOnRightSide: true,
-                      hintText: "Search Songs, Artists...",
-                      //hintTextColour: Colors.deepPurple,
-                      enableKeyboardFocus: true,
-                      onFieldSubmitted: (String value) {
-                        _dataService.getMusic(_musicController.text);
-                      }),
-                ),
-              ),
-            ],
-          ),
-          // drawer: DrawerMenu(
-          //   audioPlayer: audioPlayer,
-          // ),
-          // bottomNavigationBar: const BottomNavBar(),
-          backgroundColor: Colors.white,
-          body: Stack(
-            children: [
-              // Defined in switch_pages.dart
-              Pages(
-                audioPlayer: audioPlayer,
-                nm: nm,
-              ),
-            ],
-          ),
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            MiniPlayerWidget(
-              audioPlayer: audioPlayer,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            // child: AnimSearchBar(
+            //   prefixIcon: const Icon(
+            //     Icons.search_rounded,
+            //     color: Colors.black,
+            //   ),
+            //   width: 330,
+            //   textController: textController,
+            //   onSuffixTap: () {
+            //     textController.clear();
+            //   }, // Search function is to be implemented
+            //   rtl: false,
+            //   color: Colors.white,
+            //   closeSearchOnSuffixTap: true,
+            //   helpText: 'Search artists, songs...',
+            //   suffixIcon: const Icon(
+            //     Icons.close_rounded,
+            //     color: Colors.black,
+            //   ),
+            // ),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: SearchBarAnimation(
+                  textEditingController: _musicController,
+                  isOriginalAnimation: true,
+                  trailingWidget: const Icon(Icons.search),
+                  secondaryButtonWidget: const Icon(Icons.close),
+                  buttonWidget: const Icon(Icons.search),
+                  isSearchBoxOnRightSide: true,
+                  hintText: "Search Songs, Artists...",
+                  //hintTextColour: Colors.deepPurple,
+                  enableKeyboardFocus: true,
+                  onFieldSubmitted: (String value) {
+                    _dataService.getMusic(_musicController.text);
+                  }),
             ),
-            ValueListenableBuilder<double>(
-              valueListenable: playerExpandProgress,
-              builder: (BuildContext context, double minPlayerHeight,
-                  Widget? child) {
-                if (minPlayerHeight <= 76) {
-                  // print('in');
-                  // return const BottomNavBar();
-                  return const BNav();
-                } else {
-                  return SizedBox(
-                    height: 0,
-                    width: logicalWidth,
-                  );
-                }
-              },
-            ),
-          ],
-        ),
-        ValueListenableBuilder(
-          valueListenable: isDrawerOpen,
-          builder: (BuildContext context, bool state, Widget? child) {
-            if (state) {
-              return DrawerMenu(
-                audioPlayer: audioPlayer,
-              );
-            } else {
-              return const SizedBox(
-                height: 0,
-                width: 0,
-              );
-            }
-          },
-        )
-      ],
+          ),
+        ],
+      ),
+      drawer: DrawerMenu(
+        audioPlayer: audioPlayer,
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          MiniPlayerWidget(
+            audioPlayer: audioPlayer,
+          ),
+          ValueListenableBuilder<double>(
+            valueListenable: playerExpandProgress,
+            builder:
+                (BuildContext context, double minPlayerHeight, Widget? child) {
+              if (minPlayerHeight <= 76) {
+                // print('in');
+                // return const BottomNavBar();
+                return const BNav();
+              } else {
+                return SizedBox(
+                  height: 0,
+                  width: logicalWidth,
+                );
+              }
+            },
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          // Defined in switch_pages.dart
+          Pages(
+            audioPlayer: audioPlayer,
+            nm: nm,
+          ),
+        ],
+      ),
     );
   }
 }

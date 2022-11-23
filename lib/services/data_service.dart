@@ -21,6 +21,6 @@ class DataService {
     if (res.statusCode != 200) {
       throw Exception('http.get error: statusCode= ${res.statusCode}');
     }
-    print(res.body);
+    //print(res.body);
   }
 }
