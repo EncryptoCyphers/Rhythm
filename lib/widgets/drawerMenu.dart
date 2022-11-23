@@ -113,6 +113,7 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  Navigator.pop(context); //to pop out the drawer instantly
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Downloads()),
@@ -132,6 +133,7 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  Navigator.pop(context); //to pop out the drawer instantly
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -151,6 +153,7 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  Navigator.pop(context); //to pop out the drawer instantly
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -170,6 +173,7 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  Navigator.pop(context); //to pop out the drawer instantly
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const AppInfo()));
                 },
