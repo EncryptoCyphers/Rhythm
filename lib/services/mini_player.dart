@@ -78,23 +78,28 @@ class MiniPlayerInfo extends StatelessWidget {
     return ValueListenableBuilder<int>(
       valueListenable: miniaudiobannerIndex,
       builder: (BuildContext context, int index, Widget? child) {
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ValueListenableBuilder<Duration>(
-                valueListenable: songPositionListenable,
-                builder: (BuildContext context, Duration songPosition,
-                    Widget? child) {
-                  return LinearProgressIndicator(
-                    backgroundColor: bgPurple,
-                    color: fgPurple,
-                    value: songPosition.inSeconds.toDouble() /
-                        songDuration.inSeconds.toDouble(),
-                  );
-                },
-              ),
-              ListTile(
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // ValueListenableBuilder<Duration>(
+            //   valueListenable: songPositionListenable,
+            //   builder:
+            //       (BuildContext context, Duration songPosition, Widget? child) {
+            //     return SizedBox(
+            //       height: 3,
+            //       child: LinearProgressIndicator(
+            //         minHeight: 2,
+            //         backgroundColor: bgPurple,
+            //         color: fgPurple,
+            //         value: songPosition.inSeconds.toDouble() /
+            //             songDuration.inSeconds.toDouble(),
+            //       ),
+            //     );
+            //   },
+            // ),
+            SizedBox(
+              height: 73,
+              child: ListTile(
                 contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                 leading: QueryArtworkWidget(
                   nullArtworkWidget: const Icon(Icons.music_note),
@@ -166,8 +171,8 @@ class MiniPlayerInfo extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
