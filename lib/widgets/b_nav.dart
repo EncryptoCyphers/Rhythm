@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:sweet_nav_bar/sweet_nav_bar.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
-import '../pages/switch_pages.dart';
+import '../services/switch_pages.dart';
 
 ValueNotifier<int> navIndexListener = ValueNotifier<int>(0);
 
