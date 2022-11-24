@@ -52,6 +52,8 @@ dependencies:
   searchbar_animation: ^0.0.4
   sweet_nav_bar: ^1.0.5
   sliding_clipped_nav_bar: ^3.1.0+3
+  cloud_firestore: ^4.1.0
+  firebase_app_check: ^0.1.1+5
 
 dev_dependencies:
   flutter_test:
