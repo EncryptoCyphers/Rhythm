@@ -28,24 +28,6 @@ getCurrSongInfo(
   currSongIndex = songIndex;
 }
 
-String prevSongName = 'PrevSongName';
-String prevSongArtistName = 'Prev Song Artist Name';
-String? prevSongUri;
-getPrevSongInfo({required name, required artist, required uri}) {
-  currSongName = name;
-  currSongArtistName = artist;
-  currSongUri = uri;
-}
-
-String nextSongName = 'NextSongName';
-String nextSongArtistName = 'Next Song Artist Name';
-String? nextSongUri;
-getNextSongInfo({required name, required artist, required uri}) {
-  nextSongName = name;
-  nextSongArtistName = artist;
-  nextSongUri = uri;
-}
-
 playSong({required AudioPlayer audioPlayer}) {
   try {
     audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(currSongUri!)));
