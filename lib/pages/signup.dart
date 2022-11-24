@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -258,7 +259,15 @@ class _SignUpState extends State<SignUp> {
                         isLoading = true;
                       });
                       await Future.delayed(const Duration(seconds: 3));
-
+                      CollectionReference users =
+                          FirebaseFirestore.instance.collection('Rhythm_Users');
+                      users
+                          .add({
+                            'email': _emailController.text, // John Doe
+                          })
+                          .then((value) => print("User Added"))
+                          .catchError(
+                              (error) => print("Failed to add user: $error"));
                       setState(() {
                         Navigator.push(
                           context,
