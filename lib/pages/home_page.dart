@@ -76,6 +76,7 @@ class HomePage extends StatelessWidget {
               child: SearchBarAnimation(
                   textEditingController: _musicController,
                   isOriginalAnimation: true,
+                  durationInMilliSeconds: 300,
                   trailingWidget: const Icon(Icons.search),
                   secondaryButtonWidget: const Icon(Icons.close),
                   buttonWidget: const Icon(Icons.search),

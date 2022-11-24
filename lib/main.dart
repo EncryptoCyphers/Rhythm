@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
       ),
       home: AnimatedSplashScreen(
         splash: Image.asset('images/app_icon.jpg'),
-        duration: 500,
-        splashTransition: SplashTransition.rotationTransition,
+        duration: 100,
+        splashTransition: SplashTransition.fadeTransition,
         backgroundColor: Colors.white,
         // nextScreen: OnboardingPage(
         //   audioPlayer: audioPlayer,
