@@ -11,10 +11,6 @@ import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import 'mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
-import '../pages/home.dart';
-import '../pages/web.dart';
-import '../pages/songs.dart';
-import '../pages/settings.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
