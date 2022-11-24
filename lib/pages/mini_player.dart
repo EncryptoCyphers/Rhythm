@@ -1,32 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:marquee_text/marquee_text.dart';
-import 'package:music_player_app/services/audioplayer.dart';
-import '../pages/songs.dart';
+import 'package:music_player_app/pages/full_player.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import './colours.dart';
+import '../services/colours.dart';
+import '../services/player_logic.dart';
+
+List<SongModel>? localList;
+getLocalMiniPlayerSongList(List<SongModel> item) {
+  localList = item;
+}
 
 ValueNotifier<double> playerExpandProgress = ValueNotifier(76);
 
 ValueNotifier<bool> miniPlayerVisibilityListenable = ValueNotifier<bool>(false);
 ValueNotifier<bool> isPlayingListenable = ValueNotifier<bool>(false);
-ValueNotifier<int> miniaudiobannerIndex = ValueNotifier<int>(0);
-String songname = 'Song Name';
-String artistname = 'Artist Name';
-String? audioUri;
-getSongInfo({required name, required artist, required uri}) {
-  songname = name;
-  artistname = artist;
-  audioUri = uri;
-}
-
-SongModel? model;
 
 class MiniPlayerWidget extends StatefulWidget {
-  const MiniPlayerWidget({super.key, required this.audioPlayer});
-  final AudioPlayer audioPlayer;
+  const MiniPlayerWidget({super.key});
   @override
   State<MiniPlayerWidget> createState() => _MiniPlayerWidgetState();
 }
@@ -45,7 +37,7 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
           } else {
             return Miniplayer(
               onDismissed: () {
-                widget.audioPlayer.stop();
+                audioPlayer.stop();
                 miniPlayerVisibilityListenable.value = false;
               },
               valueNotifier: playerExpandProgress,
@@ -54,14 +46,9 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
               builder: (height, percentage) {
                 // playerExpandProgress.value = height;
                 if (height < 100) {
-                  return MiniPlayerInfo(
-                    audioPlayer: widget.audioPlayer,
-                  );
+                  return const MiniPlayerInfo();
                 } else {
-                  return Player(
-                    songmodel: model!,
-                    audioPlayer: widget.audioPlayer,
-                  );
+                  return const Player();
                 }
               },
             );
@@ -72,13 +59,12 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
 
 // For Mini Artwork
 class MiniPlayerInfo extends StatelessWidget {
-  const MiniPlayerInfo({super.key, required this.audioPlayer});
-  final AudioPlayer audioPlayer;
+  const MiniPlayerInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<int>(
-      valueListenable: miniaudiobannerIndex,
+      valueListenable: currSongIdListenable,
       builder: (BuildContext context, int index, Widget? child) {
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -103,18 +89,10 @@ class MiniPlayerInfo extends StatelessWidget {
               height: 73,
               child: ListTile(
                 contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                leading: QueryArtworkWidget(
-                  nullArtworkWidget: const Icon(Icons.music_note),
-                  id: index,
-                  type: ArtworkType.AUDIO,
-                  artworkScale: 1,
-                  artworkWidth: 60,
-                  artworkHeight: 60,
-                  artworkQuality: FilterQuality.high,
-                ),
+                leading: const MiniArtWork(),
                 title: MarqueeText(
                   text: TextSpan(
-                    text: songname,
+                    text: currSongName,
                   ),
                   style: const TextStyle(
                     fontSize: 18,
@@ -123,7 +101,7 @@ class MiniPlayerInfo extends StatelessWidget {
                 ),
                 subtitle: MarqueeText(
                   text: TextSpan(
-                    text: artistname,
+                    text: currSongArtistName,
                   ),
                   style: const TextStyle(
                     fontSize: 14,
@@ -161,13 +139,29 @@ class MiniPlayerInfo extends StatelessWidget {
                         ),
                       ),
                       IconButton(
+                        onPressed: () {
+                          if (currSongIndex >= 0 &&
+                              currSongIndex < localList!.length &&
+                              localList!.length > 1) {
+                            // print(currSongIndex);
+
+                            currSongIndex++;
+                            getCurrSongInfo(
+                              id: localList![currSongIndex].id,
+                              uri: localList![currSongIndex].uri,
+                              name: localList![currSongIndex].displayNameWOExt,
+                              artist:
+                                  localList![currSongIndex].artist.toString(),
+                              songIndex: currSongIndex,
+                            );
+                            currSongIdListenable.value =
+                                localList![currSongIndex].id;
+                            playSong(audioPlayer: audioPlayer);
+                          }
+                        },
                         color: const Color.fromARGB(255, 37, 37, 37),
                         iconSize: 35,
-                        onPressed: () {
-                          audioPlayer.stop();
-                          miniPlayerVisibilityListenable.value = false;
-                        },
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Icons.skip_next_rounded),
                       ),
                     ],
                   ),
@@ -175,6 +169,27 @@ class MiniPlayerInfo extends StatelessWidget {
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+class MiniArtWork extends StatelessWidget {
+  const MiniArtWork({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: currSongIdListenable,
+      builder: (BuildContext context, int currSongId, Widget? child) {
+        return QueryArtworkWidget(
+          nullArtworkWidget: const Icon(Icons.music_note),
+          id: currSongId,
+          type: ArtworkType.AUDIO,
+          artworkQuality: FilterQuality.high,
+          artworkHeight: 60,
+          artworkWidth: 60,
         );
       },
     );

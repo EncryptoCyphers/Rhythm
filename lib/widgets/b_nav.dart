@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:sweet_nav_bar/sweet_nav_bar.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
-import '../pages/switch_pages.dart';
+import '../services/switch_pages.dart';
 
 ValueNotifier<int> navIndexListener = ValueNotifier<int>(0);
 
@@ -52,7 +52,12 @@ class _BNavState extends State<BNav> {
           selectedIndex: navIndexListener.value,
           onButtonPressed: (index) {
             navIndexListener.value = index;
-            Pages.currPageIndex.value = index;
+            pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOutQuad,
+            );
+            // pageController =
           },
         );
         // return SweetNavBar(

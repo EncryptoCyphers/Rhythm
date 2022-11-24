@@ -2,21 +2,18 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/pages/onboarding_screen.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 // import 'package:music_player_app/widgets/bottomNavigationBar.dart';
 import '../pages/about_page.dart';
-import '../pages/settings.dart';
 import '../pages/downloads.dart';
 import '../pages/playlist.dart';
-import '../pages/switch_pages.dart';
+import '../services/switch_pages.dart';
 import '../widgets/b_nav.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key, required this.audioPlayer}) : super(key: key);
-  final AudioPlayer audioPlayer;
+  const DrawerMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +75,11 @@ class DrawerMenu extends StatelessWidget {
                 ),
                 onTap: () {
                   navIndexListener.value = 0; //To build navbar
-                  Pages.currPageIndex.value = 0;
+                  pageController.animateToPage(
+                    0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  );
                   Navigator.pop(context); //to pop out the drawer instantly
                 },
               ),
@@ -96,7 +97,11 @@ class DrawerMenu extends StatelessWidget {
                 ),
                 onTap: () {
                   navIndexListener.value = 2; //To build navbar
-                  Pages.currPageIndex.value = 2; //To build pages
+                  pageController.animateToPage(
+                    2,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  ); //To build pages
                   Navigator.pop(context); //to pop out the drawer instantly
                 },
               ),
@@ -153,11 +158,13 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  navIndexListener.value = 3; //To build navbar
+                  pageController.animateToPage(
+                    3,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  ); //To build pages
                   Navigator.pop(context); //to pop out the drawer instantly
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Settings()));
                 },
               ),
               ListTile(
@@ -234,9 +241,8 @@ class DrawerMenu extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => OnboardingPage(
-                                      audioPlayer: audioPlayer,
-                                    ),
+                                    builder: (context) =>
+                                        const OnboardingPage(),
                                   ),
                                 );
                               } else {
