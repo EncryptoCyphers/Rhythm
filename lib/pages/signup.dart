@@ -262,12 +262,29 @@ class _SignUpState extends State<SignUp> {
                       CollectionReference users =
                           FirebaseFirestore.instance.collection('Rhythm_Users');
                       users
-                          .add({
+                          .doc(_emailController.text)
+                          .set({
                             'email': _emailController.text, // John Doe
                           })
                           .then((value) => print("User Added"))
                           .catchError(
                               (error) => print("Failed to add user: $error"));
+
+/*
+for getting document data from the document later it will be required....
+
+FirebaseFirestore.instance
+.collection('Rhythm_Users')
+.doc(_emailcontroller.text)
+.get()
+.then((DocumentSnapshot documentSnapshot) {
+if (documentSnapshot.exists) {
+print('Document data: ${documentSnapshot.data()}');
+} else {
+print('Document does not exist on the database');
+}
+});
+                           */
                       setState(() {
                         Navigator.push(
                           context,
