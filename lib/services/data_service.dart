@@ -1,26 +1,26 @@
 import 'package:http/http.dart' as http;
+import 'package:music_player_app/services/json_object_model.dart';
+import 'dart:convert';
 
 class DataService {
   void getMusic(String song) async {
-    var headers = {
-      'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
-      'X-RapidAPI-Key': 'ebafd79f5amshaaf8f6feaebdb5ap1ca9e0jsn50fe88928cac',
-    };
-
-    var params = {
+    //https://youtube.googleapis.com/youtube/v3/search?q=demons&key=[YOUR_API_KEY]
+    final queryParameters = {
+      'maxResults': '10',
       'q': song,
-      'type': 'tracks',
-      'offset': '0',
-      'limit': '10',
-      'numberOfTopResults': '5',
+      'key': 'AIzaSyAbHt9yfNyLiY6ZgS_oVizXI6MzxajMC7s'
     };
-    var query = params.entries.map((p) => '${p.key}=${p.value}').join('&');
+    final uri = Uri.https(
+        'youtube.googleapis.com', '/youtube/v3/search', queryParameters);
 
-    var url = Uri.parse('https://spotify23.p.rapidapi.com/search/?$query');
-    var res = await http.get(url, headers: headers);
-    if (res.statusCode != 200) {
-      throw Exception('http.get error: statusCode= ${res.statusCode}');
+    final response = await http.get(uri);
+    //print(response.body);
+
+    SongList songList = SongList.fromJson(jsonDecode(response.body));
+    /*
+    for (var i = 0; i < songList.items.length; i++) {
+      print(songList.items[i].id.videoId);
     }
-    //print(res.body);
+    */
   }
 }
