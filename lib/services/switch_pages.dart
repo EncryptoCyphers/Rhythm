@@ -6,11 +6,10 @@ import 'package:music_player_app/pages/web.dart';
 
 import '../widgets/b_nav.dart';
 
-var pageController = PageController(initialPage: 0);
-
 class Pages extends StatelessWidget {
-  const Pages({super.key, required this.nm});
+  const Pages({super.key, required this.nm, required this.pageController});
   final String nm;
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {

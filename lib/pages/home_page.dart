@@ -11,15 +11,29 @@ import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import 'mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
+import '../pages/home.dart';
+import '../pages/web.dart';
+import '../pages/songs.dart';
+import '../pages/settings.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({
     required this.nm,
   });
   String nm;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final pageController = PageController(initialPage: 0);
   DateTime timeBackPressed = DateTime.now();
+
   final _dataService = DataService();
+
   final _musicController = TextEditingController();
+
   @override
   @override
   Widget build(BuildContext context) {
@@ -91,7 +105,9 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const DrawerMenu(),
+      drawer: DrawerMenu(
+        pageController: pageController,
+      ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -104,7 +120,9 @@ class HomePage extends StatelessWidget {
               if (minPlayerHeight <= 100) {
                 // print('in');
                 // return const BottomNavBar();
-                return const BNav();
+                return BNav(
+                  pageController: pageController,
+                );
               } else {
                 return SizedBox(
                   height: 0,
@@ -116,13 +134,11 @@ class HomePage extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          // Defined in switch_pages.dart
-          Pages(
-            nm: nm,
-          ),
-        ],
+
+      // Defined in switch_pages.dart
+      body: Pages(
+        nm: widget.nm,
+        pageController: pageController,
       ),
     );
   }

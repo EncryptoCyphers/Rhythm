@@ -9,11 +9,12 @@ import 'package:music_player_app/services/screen_sizes.dart';
 import '../pages/about_page.dart';
 import '../pages/downloads.dart';
 import '../pages/playlist.dart';
-import '../services/switch_pages.dart';
+// import '../services/switch_pages.dart';
 import '../widgets/b_nav.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key}) : super(key: key);
+  const DrawerMenu({Key? key, required this.pageController}) : super(key: key);
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
