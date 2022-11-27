@@ -198,8 +198,12 @@ class _TracksState extends State<Tracks> {
                     //
                     //...... Song Card  Widget......................................//
                     //
-                    return Card(
+                    return Container(
+                      padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
                       child: ListTile(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        // tileColor: Colors.black26,
                         //
                         //
                         //
@@ -210,6 +214,8 @@ class _TracksState extends State<Tracks> {
                           id: allSongs[index].id,
                           type: ArtworkType.AUDIO,
                           nullArtworkWidget: const Icon(Icons.music_note),
+                          artworkBorder:
+                              const BorderRadius.all(Radius.circular(10)),
                         ),
                         //
                         //
@@ -219,7 +225,8 @@ class _TracksState extends State<Tracks> {
                         //
                         title: Text(
                           allSongs[index].displayNameWOExt,
-                          maxLines: 2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         //
                         //

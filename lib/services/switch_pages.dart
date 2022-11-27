@@ -30,7 +30,7 @@ class _PagesState extends State<Pages> {
           ),
           const WebPage(),
           const Tracks(),
-          const Settings()
+          const Settings(),
         ],
       ),
     );

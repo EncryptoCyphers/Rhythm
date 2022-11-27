@@ -190,6 +190,7 @@ class MiniArtWork extends StatelessWidget {
           artworkQuality: FilterQuality.high,
           artworkHeight: 60,
           artworkWidth: 60,
+          artworkBorder: const BorderRadius.all(Radius.circular(10)),
         );
       },
     );
