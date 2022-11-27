@@ -27,9 +27,24 @@ class _TracksState extends State<Tracks> {
   void initState() {
     // ignore: todo
     // TODO: implement initState
+
     super.initState();
-    getStoragePermissionOnce();
-    // getAllSongList();
+    setPrevPermissionPreference();
+  }
+
+  setPrevPermissionPreference() async {
+    SharedPreferences? prefs = await SharedPreferences.getInstance();
+    (prefs.getBool('prevPermissionPreferenceHasValue') != null)
+        ? prevPermissionPreference = true
+        : prevPermissionPreference = false;
+    if (prevPermissionPreference! == false) {
+      getStoragePermission();
+    }
+    if (await Permission.storage.isGranted) {
+      storagePermissionListener.value = await Permission.storage.isGranted;
+      await getAllSongList();
+    }
+    prefs.setBool('prevPermissionPreferenceHasValue', true);
   }
 
   //
@@ -54,33 +69,34 @@ class _TracksState extends State<Tracks> {
     );
   }
 
-  //
-  //
-  //
-  //
-  //...............Permission Functions ................................................................................//
-  //
-  Future getStoragePermissionOnce() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prevPermissionPreference =
-        (prefs.getBool('prevPermissionPreference') != null)
-            ? prefs.getBool('prevPermissionPreference')
-            : false;
-    if (!prevPermissionPreference!) {
-      getStoragePermission();
-    }
-    prefs.setBool('prevPermissionPreference', true);
-  }
+  // //
+  // //
+  // //
+  // //
+  // //...............Permission Functions ................................................................................//
+  // //
+  // Future getStoragePermissionOnce() async {
+  //   if (prevPermissionPreference! == false) {
+  //     getStoragePermission();
+  //   } else {
+  //     storagePermissionListener.value = await Permission.storage.isGranted;
+  //     await getAllSongList();
+  //   }
+  //   storagePermissionListener.value = await Permission.storage.isGranted;
+  //   // print(prevPermissionPreference!);
+  //   // print(storagePermissionListener.value);
+  //   prefs.setBool('prevPermissionPreference', true);
+  // }
 
   Future getStoragePermission() async {
     if (await Permission.storage.request().isGranted) {
-      getAllSongList();
-      storagePermissionListener.value = true;
+      storagePermissionListener.value = await Permission.storage.isGranted;
+      await getAllSongList();
     } else if (await Permission.storage.request().isPermanentlyDenied) {
       await openAppSettings();
       if (await Permission.storage.request().isGranted) {
-        getAllSongList();
-        storagePermissionListener.value = true;
+        storagePermissionListener.value = await Permission.storage.isGranted;
+        await getAllSongList();
       }
     }
   }
