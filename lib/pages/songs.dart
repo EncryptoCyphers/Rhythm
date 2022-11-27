@@ -38,7 +38,12 @@ class _TracksState extends State<Tracks> {
       uriType: UriType.EXTERNAL,
       ignoreCase: true,
     );
-    circularIndicatorWidgetListener.value = false;
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        circularIndicatorWidgetListener.value = false;
+      },
+    );
   }
 
   Future getStoragePermission() async {
@@ -58,47 +63,47 @@ class _TracksState extends State<Tracks> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: circularIndicatorWidgetListener,
+      valueListenable: storagePermissionListener,
       builder: (BuildContext context, bool permission, Widget? child) {
         if (storagePermissionListener.value == false) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Storage Permission is Denied'),
+              SizedBox(
+                height: logicalHeight * 0.03,
+              ),
+              const Text('Provide Storage Permission'),
+              const Text(
+                '↓',
+                textScaleFactor: 1.5,
+              ),
+              SizedBox(
+                height: logicalHeight * 0.02,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 10,
+                  backgroundColor: Colors.deepPurple,
+                  padding: const EdgeInsets.all(12),
+                  animationDuration: const Duration(seconds: 2),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadowColor: Colors.redAccent,
+                ),
+                onPressed: getStoragePermission,
+                child: const Text('Grant Permission'),
+              )
+            ],
           );
         } else {
           return ValueListenableBuilder<bool>(
-            valueListenable: storagePermissionListener,
+            valueListenable: circularIndicatorWidgetListener,
             builder: (BuildContext context, bool permission, Widget? child) {
-              if (storagePermissionListener.value == false) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Storage Permission is Denied'),
-                    SizedBox(
-                      height: logicalHeight * 0.03,
-                    ),
-                    const Text('Provide Storage Permission'),
-                    const Text(
-                      '↓',
-                      textScaleFactor: 1.5,
-                    ),
-                    SizedBox(
-                      height: logicalHeight * 0.02,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 10,
-                        backgroundColor: Colors.deepPurple,
-                        padding: const EdgeInsets.all(12),
-                        animationDuration: const Duration(seconds: 2),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        shadowColor: Colors.redAccent,
-                      ),
-                      onPressed: getStoragePermission,
-                      child: const Text('Grant Permission'),
-                    )
-                  ],
+              if (circularIndicatorWidgetListener.value == true) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
               } else {
                 if (allSongs.isEmpty) {
