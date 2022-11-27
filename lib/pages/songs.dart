@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 //.............................Created Imports....................................................................//
 import 'full_player.dart';
 import 'mini_player.dart';
@@ -10,7 +10,8 @@ import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;
 var dummy = bool;
-//Gets Current time and Duration...........................................................................//
+
+bool? prevPermissionPreference;
 
 ValueNotifier<bool> storagePermissionListener = ValueNotifier<bool>(false);
 ValueNotifier<bool> circularIndicatorWidgetListener = ValueNotifier<bool>(true);
@@ -27,10 +28,17 @@ class _TracksState extends State<Tracks> {
     // ignore: todo
     // TODO: implement initState
     super.initState();
-    getStoragePermission();
-    getAllSongList();
+    getStoragePermissionOnce();
+    // getAllSongList();
   }
 
+  //
+  //
+  //
+  //
+  //.........Get Songs Function.......................................................
+  //
+  final _audioQuery = OnAudioQuery();
   Future getAllSongList() async {
     allSongs = await _audioQuery.querySongs(
       sortType: null,
@@ -38,7 +46,7 @@ class _TracksState extends State<Tracks> {
       uriType: UriType.EXTERNAL,
       ignoreCase: true,
     );
-    Future.delayed(
+    await Future.delayed(
       const Duration(milliseconds: 500),
       () {
         circularIndicatorWidgetListener.value = false;
@@ -46,25 +54,55 @@ class _TracksState extends State<Tracks> {
     );
   }
 
+  //
+  //
+  //
+  //
+  //...............Permission Functions ................................................................................//
+  //
+  Future getStoragePermissionOnce() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prevPermissionPreference =
+        (prefs.getBool('prevPermissionPreference') != null)
+            ? prefs.getBool('prevPermissionPreference')
+            : false;
+    if (!prevPermissionPreference!) {
+      getStoragePermission();
+    }
+    prefs.setBool('prevPermissionPreference', true);
+  }
+
   Future getStoragePermission() async {
     if (await Permission.storage.request().isGranted) {
+      getAllSongList();
       storagePermissionListener.value = true;
     } else if (await Permission.storage.request().isPermanentlyDenied) {
       await openAppSettings();
       if (await Permission.storage.request().isGranted) {
+        getAllSongList();
         storagePermissionListener.value = true;
       }
     }
   }
 
-  //final  _audioPlayer = widget.audioPlayer;
-  final _audioQuery = OnAudioQuery();
-
+  //
+  //
+  //
+  //
   @override
   Widget build(BuildContext context) {
+    //
+    //
+    //......Storage Permission Listenable Builder......................................//
+    //
     return ValueListenableBuilder<bool>(
       valueListenable: storagePermissionListener,
       builder: (BuildContext context, bool permission, Widget? child) {
+        //
+        //
+        //
+        //......No Permission Widget......................................//
+        //
         if (storagePermissionListener.value == false) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -97,15 +135,47 @@ class _TracksState extends State<Tracks> {
               )
             ],
           );
-        } else {
+        }
+        //
+        //
+        //
+        //
+        //......Yes Permission Widget......................................//
+        //
+        else {
+          //
+          //
+          //
+          //
+          //......Circular Indicator Listenable Builder......................................//
+          //
           return ValueListenableBuilder<bool>(
             valueListenable: circularIndicatorWidgetListener,
             builder: (BuildContext context, bool permission, Widget? child) {
+              //
+              //
+              //
+              //
+              //......Yes Song Loading  Widget......................................//
+              //
               if (circularIndicatorWidgetListener.value == true) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else {
+              }
+              //
+              //
+              //
+              //
+              //......Song Loaded  Widget......................................//
+              //
+              else {
+                //
+                //
+                //
+                //
+                //......Empty List  Widget......................................//
+                //
                 if (allSongs.isEmpty) {
                   return const Center(
                     child: Text(
@@ -113,24 +183,64 @@ class _TracksState extends State<Tracks> {
                     ),
                   );
                 }
+                //
+                //
+                //
+                //
+                //...... List builder  Widget......................................//
+                //
                 return ListView.builder(
                   itemCount: allSongs.length,
                   itemBuilder: ((context, index) {
-                    // allSongs.clear();
-                    // allSongs.addAll(item.data);
+                    //
+                    //
+                    //
+                    //
+                    //...... Song Card  Widget......................................//
+                    //
                     return Card(
                       child: ListTile(
+                        //
+                        //
+                        //
+                        //
+                        //...... Artwork ......................................//
+                        //
                         leading: QueryArtworkWidget(
                           id: allSongs[index].id,
                           type: ArtworkType.AUDIO,
                           nullArtworkWidget: const Icon(Icons.music_note),
                         ),
+                        //
+                        //
+                        //
+                        //
+                        //...... Song Name  ......................................//
+                        //
                         title: Text(
                           allSongs[index].displayNameWOExt,
                           maxLines: 2,
                         ),
+                        //
+                        //
+                        //
+                        //
+                        //...... Artist Name  ......................................//
+                        //
                         subtitle: Text(allSongs[index].artist.toString()),
+                        //
+                        //
+                        //
+                        //
+                        //...... left Button  ......................................//
+                        //
                         trailing: const Icon(Icons.more_horiz),
+                        //
+                        //
+                        //
+                        //
+                        //...... Song OnTap ......................................//
+                        //
                         onTap: () {
                           isPlayingListenable.value = true;
                           miniPlayerVisibilityListenable.value = true;
