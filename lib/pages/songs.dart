@@ -64,14 +64,20 @@ class _TracksState extends State<Tracks> {
       ignoreCase: true,
     );
     await Future.delayed(
-      const Duration(milliseconds: 100),
+      const Duration(milliseconds: 500),
       () {
         circularIndicatorWidgetListener.value = false;
       },
     );
   }
 
-  runShimmerEffect() async {
+  // //
+  // //
+  // //
+  // //
+  // //...............Async to run Future Builder................................................................................//
+  // //
+  Future<bool> runShimmerEffect() async {
     return Permission.storage.isGranted;
   }
 
@@ -84,13 +90,13 @@ class _TracksState extends State<Tracks> {
   Future<bool> getStoragePermission() async {
     if (await Permission.storage.request().isGranted) {
       storagePermissionListener.value = await Permission.storage.isGranted;
-      runShimmerEffect();
+      await runShimmerEffect();
       await getAllSongList();
     } else if (await Permission.storage.request().isPermanentlyDenied) {
       await openAppSettings();
       if (await Permission.storage.request().isGranted) {
         storagePermissionListener.value = await Permission.storage.isGranted;
-        runShimmerEffect();
+        await runShimmerEffect();
         await getAllSongList();
       }
     }
@@ -109,7 +115,7 @@ class _TracksState extends State<Tracks> {
     //
     return FutureBuilder<bool>(
       future:
-          getStoragePermission(), // a previously-obtained Future<String> or null
+          runShimmerEffect(), // a previously-obtained Future<String> or null
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ValueListenableBuilder<bool>(
