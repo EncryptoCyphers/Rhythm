@@ -23,43 +23,46 @@ class _BNavState extends State<BNav> {
     return ValueListenableBuilder<int>(
       valueListenable: navIndexListener,
       builder: (BuildContext context, int value, Widget? child) {
-        return SlidingClippedNavBar.colorful(
-          barItems: <BarItem>[
-            BarItem(
-              icon: Icons.home_rounded,
-              title: 'Home',
-              activeColor: Colors.blue,
-              inactiveColor: Colors.orange,
-            ),
-            BarItem(
-              icon: Icons.cloud,
-              title: 'Web',
-              activeColor: Colors.pink,
-              inactiveColor: Colors.green,
-            ),
-            BarItem(
-              icon: Icons.sd_storage_rounded,
-              title: 'Local',
-              activeColor: Colors.teal,
-              inactiveColor: Colors.red,
-            ),
-            BarItem(
-              icon: Icons.settings,
-              title: 'Settings',
-              activeColor: Colors.cyan,
-              inactiveColor: Colors.deepPurple,
-            ),
-          ],
-          selectedIndex: navIndexListener.value,
-          onButtonPressed: (index) {
-            navIndexListener.value = index;
-            widget.pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOutQuad,
-            );
-            // pageController =
-          },
+        return SizedBox(
+          height: 60,
+          child: SlidingClippedNavBar.colorful(
+            barItems: <BarItem>[
+              BarItem(
+                icon: Icons.home_rounded,
+                title: 'Home',
+                activeColor: Colors.blue,
+                inactiveColor: Colors.orange,
+              ),
+              BarItem(
+                icon: Icons.cloud,
+                title: 'Web',
+                activeColor: Colors.pink,
+                inactiveColor: Colors.green,
+              ),
+              BarItem(
+                icon: Icons.sd_storage_rounded,
+                title: 'Local',
+                activeColor: Colors.teal,
+                inactiveColor: Colors.red,
+              ),
+              BarItem(
+                icon: Icons.settings,
+                title: 'Settings',
+                activeColor: Colors.cyan,
+                inactiveColor: Colors.deepPurple,
+              ),
+            ],
+            selectedIndex: navIndexListener.value,
+            onButtonPressed: (index) {
+              navIndexListener.value = index;
+              widget.pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOutQuad,
+              );
+              // pageController =
+            },
+          ),
         );
         // return SweetNavBar(
         //   // paddingGradientColor: iconLinearGradiant,
