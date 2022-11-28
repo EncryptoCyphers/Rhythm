@@ -22,7 +22,6 @@ List<SearchedWebSong> webSongList = [];
 
 class DataService {
   void getMusic(String song) async {
-    isSearchLoading.value = true;
     //------------------------------------------API Query and API Call--------------------------------------//
     final queryParameters = {
       'maxResults': '10',
@@ -52,8 +51,10 @@ class DataService {
       searchedWebSong.artist = streamInfo.author;
       searchedWebSong.duration = streamInfo.duration;
       searchedWebSong.isPlaying = false;
-      print('Fetching Songs');
+      // print('Fetching Songs');
       webSongList.add(searchedWebSong);
+      yt.close();
+      // print(isSearchLoading.value);
     }
     isSearchLoading.value = false;
     searchHappened.value = !searchHappened.value;
