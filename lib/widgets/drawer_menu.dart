@@ -239,13 +239,16 @@ class DrawerMenu extends StatelessWidget {
                                 .authStateChanges()
                                 .listen((User? user) {
                               if (user == null) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OnboardingPage(),
-                                  ),
-                                );
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         const OnboardingPage(),
+                                //   ),
+                                // );
+                                while (Navigator.canPop(context)) {
+                                  Navigator.pop(context);
+                                }
                               } else {
                                 // print('User is signed in!');
                               }
