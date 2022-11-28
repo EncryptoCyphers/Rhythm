@@ -239,7 +239,7 @@ class DrawerMenu extends StatelessWidget {
                                 .authStateChanges()
                                 .listen((User? user) {
                               if (user == null) {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
