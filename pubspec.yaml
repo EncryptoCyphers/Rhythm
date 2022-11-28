@@ -55,6 +55,7 @@ dependencies:
   cloud_firestore: ^4.1.0
   firebase_app_check: ^0.1.1+5
   shared_preferences: ^2.0.15
+  youtube_data_api: ^1.0.4
   
 dev_dependencies:
   flutter_test:
