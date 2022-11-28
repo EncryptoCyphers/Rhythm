@@ -24,30 +24,31 @@ class _BNavState extends State<BNav> {
       valueListenable: navIndexListener,
       builder: (BuildContext context, int value, Widget? child) {
         return SlidingClippedNavBar.colorful(
+          backgroundColor: Color.fromARGB(255, 82, 46, 145),
           barItems: <BarItem>[
             BarItem(
               icon: Icons.home_rounded,
               title: 'Home',
-              activeColor: Colors.blue,
-              inactiveColor: Colors.orange,
+              activeColor: Colors.cyanAccent,
+              inactiveColor: Colors.orangeAccent,
             ),
             BarItem(
-              icon: Icons.youtube_searched_for_rounded,
+              icon: Icons.youtube_searched_for,
               title: 'YT Music',
-              activeColor: Colors.pink,
-              inactiveColor: Colors.green,
+              activeColor: Colors.cyanAccent,
+              inactiveColor: Colors.orangeAccent,
             ),
             BarItem(
-              icon: Icons.play_lesson_rounded,
+              icon: Icons.play_lesson,
               title: 'Local',
-              activeColor: Colors.teal,
-              inactiveColor: Colors.red,
+              activeColor: Colors.cyanAccent,
+              inactiveColor: Colors.orangeAccent,
             ),
             BarItem(
               icon: Icons.settings,
               title: 'Settings',
-              activeColor: Colors.cyan,
-              inactiveColor: Colors.deepPurple,
+              activeColor: Colors.cyanAccent,
+              inactiveColor: Colors.orangeAccent,
             ),
           ],
           selectedIndex: navIndexListener.value,
