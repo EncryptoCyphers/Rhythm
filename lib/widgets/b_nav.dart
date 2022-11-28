@@ -32,13 +32,13 @@ class _BNavState extends State<BNav> {
               inactiveColor: Colors.orange,
             ),
             BarItem(
-              icon: Icons.cloud,
-              title: 'Web',
+              icon: Icons.youtube_searched_for_rounded,
+              title: 'YT Music',
               activeColor: Colors.pink,
               inactiveColor: Colors.green,
             ),
             BarItem(
-              icon: Icons.sd_storage_rounded,
+              icon: Icons.play_lesson_rounded,
               title: 'Local',
               activeColor: Colors.teal,
               inactiveColor: Colors.red,
