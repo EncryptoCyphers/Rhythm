@@ -23,44 +23,47 @@ class _BNavState extends State<BNav> {
     return ValueListenableBuilder<int>(
       valueListenable: navIndexListener,
       builder: (BuildContext context, int value, Widget? child) {
-        return SlidingClippedNavBar.colorful(
-          backgroundColor: Colors.white,
-          barItems: <BarItem>[
-            BarItem(
-              icon: Icons.home_rounded,
-              title: 'Home',
-              activeColor: Colors.pink,
-              inactiveColor: Colors.teal,
-            ),
-            BarItem(
-              icon: Icons.youtube_searched_for,
-              title: 'YT Music',
-              activeColor: Colors.pink,
-              inactiveColor: Colors.deepOrange,
-            ),
-            BarItem(
-              icon: Icons.play_lesson,
-              title: 'Local',
-              activeColor: Colors.pink,
-              inactiveColor: Colors.deepPurple,
-            ),
-            BarItem(
-              icon: Icons.settings,
-              title: 'Settings',
-              activeColor: Colors.pink,
-              inactiveColor: Colors.red,
-            ),
-          ],
-          selectedIndex: navIndexListener.value,
-          onButtonPressed: (index) {
-            navIndexListener.value = index;
-            widget.pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOutQuad,
-            );
-            // pageController =
-          },
+        return SizedBox(
+          height: 60,
+          child: SlidingClippedNavBar.colorful(
+            backgroundColor: Colors.white,
+            barItems: <BarItem>[
+              BarItem(
+                icon: Icons.home_rounded,
+                title: 'Home',
+                activeColor: Colors.pink,
+                inactiveColor: Colors.teal,
+              ),
+              BarItem(
+                icon: Icons.youtube_searched_for,
+                title: 'YT Music',
+                activeColor: Colors.pink,
+                inactiveColor: Colors.deepOrange,
+              ),
+              BarItem(
+                icon: Icons.play_lesson,
+                title: 'Local',
+                activeColor: Colors.pink,
+                inactiveColor: Colors.deepPurple,
+              ),
+              BarItem(
+                icon: Icons.settings,
+                title: 'Settings',
+                activeColor: Colors.pink,
+                inactiveColor: Colors.red,
+              ),
+            ],
+            selectedIndex: navIndexListener.value,
+            onButtonPressed: (index) {
+              navIndexListener.value = index;
+              widget.pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOutQuad,
+              );
+              // pageController =
+            },
+          ),
         );
         // return SweetNavBar(
         //   // paddingGradientColor: iconLinearGradiant,

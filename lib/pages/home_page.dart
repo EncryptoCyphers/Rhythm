@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:music_player_app/pages/web.dart';
 import 'package:music_player_app/services/switch_pages.dart';
-import 'package:music_player_app/services/data_service.dart';
+import 'package:music_player_app/services/data_service_and_song_query.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 60,
         // leading: IconButton(
         //   icon: const Icon(Icons.menu),
         //   onPressed: () {
@@ -95,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                   //hintTextColour: Colors.deepPurple,
                   enableKeyboardFocus: true,
                   onFieldSubmitted: (String value) {
+                    isSearchLoading.value = true;
                     _dataService.getMusic(_musicController.text);
                   }),
             ),
