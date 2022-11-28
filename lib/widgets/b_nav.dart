@@ -26,30 +26,31 @@ class _BNavState extends State<BNav> {
         return SizedBox(
           height: 60,
           child: SlidingClippedNavBar.colorful(
+            backgroundColor: Colors.white,
             barItems: <BarItem>[
               BarItem(
                 icon: Icons.home_rounded,
                 title: 'Home',
-                activeColor: Colors.blue,
-                inactiveColor: Colors.orange,
-              ),
-              BarItem(
-                icon: Icons.cloud,
-                title: 'Web',
                 activeColor: Colors.pink,
-                inactiveColor: Colors.green,
+                inactiveColor: Colors.teal,
               ),
               BarItem(
-                icon: Icons.sd_storage_rounded,
+                icon: Icons.youtube_searched_for,
+                title: 'YT Music',
+                activeColor: Colors.pink,
+                inactiveColor: Colors.deepOrange,
+              ),
+              BarItem(
+                icon: Icons.play_lesson,
                 title: 'Local',
-                activeColor: Colors.teal,
-                inactiveColor: Colors.red,
+                activeColor: Colors.pink,
+                inactiveColor: Colors.deepPurple,
               ),
               BarItem(
                 icon: Icons.settings,
                 title: 'Settings',
-                activeColor: Colors.cyan,
-                inactiveColor: Colors.deepPurple,
+                activeColor: Colors.pink,
+                inactiveColor: Colors.red,
               ),
             ],
             selectedIndex: navIndexListener.value,
