@@ -1,8 +1,10 @@
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:music_player_app/pages/web.dart';
-import 'package:music_player_app/services/json_object_model.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-import 'dart:convert';
+//import 'package:music_player_app/services/json_object_model.dart';
+//import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:youtube_data_api/youtube_data_api.dart';
+import 'package:youtube_data_api/models/video.dart';
+//import 'dart:convert';
 
 //----------------------------------------Searched Song Class Model--------------------------------------//
 class SearchedWebSong {
@@ -21,8 +23,9 @@ class SearchedWebSong {
 List<SearchedWebSong> webSongList = [];
 
 class DataService {
-  void getMusic(String song) async {
+  void getMusic(String songQuery) async {
     //------------------------------------------API Query and API Call--------------------------------------//
+    /*
     final queryParameters = {
       'maxResults': '10',
       'q': song,
@@ -41,7 +44,7 @@ class DataService {
     for (var i = 0; i < songList.items.length; i++) {
       var songId = songList.items[i].id.videoId;
 
-      var yt = YoutubeExplode();
+      //var yt = YoutubeExplode();
       var streamInfo = await yt.videos.get(songId);
 
       SearchedWebSong searchedWebSong = SearchedWebSong();
@@ -56,6 +59,23 @@ class DataService {
       yt.close();
       // print(isSearchLoading.value);
     }
+    */
+    YoutubeDataApi youtubeDataApi = YoutubeDataApi();
+    List searchResult = await youtubeDataApi.fetchSearchVideo(
+        songQuery, 'AIzaSyAbHt9yfNyLiY6ZgS_oVizXI6MzxajMC7s');
+    webSongList = [];
+    for (var element in searchResult) {
+      if (element is Video) {
+        SearchedWebSong searchedWebSong = SearchedWebSong();
+        searchedWebSong.id = element.videoId;
+        searchedWebSong.title = element.title;
+        searchedWebSong.artist = element.channelName;
+        searchedWebSong.duration = element.duration;
+        searchedWebSong.isPlaying = false;
+        webSongList.add(searchedWebSong);
+      }
+    }
+
     isSearchLoading.value = false;
     searchHappened.value = !searchHappened.value;
   }

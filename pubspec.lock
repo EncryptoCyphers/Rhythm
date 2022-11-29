@@ -812,6 +812,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  youtube_data_api:
+    dependency: "direct main"
+    description:
+      name: youtube_data_api
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   youtube_explode_dart:
     dependency: "direct main"
     description:
