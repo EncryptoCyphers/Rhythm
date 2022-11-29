@@ -36,35 +36,23 @@ class _SignUpState extends State<SignUp> {
         title: const Text('Sign Up'),
         elevation: 8,
         centerTitle: true,
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.deepPurple,
       ),
       body: Form(
         key: _formkey,
         child: ListView(
           children: [
             const SizedBox(
-              height: 60,
+              height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(
-                  Icons.edit,
-                  color: Colors.deepPurple,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Create Account',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
-                  ),
-                ),
-              ],
+            const Text(
+              'Create Account',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+              ),
             ),
             SizedBox(
               height: 200,
@@ -82,18 +70,26 @@ class _SignUpState extends State<SignUp> {
                 autofocus: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.email_rounded,
+                    color: Colors.deepPurple,
+                  ),
                   labelText: 'Email',
+                  floatingLabelStyle: const TextStyle(
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold,
+                  ),
                   hintText: 'Enter valid email e.g. test@gmail.com',
                   labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 3,
                     ),
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 2.0,
                     ),
                   ),
@@ -119,23 +115,33 @@ class _SignUpState extends State<SignUp> {
               child: TextFormField(
                 autofocus: false,
                 obscureText: true,
-                cursorColor: Colors.purple,
+                cursorColor: Colors.deepPurple,
                 decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.key_rounded,
+                    color: Colors.deepPurple,
+                  ),
                   hintText: 'Minimum password length 6',
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 3,
                     ),
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 2.0,
                     ),
                   ),
                   labelText: 'Password',
-                  labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  floatingLabelStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                  labelStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -160,22 +166,30 @@ class _SignUpState extends State<SignUp> {
               child: TextFormField(
                 autofocus: false,
                 obscureText: true,
-                cursorColor: Colors.purple,
+                cursorColor: Colors.deepPurple,
                 decoration: InputDecoration(
+                  prefixIcon: const Icon(
+                    Icons.lock_rounded,
+                    color: Colors.deepPurple,
+                  ),
                   hintText: 'Please re-enter your password',
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 3,
                     ),
                   ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 2.0,
                     ),
                   ),
                   labelText: 'Confirm Password',
+                  floatingLabelStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
                   labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -205,13 +219,13 @@ class _SignUpState extends State<SignUp> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
-                  backgroundColor: Colors.purple,
+                  backgroundColor: Colors.deepPurple,
                   padding: const EdgeInsets.all(12),
                   animationDuration: const Duration(seconds: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  shadowColor: Colors.purple,
+                  shadowColor: Colors.pinkAccent,
                 ),
                 child: isLoading
                     ? Row(

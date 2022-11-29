@@ -84,17 +84,26 @@ class _PasswordResetState extends State<PasswordReset> {
                 autofocus: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
+                  floatingLabelStyle: const TextStyle(
+                    color: Colors.deepPurple,
+                    fontWeight: FontWeight.bold,
+                  ),
                   labelText: 'Email',
                   labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 3,
                     ),
                   ),
+                  hintText: 'Please enter a valid Email',
+                  prefixIcon: const Icon(
+                    Icons.email,
+                    color: Colors.pink,
+                  ),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.purple,
+                      color: Colors.deepPurple,
                       width: 2.0,
                     ),
                   ),
@@ -132,7 +141,7 @@ class _PasswordResetState extends State<PasswordReset> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    Icon(Icons.email_rounded),
+                    Icon(Icons.lock_rounded),
                     Text(
                       '  Reset Password',
                       style: TextStyle(

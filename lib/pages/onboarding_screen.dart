@@ -113,9 +113,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       'Sign In',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple),
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),
                     ),
                     const SizedBox(
                       height: 40,
@@ -127,17 +128,26 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: 'Email',
+                          hintText: 'Please enter your email',
+                          prefixIcon: const Icon(
+                            Icons.email_rounded,
+                            color: Colors.deepPurple,
+                          ),
+                          floatingLabelStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
                           labelStyle:
                               const TextStyle(fontWeight: FontWeight.bold),
                           focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.purple,
+                              color: Colors.deepPurple,
                               width: 3,
                             ),
                           ),
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.purple,
+                              color: Colors.deepPurple,
                               width: 2.0,
                             ),
                           ),
@@ -163,21 +173,29 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       child: TextFormField(
                         autofocus: false,
                         obscureText: true,
-                        cursorColor: Colors.purple,
                         decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.purple,
+                              color: Colors.deepPurple,
                               width: 3,
                             ),
                           ),
                           enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Colors.purple,
+                              color: Colors.deepPurple,
                               width: 2.0,
                             ),
                           ),
+                          prefixIcon: const Icon(
+                            Icons.lock,
+                            color: Colors.deepPurple,
+                          ),
                           labelText: 'Password',
+                          hintText: 'Please enter your password',
+                          floatingLabelStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.deepPurple,
+                          ),
                           labelStyle:
                               const TextStyle(fontWeight: FontWeight.bold),
                           border: OutlineInputBorder(
@@ -217,7 +235,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         child: const Text(
                           'Not a member? Create account here',
                           style: TextStyle(
-                            color: Colors.purple,
+                            color: Colors.deepPurple,
                             fontSize: 16,
                           ),
                         ),
