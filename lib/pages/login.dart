@@ -41,8 +41,8 @@ class _LoginState extends State<Login> {
             // isDrawerOpen.value = false;
 
             return HomePage(
-              // nm: user!.email.toString().split('@')[0],
-              nm: getData(user!.email.toString()),
+              nm: user!.email.toString().split('@')[0],
+              // nm: getData(user!.email.toString()),
             );
           } else {
             return const OnboardingPage();
