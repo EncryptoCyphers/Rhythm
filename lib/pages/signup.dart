@@ -287,7 +287,7 @@ class _SignUpState extends State<SignUp> {
                               (error) => print("Failed to add user: $error"));
 
                       setState(() {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
