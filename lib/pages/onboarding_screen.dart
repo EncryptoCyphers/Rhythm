@@ -8,6 +8,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// ignore: prefer_typing_uninitialized_variables
 var username;
 
 class OnboardingPage extends StatefulWidget {
@@ -30,7 +31,7 @@ String getData(String email) {
       username = email.split('@')[0];
     }
   });
-  print(username);
+  // print(username);
   return username;
 }
 

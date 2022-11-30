@@ -262,6 +262,7 @@ class _SignUpState extends State<SignUp> {
                   //Sign Up Method
                   if (_formkey.currentState!.validate()) {
                     try {
+                      // ignore: unused_local_variable
                       UserCredential userCredential = await FirebaseAuth
                           .instance
                           .createUserWithEmailAndPassword(
