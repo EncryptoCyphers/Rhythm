@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_unnecessary_containers, duplicate_ignore
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/home_page.dart';
 import 'package:music_player_app/pages/password_reset.dart';
@@ -7,12 +8,30 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+var username;
+
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({
     Key? key,
   }) : super(key: key);
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
+}
+
+String getData(String email) {
+  FirebaseFirestore.instance
+      .collection('Rhythm_Users')
+      .doc(email)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      username = documentSnapshot.get("username").toString();
+    } else {
+      username = email.split('@')[0];
+    }
+  });
+  print(username);
+  return username;
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
@@ -305,37 +324,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   shadowColor: Colors.redAccent,
                 ),
-                child: isLoading
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 24),
-                          Text(
-                            'Please Wait...',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.login_outlined),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 25,
-                            ),
-                          ),
-                        ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.login_outlined),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 25,
                       ),
+                    ),
+                  ],
+                ),
                 onPressed: () async {
                   //Login Method
 
@@ -363,9 +366,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: ((context) => SignUp(
-                                        name: _emailController.text
-                                            .split('@')[0]
-                                            .toUpperCase(),
+                                        name:
+                                            _emailController.text.split('@')[0],
                                       )),
                                 ),
                               );
@@ -431,7 +433,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
-                              nm: _emailController.text.split('@')[0],
+                              nm: getData(_emailController.text),
                             ),
                           ),
                         );

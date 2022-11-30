@@ -278,33 +278,20 @@ class _SignUpState extends State<SignUp> {
                       users
                           .doc(_emailController.text)
                           .set({
-                            'email': _emailController.text, // John Doe
+                            'email': _emailController.text, // john@gmail.com
+                            'name': "", //John Doe
+                            'username': "", //john123
                           })
                           .then((value) => print("User Added"))
                           .catchError(
                               (error) => print("Failed to add user: $error"));
 
-/*
-for getting document data from the document later it will be required....
-
-FirebaseFirestore.instance
-.collection('Rhythm_Users')
-.doc(_emailcontroller.text)
-.get()
-.then((DocumentSnapshot documentSnapshot) {
-if (documentSnapshot.exists) {
-print('Document data: ${documentSnapshot.data()}');
-} else {
-print('Document does not exist on the database');
-}
-});
-                           */
                       setState(() {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
-                              nm: widget.name,
+                              nm: _emailController.text.split('@')[0],
                             ),
                           ),
                         );
@@ -325,7 +312,7 @@ print('Document does not exist on the database');
                       } else if (e.code == 'email-already-in-use') {
                         const snackBar = SnackBar(
                           content: Text(
-                            'Email is already in use',
+                            'Email already exists',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 20,
