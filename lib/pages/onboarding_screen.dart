@@ -434,8 +434,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(
-                              // nm: getData(_emailController.text),
-                              nm: _emailController.text.split('@')[0],
+                              nm: getData(_emailController.text),
+                              // nm: _emailController.text.split('@')[0],
                             ),
                           ),
                         );
