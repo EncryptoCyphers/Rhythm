@@ -163,24 +163,23 @@ class _PlayerState extends State<Player> {
                             IconButton(
                               onPressed: () {
                                 if (currSongIndex > 0 &&
-                                    currSongIndex <= allSongs.length &&
-                                    allSongs.length > 1) {
+                                    currSongIndex <= currSongList!.length &&
+                                    currSongList!.length > 1) {
                                   // print(currSongIndex);
                                   setState(() {
                                     currSongIndex--;
                                   });
                                   getCurrSongInfo(
-                                    id: allSongs[currSongIndex].id,
-                                    uri: allSongs[currSongIndex].uri,
-                                    name: allSongs[currSongIndex]
-                                        .displayNameWOExt,
-                                    artist: allSongs[currSongIndex]
+                                    id: currSongList![currSongIndex].id,
+                                    uri: currSongList![currSongIndex].uriLocal,
+                                    name: currSongList![currSongIndex].title,
+                                    artist: currSongList![currSongIndex]
                                         .artist
                                         .toString(),
                                     songIndex: currSongIndex,
                                   );
                                   currSongIdListenable.value =
-                                      allSongs[currSongIndex].id;
+                                      currSongList![currSongIndex].id;
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },
@@ -216,24 +215,23 @@ class _PlayerState extends State<Player> {
                             IconButton(
                               onPressed: () {
                                 if (currSongIndex >= 0 &&
-                                    currSongIndex < allSongs.length &&
-                                    allSongs.length > 1) {
+                                    currSongIndex < currSongList!.length &&
+                                    currSongList!.length > 1) {
                                   // print(currSongIndex);
                                   setState(() {
                                     currSongIndex++;
                                   });
                                   getCurrSongInfo(
-                                    id: allSongs[currSongIndex].id,
-                                    uri: allSongs[currSongIndex].uri,
-                                    name: allSongs[currSongIndex]
-                                        .displayNameWOExt,
-                                    artist: allSongs[currSongIndex]
+                                    id: currSongList![currSongIndex].id,
+                                    uri: currSongList![currSongIndex].uriLocal,
+                                    name: currSongList![currSongIndex].title,
+                                    artist: currSongList![currSongIndex]
                                         .artist
                                         .toString(),
                                     songIndex: currSongIndex,
                                   );
                                   currSongIdListenable.value =
-                                      allSongs[currSongIndex].id;
+                                      currSongList![currSongIndex].id;
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },

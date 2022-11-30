@@ -7,11 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 //.............................Created Imports....................................................................//
+import '../services/data_service_and_song_query.dart';
 import 'full_player.dart';
 import 'mini_player.dart';
 import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;
+late List<CustomSongModel> allSongsDevice;
 var dummy = bool;
 
 bool? prevPermissionPreference;
@@ -46,6 +48,7 @@ class _TracksState extends State<Tracks> {
     if (await Permission.storage.isGranted) {
       storagePermissionListener.value = await Permission.storage.isGranted;
       await getAllSongList();
+      getCustomSongModel();
     }
     prefs.setBool('prevPermissionPreferenceHasValue', true);
   }
@@ -76,6 +79,25 @@ class _TracksState extends State<Tracks> {
   // //
   // //
   // //
+  // //.........SongModel to CustomSongModel
+  void getCustomSongModel() {
+    for (int i = 0; i < allSongs.length; i++) {
+      CustomSongModel localSong = CustomSongModel();
+      localSong.id = allSongs[i].id;
+      localSong.title = allSongs[i].displayNameWOExt.toString();
+      localSong.artist = allSongs[i].artist.toString();
+      localSong.duration = allSongs[i].duration;
+      localSong.uriLocal = allSongs[i].uri;
+      localSong.isPlaying = false;
+      localSong.isWeb = false;
+      allSongsDevice.add(localSong);
+    }
+  }
+
+  // //
+  // //
+  // //
+  // //
   // //...............Async to run Future Builder................................................................................//
   // //
   Future<bool> runShimmerEffect() async {
@@ -93,12 +115,14 @@ class _TracksState extends State<Tracks> {
       storagePermissionListener.value = await Permission.storage.isGranted;
       await runShimmerEffect();
       await getAllSongList();
+      getCustomSongModel();
     } else if (await Permission.storage.request().isPermanentlyDenied) {
       await openAppSettings();
       if (await Permission.storage.request().isGranted) {
         storagePermissionListener.value = await Permission.storage.isGranted;
         await runShimmerEffect();
         await getAllSongList();
+        getCustomSongModel();
       }
     }
     return Permission.storage.isGranted;
@@ -283,7 +307,7 @@ class _TracksState extends State<Tracks> {
                                   songIndex: index,
                                 );
                                 playSong(audioPlayer: audioPlayer);
-                                getLocalMiniPlayerSongList(allSongs);
+                                getLocalMiniPlayerSongList(allSongsDevice);
                               },
                             ),
                           );
