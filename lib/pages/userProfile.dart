@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:music_player_app/services/colours.dart';
+import 'package:music_player_app/widgets/profile_widget.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
