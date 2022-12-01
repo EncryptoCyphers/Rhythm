@@ -46,7 +46,9 @@ class _PagesState extends State<Pages> {
         controller: widget.pageController,
         children: [
           Home(
-            nm: getData(FirebaseAuth.instance.currentUser!.email.toString()),
+            nm: FirebaseAuth.instance.currentUser!.email
+                .toString()
+                .split('@')[0],
           ),
           const WebPage(),
           const Tracks(),
