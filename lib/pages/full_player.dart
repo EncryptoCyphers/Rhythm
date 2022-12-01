@@ -6,10 +6,11 @@ import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 
-ValueNotifier<int> currSongIdListenable = ValueNotifier<int>(currSongId);
+ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
 
 class Player extends StatefulWidget {
   const Player({
@@ -169,8 +170,13 @@ class _PlayerState extends State<Player> {
                                     currSongIndex--;
                                   });
                                   getCurrSongInfo(
-                                    id: currSongList![currSongIndex].id,
-                                    uri: currSongList![currSongIndex].uriLocal,
+                                    duration:
+                                        currSongList![currSongIndex].duration,
+                                    isWeb: currSongList![currSongIndex].isWeb,
+                                    id: currSongList![currSongIndex]
+                                        .id
+                                        .toString(),
+                                    uri: currSongList![currSongIndex].uri,
                                     name: currSongList![currSongIndex].title,
                                     artist: currSongList![currSongIndex]
                                         .artist
@@ -221,8 +227,13 @@ class _PlayerState extends State<Player> {
                                     currSongIndex++;
                                   });
                                   getCurrSongInfo(
-                                    id: currSongList![currSongIndex].id,
-                                    uri: currSongList![currSongIndex].uriLocal,
+                                    id: currSongList![currSongIndex]
+                                        .id
+                                        .toString(),
+                                    duration:
+                                        currSongList![currSongIndex].duration,
+                                    isWeb: currSongList![currSongIndex].isWeb,
+                                    uri: currSongList![currSongIndex].uri,
                                     name: currSongList![currSongIndex].title,
                                     artist: currSongList![currSongIndex]
                                         .artist
@@ -261,12 +272,16 @@ class ArtWork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
+    return ValueListenableBuilder<String>(
       valueListenable: currSongIdListenable,
-      builder: (BuildContext context, int currSongId, Widget? child) {
+      builder: (BuildContext context, String currSongId, Widget? child) {
+        if (currSongIsWeb) {
+          return Image.network(
+              YoutubeThumbnail(youtubeId: currSongId.toString()).hd());
+        }
         return QueryArtworkWidget(
           nullArtworkWidget: const Icon(Icons.music_note),
-          id: currSongId,
+          id: int.parse(currSongId),
           type: ArtworkType.AUDIO,
           artworkQuality: FilterQuality.high,
           artworkHeight: logicalWidth * 0.75,

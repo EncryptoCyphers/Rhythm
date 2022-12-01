@@ -2,16 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:music_player_app/pages/web.dart';
 import 'package:music_player_app/services/switch_pages.dart';
-import 'package:music_player_app/services/data_service_and_song_query.dart';
+// import 'package:music_player_app/services/data_service_and_song_query.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import 'mini_player.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
+import '../pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -27,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   final pageController = PageController(initialPage: 0);
   DateTime timeBackPressed = DateTime.now();
 
-  final _dataService = DataService();
+  // final _dataService = DataService();
 
   final _musicController = TextEditingController();
 
@@ -37,19 +36,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
-        // leading: IconButton(
-        //   icon: const Icon(Icons.menu),
-        //   onPressed: () {
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //         builder: (context) => DrawerMenu(
-        //           audioPlayer: audioPlayer,
-        //         ),
-        //       ),
-        //     );
-        //   },
-        // ),
         systemOverlayStyle: SystemUiOverlayStyle(
           // Status bar color
           statusBarColor: fgPurple,
@@ -61,47 +47,22 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: fgPurple,
         /*centerTitle: true,
             title: const Text("RYTHM"),*/
+
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-            // child: AnimSearchBar(
-            //   prefixIcon: const Icon(
-            //     Icons.search_rounded,
-            //     color: Colors.black,
-            //   ),
-            //   width: 330,
-            //   textController: textController,
-            //   onSuffixTap: () {
-            //     textController.clear();
-            //   }, // Search function is to be implemented
-            //   rtl: false,
-            //   color: Colors.white,
-            //   closeSearchOnSuffixTap: true,
-            //   helpText: 'Search artists, songs...',
-            //   suffixIcon: const Icon(
-            //     Icons.close_rounded,
-            //     color: Colors.black,
-            //   ),
-            // ),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.85,
-              child: SearchBarAnimation(
-                  textEditingController: _musicController,
-                  isOriginalAnimation: true,
-                  durationInMilliSeconds: 300,
-                  trailingWidget: const Icon(Icons.search),
-                  secondaryButtonWidget: const Icon(Icons.close),
-                  buttonWidget: const Icon(Icons.search),
-                  isSearchBoxOnRightSide: true,
-                  hintText: "Search Songs, Artists...",
-                  //hintTextColour: Colors.deepPurple,
-                  enableKeyboardFocus: true,
-                  onFieldSubmitted: (String value) {
-                    isSearchLoading.value = true;
-                    _dataService.getMusic(_musicController.text);
-                  }),
-            ),
-          ),
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SearchPage()));
+                },
+                child: const Icon(
+                  Icons.search,
+                  size: 26.0,
+                ),
+              )),
         ],
       ),
       drawer: DrawerMenu(

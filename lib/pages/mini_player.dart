@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/full_player.dart';
+import 'package:youtube/youtube_thumbnail.dart';
 import '../services/data_service_and_song_query.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';
@@ -64,9 +65,9 @@ class MiniPlayerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
+    return ValueListenableBuilder<String>(
       valueListenable: currSongIdListenable,
-      builder: (BuildContext context, int index, Widget? child) {
+      builder: (BuildContext context, String index, Widget? child) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -149,7 +150,9 @@ class MiniPlayerInfo extends StatelessWidget {
                             currSongIndex++;
                             getCurrSongInfo(
                               id: currSongList![currSongIndex].id,
-                              uri: currSongList![currSongIndex].uriLocal,
+                              uri: currSongList![currSongIndex].uri,
+                              duration: currSongList![currSongIndex].duration,
+                              isWeb: currSongList![currSongIndex].isWeb,
                               name: currSongList![currSongIndex].title,
                               artist: currSongList![currSongIndex]
                                   .artist
@@ -182,12 +185,16 @@ class MiniArtWork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
+    return ValueListenableBuilder<String>(
       valueListenable: currSongIdListenable,
-      builder: (BuildContext context, int currSongId, Widget? child) {
+      builder: (BuildContext context, String currSongId, Widget? child) {
+        if (currSongIsWeb) {
+          return Image.network(
+              YoutubeThumbnail(youtubeId: currSongId.toString()).mq());
+        }
         return QueryArtworkWidget(
           nullArtworkWidget: const Icon(Icons.music_note),
-          id: currSongId,
+          id: int.parse(currSongId),
           type: ArtworkType.AUDIO,
           artworkQuality: FilterQuality.high,
           artworkHeight: 60,
