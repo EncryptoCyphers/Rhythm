@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:sweet_nav_bar/sweet_nav_bar.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 // import '../services/switch_pages.dart';
@@ -35,10 +36,10 @@ class _BNavState extends State<BNav> {
                 inactiveColor: Colors.teal,
               ),
               BarItem(
-                icon: Icons.youtube_searched_for,
+                icon: FontAwesomeIcons.youtube,
                 title: 'YT Music',
                 activeColor: Colors.pink,
-                inactiveColor: Colors.deepOrange,
+                inactiveColor: Colors.red,
               ),
               BarItem(
                 icon: Icons.play_lesson,

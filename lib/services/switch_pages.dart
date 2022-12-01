@@ -50,7 +50,7 @@ class _PagesState extends State<Pages> {
                 .toString()
                 .split('@')[0],
           ),
-          const WebPage(),
+          const Youtube(),
           const Tracks(),
           const SettingsPage(),
         ],
