@@ -56,7 +56,7 @@ dependencies:
   firebase_app_check: ^0.1.1+5
   shared_preferences: ^2.0.15
   shimmer: ^2.0.0
-  youtube_explode_dart: ^1.12.3
+  youtube_explode_dart: ^1.10.10
   youtube: ^1.0.1
   youtube_data_api: ^1.0.4
   flutter_svg: ^1.1.6
