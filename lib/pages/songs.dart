@@ -87,7 +87,7 @@ class _TracksState extends State<Tracks> {
       localSong.title = allSongs[i].displayNameWOExt.toString();
       localSong.artist = allSongs[i].artist.toString();
       localSong.duration = allSongs[i].duration;
-      localSong.uriLocal = allSongs[i].uri;
+      localSong.uri = allSongs[i].uri;
       localSong.isPlaying = false;
       localSong.isWeb = false;
       allSongsDevice.add(localSong);

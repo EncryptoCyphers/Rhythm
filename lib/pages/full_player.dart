@@ -170,7 +170,7 @@ class _PlayerState extends State<Player> {
                                   });
                                   getCurrSongInfo(
                                     id: currSongList![currSongIndex].id,
-                                    uri: currSongList![currSongIndex].uriLocal,
+                                    uri: currSongList![currSongIndex].uri,
                                     name: currSongList![currSongIndex].title,
                                     artist: currSongList![currSongIndex]
                                         .artist
@@ -222,7 +222,7 @@ class _PlayerState extends State<Player> {
                                   });
                                   getCurrSongInfo(
                                     id: currSongList![currSongIndex].id,
-                                    uri: currSongList![currSongIndex].uriLocal,
+                                    uri: currSongList![currSongIndex].uri,
                                     name: currSongList![currSongIndex].title,
                                     artist: currSongList![currSongIndex]
                                         .artist

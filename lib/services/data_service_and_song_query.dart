@@ -16,7 +16,7 @@ class CustomSongModel {
   // ignore: prefer_typing_uninitialized_variables
   late var artist;
   // ignore: prefer_typing_uninitialized_variables
-  late var uriLocal;
+  late var uri;
   // ignore: prefer_typing_uninitialized_variables
   late var duration;
   late bool isPlaying;
@@ -26,8 +26,8 @@ class CustomSongModel {
 //----------------------------------------List of Searched Song Objects--------------------------------------//
 List<CustomSongModel> webSongList = [];
 
-class DataService {
-  void getMusic(String songQuery) async {
+// class DataService {
+//   void getMusic(String songQuery) async {
     //------------------------------------------API Query and API Call--------------------------------------//
     /*
     final queryParameters = {
@@ -64,25 +64,25 @@ class DataService {
       // print(isSearchLoading.value);
     }
     */
-    YoutubeDataApi youtubeDataApi = YoutubeDataApi();
-    List searchResult = await youtubeDataApi.fetchSearchVideo(
-        songQuery, 'AIzaSyAbHt9yfNyLiY6ZgS_oVizXI6MzxajMC7s');
-    webSongList = [];
-    for (var element in searchResult) {
-      if (element is Video) {
-        CustomSongModel searchedWebSong = CustomSongModel();
-        searchedWebSong.id = element.videoId;
-        searchedWebSong.title = element.title;
-        searchedWebSong.artist = element.channelName;
-        searchedWebSong.duration = element.duration;
+//     YoutubeDataApi youtubeDataApi = YoutubeDataApi();
+//     List searchResult = await youtubeDataApi.fetchSearchVideo(
+//         songQuery, 'AIzaSyAbHt9yfNyLiY6ZgS_oVizXI6MzxajMC7s');
+//     webSongList = [];
+//     for (var element in searchResult) {
+//       if (element is Video) {
+//         CustomSongModel searchedWebSong = CustomSongModel();
+//         searchedWebSong.id = element.videoId;
+//         searchedWebSong.title = element.title;
+//         searchedWebSong.artist = element.channelName;
+//         searchedWebSong.duration = element.duration;
 
-        searchedWebSong.isPlaying = false;
-        searchedWebSong.isWeb = true;
-        webSongList.add(searchedWebSong);
-      }
-    }
+//         searchedWebSong.isPlaying = false;
+//         searchedWebSong.isWeb = true;
+//         webSongList.add(searchedWebSong);
+//       }
+//     }
 
-    isSearchLoading.value = false;
-    searchHappened.value = !searchHappened.value;
-  }
-}
+//     isSearchLoading.value = false;
+//     searchHappened.value = !searchHappened.value;
+//   }
+// }

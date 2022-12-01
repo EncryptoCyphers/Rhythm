@@ -149,7 +149,7 @@ class MiniPlayerInfo extends StatelessWidget {
                             currSongIndex++;
                             getCurrSongInfo(
                               id: currSongList![currSongIndex].id,
-                              uri: currSongList![currSongIndex].uriLocal,
+                              uri: currSongList![currSongIndex].uri,
                               name: currSongList![currSongIndex].title,
                               artist: currSongList![currSongIndex]
                                   .artist

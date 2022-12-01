@@ -27,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
   final pageController = PageController(initialPage: 0);
   DateTime timeBackPressed = DateTime.now();
 
-  final _dataService = DataService();
+  // final _dataService = DataService();
 
   final _musicController = TextEditingController();
 
@@ -67,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
                   onFieldSubmitted: (String value) {
                     isSearchLoading.value = true;
                     fetchSearchResults(_musicController.text);
-                    _dataService.getMusic(_musicController.text);
+                    // _dataService.getMusic(_musicController.text);
                   }),
             ),
           ),
@@ -90,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
       body: ValueListenableBuilder<bool>(
           valueListenable: searchHappened,
           builder: (BuildContext context, bool value, Widget? child) {
-            if (ytSearchResults.isEmpty) {
+            if (ytSearchResultsCustom.isEmpty) {
               return ValueListenableBuilder<bool>(
                   valueListenable: isSearchLoading,
                   builder: (BuildContext context, bool value, Widget? child) {
@@ -111,7 +111,7 @@ class _SearchPageState extends State<SearchPage> {
                     } else {
                       prevSearchHappened == searchHappened.value;
                       return ListView.builder(
-                        itemCount: ytSearchResults.length,
+                        itemCount: ytSearchResultsCustom.length,
                         itemBuilder: (context, index) {
                           return Container(
                             padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
@@ -126,8 +126,9 @@ class _SearchPageState extends State<SearchPage> {
                               //...... Artwork ......................................//
                               //
                               leading: Image.network(YoutubeThumbnail(
-                                      youtubeId:
-                                          ytSearchResults[index].id.toString())
+                                      youtubeId: ytSearchResultsCustom[index]
+                                          .id
+                                          .toString())
                                   .mq()),
                               // leading: QueryArtworkWidget(
                               //   id: allSongs[index].id,
@@ -142,7 +143,7 @@ class _SearchPageState extends State<SearchPage> {
                               //...... Song Name  ......................................//
                               //
                               title: Text(
-                                ytSearchResults[index].title,
+                                ytSearchResultsCustom[index].title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -152,7 +153,8 @@ class _SearchPageState extends State<SearchPage> {
                               //
                               //...... Artist Name  ......................................//
                               //
-                              subtitle: Text(ytSearchResults[index].author),
+                              subtitle:
+                                  Text(ytSearchResultsCustom[index].artist),
                               //
                               //
                               //
@@ -169,16 +171,16 @@ class _SearchPageState extends State<SearchPage> {
                               onTap: () {
                                 // isPlayingListenable.value = true;
                                 // miniPlayerVisibilityListenable.value = true;
-                                // currSongIdListenable.value = ytSearchResults[index].id;
+                                // currSongIdListenable.value = ytSearchResultsCustom[index].id;
                                 // getCurrSongInfo(
-                                //   id: ytSearchResults[index].id,
-                                //   uri: ytSearchResults[index].uri,
-                                //   name: ytSearchResults[index].title,
-                                //   artist: ytSearchResults[index].artist.toString(),
+                                //   id: ytSearchResultsCustom[index].id,
+                                //   uri: ytSearchResultsCustom[index].uri,
+                                //   name: ytSearchResultsCustom[index].title,
+                                //   artist: ytSearchResultsCustom[index].artist.toString(),
                                 //   songIndex: index,
                                 // );
                                 // playSong(audioPlayer: audioPlayer);
-                                // getLocalMiniPlayerSongList(ytSearchResults);
+                                // getLocalMiniPlayerSongList(ytSearchResultsCustom);
                               },
                             ),
                           );
@@ -189,7 +191,7 @@ class _SearchPageState extends State<SearchPage> {
 
               // prevSearchHappened == searchHappened.value;
               // return ListView.builder(
-              //   itemCount: ytSearchResults.length,
+              //   itemCount: ytSearchResultsCustom.length,
               //   itemBuilder: (context, index) {
               //     return Container(
               //       padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
@@ -204,7 +206,7 @@ class _SearchPageState extends State<SearchPage> {
               //         //...... Artwork ......................................//
               //         //
               //         leading: Image.network(YoutubeThumbnail(
-              //                 youtubeId: ytSearchResults[index].id.toString())
+              //                 youtubeId: ytSearchResultsCustom[index].id.toString())
               //             .mq()),
               //         // leading: QueryArtworkWidget(
               //         //   id: allSongs[index].id,
@@ -219,7 +221,7 @@ class _SearchPageState extends State<SearchPage> {
               //         //...... Song Name  ......................................//
               //         //
               //         title: Text(
-              //           ytSearchResults[index].title,
+              //           ytSearchResultsCustom[index].title,
               //           maxLines: 1,
               //           overflow: TextOverflow.ellipsis,
               //         ),
@@ -229,7 +231,7 @@ class _SearchPageState extends State<SearchPage> {
               //         //
               //         //...... Artist Name  ......................................//
               //         //
-              //         subtitle: Text(ytSearchResults[index].artist),
+              //         subtitle: Text(ytSearchResultsCustom[index].artist),
               //         //
               //         //
               //         //
@@ -246,16 +248,16 @@ class _SearchPageState extends State<SearchPage> {
               //         onTap: () {
               //           // isPlayingListenable.value = true;
               //           // miniPlayerVisibilityListenable.value = true;
-              //           // currSongIdListenable.value = ytSearchResults[index].id;
+              //           // currSongIdListenable.value = ytSearchResultsCustom[index].id;
               //           // getCurrSongInfo(
-              //           //   id: ytSearchResults[index].id,
-              //           //   uri: ytSearchResults[index].uri,
-              //           //   name: ytSearchResults[index].title,
-              //           //   artist: ytSearchResults[index].artist.toString(),
+              //           //   id: ytSearchResultsCustom[index].id,
+              //           //   uri: ytSearchResultsCustom[index].uri,
+              //           //   name: ytSearchResultsCustom[index].title,
+              //           //   artist: ytSearchResultsCustom[index].artist.toString(),
               //           //   songIndex: index,
               //           // );
               //           // playSong(audioPlayer: audioPlayer);
-              //           // getLocalMiniPlayerSongList(ytSearchResults);
+              //           // getLocalMiniPlayerSongList(ytSearchResultsCustom);
               //         },
               //       ),
               //     );
