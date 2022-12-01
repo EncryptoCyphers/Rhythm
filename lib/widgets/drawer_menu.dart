@@ -2,7 +2,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:music_player_app/pages/onboarding_screen.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 // import 'package:music_player_app/widgets/bottomNavigationBar.dart';
@@ -43,10 +42,8 @@ class DrawerMenu extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Material(
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    ClipOval(
                       child: Image.asset(
-                        //Later it will be implemented with user image using firebase storage.
                         'images/app_icon.jpg',
                         height: 100,
                         width: 100,
@@ -56,7 +53,7 @@ class DrawerMenu extends StatelessWidget {
                       'Email: $userEmail',
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 15,
+                        fontSize: 14,
                       ),
                     ),
                   ],

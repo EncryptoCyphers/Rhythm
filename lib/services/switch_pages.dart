@@ -31,7 +31,7 @@ String getData(String email) {
       username = email.split('@')[0];
     }
   });
-  print(username);
+  //print(username);
   return username;
 }
 

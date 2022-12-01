@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:music_player_app/services/colours.dart';
-import 'package:music_player_app/widgets/profile_widget.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -22,8 +21,8 @@ Future<void> updateUser(name, email, username) {
         'name': name,
         'username': username,
       })
-      .then((value) => print("User Added"))
-      .catchError((error) => print("Failed to add user: $error"));
+      .then((value) => debugPrint("User Added"))
+      .catchError((error) => debugPrint("Failed to add user: $error"));
 }
 
 class _UserProfileState extends State<UserProfile> {
@@ -61,7 +60,7 @@ class _UserProfileState extends State<UserProfile> {
                     .get(),
                 builder: (_, snapshot) {
                   if (snapshot.hasError) {
-                    print('Something went wrong');
+                    debugPrint('Something went wrong');
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(

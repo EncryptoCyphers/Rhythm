@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../pages/user_profile.dart';
 
 class MyProfile extends StatefulWidget {
-  MyProfile({super.key});
+  const MyProfile({super.key});
 
   @override
   State<MyProfile> createState() => _MyProfileState();
@@ -52,14 +53,23 @@ class _MyProfileState extends State<MyProfile> {
 
         return Container(
           margin: const EdgeInsets.all(15),
-          height: MediaQuery.of(context).size.height * 0.2,
+          height: MediaQuery.of(context).size.height * 0.35,
           width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
-            // color: Colors.amber,
+            // color: Colors.greenAccent,
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.deepPurple,
+                offset: Offset(0.0, 1.0), //(x,y)
+                blurRadius: 10.0,
+                spreadRadius: 2.0,
+                blurStyle: BlurStyle.normal,
+              ),
+            ],
             gradient: const LinearGradient(
               colors: [
-                Color(0xff3d4eaf),
-                Color(0xffea296a),
+                Color.fromARGB(255, 213, 107, 179),
+                Color.fromRGBO(51, 16, 245, 1),
               ],
               begin: Alignment.bottomRight,
               end: Alignment.topLeft,
@@ -79,15 +89,24 @@ class _MyProfileState extends State<MyProfile> {
               ),
               Positioned(
                 bottom: 1,
+                left: 0,
+                child: SvgPicture.asset(
+                  'svg/music5.svg',
+                  height: 90,
+                  width: 90,
+                ),
+              ),
+              Positioned(
+                bottom: 1,
                 right: 0,
                 child: SvgPicture.asset(
-                  'svg/music1.svg',
-                  height: 50,
-                  width: 50,
+                  'svg/music2.svg',
+                  height: 90,
+                  width: 90,
                 ),
               ),
               const Positioned(
-                top: 15,
+                top: 35,
                 right: 35,
                 child: Text(
                   'Profile Information',
@@ -101,13 +120,13 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                top: 60,
+                top: 90,
                 left: 10,
                 child: Row(
                   children: [
                     const Icon(
                       Icons.person,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
                     const SizedBox(width: 5),
                     Text(
@@ -115,7 +134,7 @@ class _MyProfileState extends State<MyProfile> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -123,13 +142,13 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                top: 90,
+                top: 125,
                 left: 10,
                 child: Row(
                   children: [
                     const Icon(
                       Icons.alternate_email,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
                     const SizedBox(width: 5),
                     Text(
@@ -137,7 +156,7 @@ class _MyProfileState extends State<MyProfile> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -145,13 +164,13 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                top: 120,
+                top: 160,
                 left: 10,
                 child: Row(
                   children: [
                     const Icon(
                       Icons.email_rounded,
-                      color: Colors.green,
+                      color: Colors.white,
                     ),
                     const SizedBox(width: 6),
                     Text(
@@ -167,12 +186,24 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                right: -10,
-                top: -7,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.white,
+                right: 0,
+                top: -10,
+                child: TextButton(
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.edit,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                      Text(
+                        'Edit',
+                        style: TextStyle(
+                          color: Colors.black,
+                          // fontSize: 20,
+                        ),
+                      ),
+                    ],
                   ),
                   onPressed: () {
                     Navigator.push(

@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:music_player_app/pages/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './firebase_options.dart';
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.blue,
+          textTheme: GoogleFonts.adaminaTextTheme()),
       home: AnimatedSplashScreen(
         splash: Image.asset('images/app_icon.jpg'),
         duration: 100,

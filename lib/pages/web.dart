@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:music_player_app/pages/full_player.dart';
-import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/data_service_and_song_query.dart';
-import 'package:music_player_app/services/player_logic.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 
 ValueNotifier<bool> searchHappened = ValueNotifier(false);
