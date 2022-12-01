@@ -7,7 +7,7 @@ import 'package:youtube_data_api/models/video.dart';
 //import 'dart:convert';
 
 //----------------------------------------Searched Song Class Model--------------------------------------//
-class SearchedWebSong {
+class CustomSongModel {
   // ignore: prefer_typing_uninitialized_variables
   late var id;
   // ignore: prefer_typing_uninitialized_variables
@@ -15,12 +15,15 @@ class SearchedWebSong {
   // ignore: prefer_typing_uninitialized_variables
   late var artist;
   // ignore: prefer_typing_uninitialized_variables
+  late var uriLocal;
+  // ignore: prefer_typing_uninitialized_variables
   late var duration;
   late bool isPlaying;
+  late bool isWeb;
 }
 
 //----------------------------------------List of Searched Song Objects--------------------------------------//
-List<SearchedWebSong> webSongList = [];
+List<CustomSongModel> webSongList = [];
 
 class DataService {
   void getMusic(String songQuery) async {
@@ -47,7 +50,7 @@ class DataService {
       //var yt = YoutubeExplode();
       var streamInfo = await yt.videos.get(songId);
 
-      SearchedWebSong searchedWebSong = SearchedWebSong();
+      CustomSongModel searchedWebSong = CustomSongModel();
 
       searchedWebSong.id = streamInfo.id;
       searchedWebSong.title = streamInfo.title;
@@ -66,12 +69,14 @@ class DataService {
     webSongList = [];
     for (var element in searchResult) {
       if (element is Video) {
-        SearchedWebSong searchedWebSong = SearchedWebSong();
+        CustomSongModel searchedWebSong = CustomSongModel();
         searchedWebSong.id = element.videoId;
         searchedWebSong.title = element.title;
         searchedWebSong.artist = element.channelName;
         searchedWebSong.duration = element.duration;
+
         searchedWebSong.isPlaying = false;
+        searchedWebSong.isWeb = true;
         webSongList.add(searchedWebSong);
       }
     }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/full_player.dart';
+import '../services/data_service_and_song_query.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../services/colours.dart';
 import '../services/player_logic.dart';
 
-List<SongModel>? localList;
-getLocalMiniPlayerSongList(List<SongModel> item) {
-  localList = item;
+List<CustomSongModel>? currSongList;
+getLocalMiniPlayerSongList(List<CustomSongModel> item) {
+  currSongList = item;
 }
 
 ValueNotifier<double> playerExpandProgress = ValueNotifier(76);
@@ -141,21 +142,22 @@ class MiniPlayerInfo extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           if (currSongIndex >= 0 &&
-                              currSongIndex < localList!.length &&
-                              localList!.length > 1) {
+                              currSongIndex < currSongList!.length &&
+                              currSongList!.length > 1) {
                             // print(currSongIndex);
 
                             currSongIndex++;
                             getCurrSongInfo(
-                              id: localList![currSongIndex].id,
-                              uri: localList![currSongIndex].uri,
-                              name: localList![currSongIndex].displayNameWOExt,
-                              artist:
-                                  localList![currSongIndex].artist.toString(),
+                              id: currSongList![currSongIndex].id,
+                              uri: currSongList![currSongIndex].uriLocal,
+                              name: currSongList![currSongIndex].title,
+                              artist: currSongList![currSongIndex]
+                                  .artist
+                                  .toString(),
                               songIndex: currSongIndex,
                             );
                             currSongIdListenable.value =
-                                localList![currSongIndex].id;
+                                currSongList![currSongIndex].id;
                             playSong(audioPlayer: audioPlayer);
                           }
                         },

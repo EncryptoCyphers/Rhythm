@@ -6,7 +6,6 @@ import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'songs.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 
@@ -163,24 +162,23 @@ class _PlayerState extends State<Player> {
                             IconButton(
                               onPressed: () {
                                 if (currSongIndex > 0 &&
-                                    currSongIndex <= allSongs.length &&
-                                    allSongs.length > 1) {
+                                    currSongIndex <= currSongList!.length &&
+                                    currSongList!.length > 1) {
                                   // print(currSongIndex);
                                   setState(() {
                                     currSongIndex--;
                                   });
                                   getCurrSongInfo(
-                                    id: allSongs[currSongIndex].id,
-                                    uri: allSongs[currSongIndex].uri,
-                                    name: allSongs[currSongIndex]
-                                        .displayNameWOExt,
-                                    artist: allSongs[currSongIndex]
+                                    id: currSongList![currSongIndex].id,
+                                    uri: currSongList![currSongIndex].uriLocal,
+                                    name: currSongList![currSongIndex].title,
+                                    artist: currSongList![currSongIndex]
                                         .artist
                                         .toString(),
                                     songIndex: currSongIndex,
                                   );
                                   currSongIdListenable.value =
-                                      allSongs[currSongIndex].id;
+                                      currSongList![currSongIndex].id;
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },
@@ -216,24 +214,23 @@ class _PlayerState extends State<Player> {
                             IconButton(
                               onPressed: () {
                                 if (currSongIndex >= 0 &&
-                                    currSongIndex < allSongs.length &&
-                                    allSongs.length > 1) {
+                                    currSongIndex < currSongList!.length &&
+                                    currSongList!.length > 1) {
                                   // print(currSongIndex);
                                   setState(() {
                                     currSongIndex++;
                                   });
                                   getCurrSongInfo(
-                                    id: allSongs[currSongIndex].id,
-                                    uri: allSongs[currSongIndex].uri,
-                                    name: allSongs[currSongIndex]
-                                        .displayNameWOExt,
-                                    artist: allSongs[currSongIndex]
+                                    id: currSongList![currSongIndex].id,
+                                    uri: currSongList![currSongIndex].uriLocal,
+                                    name: currSongList![currSongIndex].title,
+                                    artist: currSongList![currSongIndex]
                                         .artist
                                         .toString(),
                                     songIndex: currSongIndex,
                                   );
                                   currSongIdListenable.value =
-                                      allSongs[currSongIndex].id;
+                                      currSongList![currSongIndex].id;
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },
