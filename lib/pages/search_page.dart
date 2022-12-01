@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/data_service_and_song_query.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
@@ -9,6 +10,7 @@ import 'package:youtube/youtube_thumbnail.dart';
 import '../services/colours.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../services/get_yt_searches.dart';
+import '../services/player_logic.dart';
 import 'mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
 
@@ -169,18 +171,27 @@ class _SearchPageState extends State<SearchPage> {
                               //...... Song OnTap ......................................//
                               //
                               onTap: () {
-                                // isPlayingListenable.value = true;
-                                // miniPlayerVisibilityListenable.value = true;
-                                // currSongIdListenable.value = ytSearchResultsCustom[index].id;
-                                // getCurrSongInfo(
-                                //   id: ytSearchResultsCustom[index].id,
-                                //   uri: ytSearchResultsCustom[index].uri,
-                                //   name: ytSearchResultsCustom[index].title,
-                                //   artist: ytSearchResultsCustom[index].artist.toString(),
-                                //   songIndex: index,
-                                // );
-                                // playSong(audioPlayer: audioPlayer);
-                                // getLocalMiniPlayerSongList(ytSearchResultsCustom);
+                                isPlayingListenable.value = true;
+                                miniPlayerVisibilityListenable.value = true;
+                                currSongIdListenable.value =
+                                    ytSearchResultsCustom[index].id.toString();
+                                getCurrSongInfo(
+                                  id: ytSearchResultsCustom[index]
+                                      .id
+                                      .toString(),
+                                  duration:
+                                      ytSearchResultsCustom[index].duration,
+                                  isWeb: ytSearchResultsCustom[index].isWeb,
+                                  uri: ytSearchResultsCustom[index].uri,
+                                  name: ytSearchResultsCustom[index].title,
+                                  artist: ytSearchResultsCustom[index]
+                                      .artist
+                                      .toString(),
+                                  songIndex: index,
+                                );
+                                playSong(audioPlayer: audioPlayer);
+                                getLocalMiniPlayerSongList(
+                                    ytSearchResultsCustom);
                               },
                             ),
                           );

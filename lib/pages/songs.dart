@@ -13,7 +13,7 @@ import 'mini_player.dart';
 import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;
-late List<CustomSongModel> allSongsDevice;
+List<CustomSongModel> allSongsDevice = [];
 var dummy = bool;
 
 bool? prevPermissionPreference;
@@ -48,7 +48,7 @@ class _TracksState extends State<Tracks> {
     if (await Permission.storage.isGranted) {
       storagePermissionListener.value = await Permission.storage.isGranted;
       await getAllSongList();
-      getCustomSongModel();
+      await getCustomSongModel();
     }
     prefs.setBool('prevPermissionPreferenceHasValue', true);
   }
@@ -80,7 +80,8 @@ class _TracksState extends State<Tracks> {
   // //
   // //
   // //.........SongModel to CustomSongModel
-  void getCustomSongModel() {
+  Future getCustomSongModel() async {
+    allSongsDevice.clear();
     for (int i = 0; i < allSongs.length; i++) {
       CustomSongModel localSong = CustomSongModel();
       localSong.id = allSongs[i].id;
@@ -115,14 +116,14 @@ class _TracksState extends State<Tracks> {
       storagePermissionListener.value = await Permission.storage.isGranted;
       await runShimmerEffect();
       await getAllSongList();
-      getCustomSongModel();
+      await getCustomSongModel();
     } else if (await Permission.storage.request().isPermanentlyDenied) {
       await openAppSettings();
       if (await Permission.storage.request().isGranted) {
         storagePermissionListener.value = await Permission.storage.isGranted;
         await runShimmerEffect();
         await getAllSongList();
-        getCustomSongModel();
+        await getCustomSongModel();
       }
     }
     return Permission.storage.isGranted;
@@ -223,7 +224,7 @@ class _TracksState extends State<Tracks> {
                       //
                       //......Empty List  Widget......................................//
                       //
-                      if (allSongs.isEmpty) {
+                      if (allSongsDevice.isEmpty) {
                         return const Center(
                           child: Text(
                             'No Songs Found',
@@ -237,7 +238,7 @@ class _TracksState extends State<Tracks> {
                       //...... List builder  Widget......................................//
                       //
                       return ListView.builder(
-                        itemCount: allSongs.length,
+                        itemCount: allSongsDevice.length,
                         itemBuilder: ((context, index) {
                           //
                           //
@@ -258,7 +259,7 @@ class _TracksState extends State<Tracks> {
                               //...... Artwork ......................................//
                               //
                               leading: QueryArtworkWidget(
-                                id: allSongs[index].id,
+                                id: allSongsDevice[index].id,
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: const Icon(Icons.music_note),
                                 artworkBorder:
@@ -271,7 +272,7 @@ class _TracksState extends State<Tracks> {
                               //...... Song Name  ......................................//
                               //
                               title: Text(
-                                allSongs[index].displayNameWOExt,
+                                allSongsDevice[index].title,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -281,7 +282,8 @@ class _TracksState extends State<Tracks> {
                               //
                               //...... Artist Name  ......................................//
                               //
-                              subtitle: Text(allSongs[index].artist.toString()),
+                              subtitle:
+                                  Text(allSongsDevice[index].artist.toString()),
                               //
                               //
                               //
@@ -298,14 +300,21 @@ class _TracksState extends State<Tracks> {
                               onTap: () {
                                 isPlayingListenable.value = true;
                                 miniPlayerVisibilityListenable.value = true;
-                                currSongIdListenable.value = allSongs[index].id;
+                                currSongIdListenable.value =
+                                    allSongsDevice[index].id.toString();
                                 getCurrSongInfo(
-                                  id: allSongs[index].id,
-                                  uri: allSongs[index].uri,
-                                  name: allSongs[index].displayNameWOExt,
-                                  artist: allSongs[index].artist.toString(),
+                                  id: allSongsDevice[index].id.toString(),
+                                  duration: Duration(
+                                      milliseconds:
+                                          allSongsDevice[index].duration),
+                                  isWeb: false,
+                                  uri: allSongsDevice[index].uri,
+                                  name: allSongsDevice[index].title,
+                                  artist:
+                                      allSongsDevice[index].artist.toString(),
                                   songIndex: index,
                                 );
+                                print(allSongsDevice[index].title);
                                 playSong(audioPlayer: audioPlayer);
                                 getLocalMiniPlayerSongList(allSongsDevice);
                               },
@@ -405,7 +414,7 @@ class _TracksState extends State<Tracks> {
     //             //
     //             //......Empty List  Widget......................................//
     //             //
-    //             if (allSongs.isEmpty) {
+    //             if (allSongsDevice.isEmpty) {
     //               return const Center(
     //                 child: Text(
     //                   'No Songs Found',
@@ -419,7 +428,7 @@ class _TracksState extends State<Tracks> {
     //             //...... List builder  Widget......................................//
     //             //
     //             return ListView.builder(
-    //               itemCount: allSongs.length,
+    //               itemCount: allSongsDevice.length,
     //               itemBuilder: ((context, index) {
     //                 //
     //                 //
@@ -440,7 +449,7 @@ class _TracksState extends State<Tracks> {
     //                     //...... Artwork ......................................//
     //                     //
     //                     leading: QueryArtworkWidget(
-    //                       id: allSongs[index].id,
+    //                       id: allSongsDevice[index].id,
     //                       type: ArtworkType.AUDIO,
     //                       nullArtworkWidget: const Icon(Icons.music_note),
     //                       artworkBorder:
@@ -453,7 +462,7 @@ class _TracksState extends State<Tracks> {
     //                     //...... Song Name  ......................................//
     //                     //
     //                     title: Text(
-    //                       allSongs[index].displayNameWOExt,
+    //                       allSongsDevice[index].displayNameWOExt,
     //                       maxLines: 1,
     //                       overflow: TextOverflow.ellipsis,
     //                     ),
@@ -463,7 +472,7 @@ class _TracksState extends State<Tracks> {
     //                     //
     //                     //...... Artist Name  ......................................//
     //                     //
-    //                     subtitle: Text(allSongs[index].artist.toString()),
+    //                     subtitle: Text(allSongsDevice[index].artist.toString()),
     //                     //
     //                     //
     //                     //
@@ -480,16 +489,16 @@ class _TracksState extends State<Tracks> {
     //                     onTap: () {
     //                       isPlayingListenable.value = true;
     //                       miniPlayerVisibilityListenable.value = true;
-    //                       currSongIdListenable.value = allSongs[index].id;
+    //                       currSongIdListenable.value = allSongsDevice[index].id;
     //                       getCurrSongInfo(
-    //                         id: allSongs[index].id,
-    //                         uri: allSongs[index].uri,
-    //                         name: allSongs[index].displayNameWOExt,
-    //                         artist: allSongs[index].artist.toString(),
+    //                         id: allSongsDevice[index].id,
+    //                         uri: allSongsDevice[index].uri,
+    //                         name: allSongsDevice[index].displayNameWOExt,
+    //                         artist: allSongsDevice[index].artist.toString(),
     //                         songIndex: index,
     //                       );
     //                       playSong(audioPlayer: audioPlayer);
-    //                       getLocalMiniPlayerSongList(allSongs);
+    //                       getLocalMiniPlayerSongList(allSongsDevice);
     //                     },
     //                   ),
     //                 );

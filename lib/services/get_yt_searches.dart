@@ -13,7 +13,7 @@ Future fetchSearchResults(String query) async {
   ytSearchResults = await yt.search.getVideos(query);
   for (int i = 0; i < ytSearchResults.length; i++) {
     CustomSongModel searchedWebSong = CustomSongModel();
-    searchedWebSong.id = ytSearchResults[i].id;
+    searchedWebSong.id = ytSearchResults[i].id.toString();
     searchedWebSong.title = ytSearchResults[i].title;
     searchedWebSong.artist = ytSearchResults[i].author;
     searchedWebSong.duration = ytSearchResults[i].duration;

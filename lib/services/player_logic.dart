@@ -6,26 +6,33 @@ import 'package:just_audio/just_audio.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 // bool of is Playing
 bool isPlaying = false;
-Duration songDuration = const Duration();
 Duration songPosition = const Duration();
+Duration songDuration = const Duration();
 ValueNotifier<Duration> songPositionListenable =
     ValueNotifier<Duration>(const Duration());
-int currSongId = 0;
+String currSongId = "0";
 String currSongName = 'CurrSongName';
+Duration currSongDuration = const Duration(seconds: 0);
 String currSongArtistName = 'Artist Name';
 String? currSongUri;
 int currSongIndex = 0;
-getCurrSongInfo(
-    {required id,
-    required name,
-    required artist,
-    required uri,
-    required songIndex}) {
+bool currSongIsWeb = false;
+getCurrSongInfo({
+  required String id,
+  required name,
+  required artist,
+  required uri,
+  required songIndex,
+  required Duration duration,
+  required bool isWeb,
+}) {
   currSongId = id;
   currSongName = name;
   currSongArtistName = artist;
   currSongUri = uri;
   currSongIndex = songIndex;
+  currSongDuration = duration;
+  currSongIsWeb = isWeb;
 }
 
 playSong({required AudioPlayer audioPlayer}) {
@@ -39,7 +46,7 @@ playSong({required AudioPlayer audioPlayer}) {
   audioPlayer.durationStream.listen(
     (duration) {
       // setState(() {
-      songDuration = duration!;
+      songDuration = currSongDuration;
       // });
     },
   );
