@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/songs.dart';
-import 'package:music_player_app/services/data_service_and_song_query.dart';
+// import 'package:music_player_app/services/data_service_and_song_query.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/colours.dart';

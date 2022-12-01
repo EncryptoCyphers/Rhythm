@@ -314,7 +314,7 @@ class _TracksState extends State<Tracks> {
                                       allSongsDevice[index].artist.toString(),
                                   songIndex: index,
                                 );
-                                print(allSongsDevice[index].title);
+                                // print(allSongsDevice[index].title);
                                 playSong(audioPlayer: audioPlayer);
                                 getLocalMiniPlayerSongList(allSongsDevice);
                               },

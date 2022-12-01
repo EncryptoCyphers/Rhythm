@@ -61,7 +61,6 @@ dependencies:
   youtube_data_api: ^1.0.4
   flutter_svg: ^1.1.6
   google_fonts: ^2.1.0
-  auto_size_text: ^3.0.0
   
 dev_dependencies:
   flutter_test:

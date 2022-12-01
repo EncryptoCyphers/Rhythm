@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +129,7 @@ class _MyProfileState extends State<MyProfile> {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      'Name: $name',
+                      '$name',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
@@ -152,7 +151,7 @@ class _MyProfileState extends State<MyProfile> {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      'Username: $username',
+                      '$username',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
@@ -174,11 +173,11 @@ class _MyProfileState extends State<MyProfile> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      'Email: $email',
+                      '$email',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 17,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
