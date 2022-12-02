@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          // const SearchButton(),
           const MiniPlayerWidget(),
           ValueListenableBuilder<double>(
             valueListenable: playerExpandProgress,
@@ -100,6 +101,23 @@ class _HomePageState extends State<HomePage> {
         nm: widget.nm,
         pageController: pageController,
       ),
+    );
+  }
+}
+
+class SearchButton extends StatelessWidget {
+  const SearchButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: (logicalWidth * 0.16),
+      width: (logicalWidth * 0.16),
+      decoration: BoxDecoration(
+        color: veryLightPurple,
+        borderRadius: BorderRadius.all(Radius.circular(logicalWidth * 0.05)),
+      ),
+      child: const Icon(Icons.search),
     );
   }
 }
