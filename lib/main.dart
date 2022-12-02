@@ -27,8 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.blue,
-          textTheme: GoogleFonts.adaminaTextTheme()),
+          primarySwatch: Colors.blue, textTheme: GoogleFonts.lailaTextTheme()),
       home: AnimatedSplashScreen(
         splash: Image.asset('images/app_icon.jpg'),
         duration: 100,
