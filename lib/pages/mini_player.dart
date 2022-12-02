@@ -149,9 +149,13 @@ class MiniPlayerInfo extends StatelessWidget {
 
                             currSongIndex++;
                             getCurrSongInfo(
-                              id: currSongList![currSongIndex].id,
+                              id: currSongList![currSongIndex].id.toString(),
                               uri: currSongList![currSongIndex].uri,
-                              duration: currSongList![currSongIndex].duration,
+                              duration: currSongIsWeb
+                                  ? (currSongList![currSongIndex].duration)
+                                  : (Duration(
+                                      milliseconds: currSongList![currSongIndex]
+                                          .duration)),
                               isWeb: currSongList![currSongIndex].isWeb,
                               name: currSongList![currSongIndex].title,
                               artist: currSongList![currSongIndex]
@@ -160,7 +164,7 @@ class MiniPlayerInfo extends StatelessWidget {
                               songIndex: currSongIndex,
                             );
                             currSongIdListenable.value =
-                                currSongList![currSongIndex].id;
+                                currSongList![currSongIndex].id.toString();
                             playSong(audioPlayer: audioPlayer);
                           }
                         },
