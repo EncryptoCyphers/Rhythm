@@ -9,8 +9,8 @@ import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
+import '../widgets/search_floating_button.dart';
 import 'mini_player.dart';
-import '../pages/search_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -33,91 +33,79 @@ class _HomePageState extends State<HomePage> {
   @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          // Status bar color
-          statusBarColor: fgPurple,
+    return Stack(
+      alignment: Alignment.bottomRight,
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 60,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              // Status bar color
+              statusBarColor: fgPurple,
 
-          // Status bar brightness (optional)
-          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-          statusBarBrightness: Brightness.light, // For iOS (dark icons)
-        ),
-        backgroundColor: fgPurple,
-        /*centerTitle: true,
-            title: const Text("RYTHM"),*/
-
-        actions: [
-          Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SearchPage()));
-                },
-                child: const Icon(
-                  Icons.search,
-                  size: 26.0,
-                ),
-              )),
-        ],
-      ),
-      drawer: DrawerMenu(
-        pageController: pageController,
-      ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // const SearchButton(),
-          const MiniPlayerWidget(),
-          ValueListenableBuilder<double>(
-            valueListenable: playerExpandProgress,
-            builder:
-                (BuildContext context, double minPlayerHeight, Widget? child) {
-              if (minPlayerHeight <= 100) {
-                // print('in');
-                // return const BottomNavBar();
-                return BNav(
-                  pageController: pageController,
-                );
-              } else {
-                return SizedBox(
-                  height: 0,
-                  width: logicalWidth,
-                );
-              }
-            },
+              // Status bar brightness (optional)
+              statusBarIconBrightness:
+                  Brightness.dark, // For Android (dark icons)
+              statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            ),
+            backgroundColor: fgPurple,
+            // actions: [
+            //   Padding(
+            //     padding: const EdgeInsets.only(right: 20.0),
+            //     child: GestureDetector(
+            //       onTap: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //                 builder: (context) => const SearchPage()));
+            //       },
+            //       child: const Icon(
+            //         Icons.search,
+            //         size: 26.0,
+            //       ),
+            //     ),
+            //   ),
+            // ],
           ),
-        ],
-      ),
-      backgroundColor: Colors.white,
+          drawer: DrawerMenu(
+            pageController: pageController,
+          ),
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const MiniPlayerWidget(),
+              ValueListenableBuilder<double>(
+                valueListenable: playerExpandProgress,
+                builder: (BuildContext context, double minPlayerHeight,
+                    Widget? child) {
+                  if (minPlayerHeight <= 100) {
+                    // print('in');
+                    // return const BottomNavBar();
+                    return BNav(
+                      pageController: pageController,
+                    );
+                  } else {
+                    return SizedBox(
+                      height: 0,
+                      width: logicalWidth,
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
 
-      // Defined in switch_pages.dart
-      body: Pages(
-        nm: widget.nm,
-        pageController: pageController,
-      ),
-    );
-  }
-}
+          backgroundColor: Colors.white,
 
-class SearchButton extends StatelessWidget {
-  const SearchButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: (logicalWidth * 0.16),
-      width: (logicalWidth * 0.16),
-      decoration: BoxDecoration(
-        color: veryLightPurple,
-        borderRadius: BorderRadius.all(Radius.circular(logicalWidth * 0.05)),
-      ),
-      child: const Icon(Icons.search),
+          // Defined in switch_pages.dart
+          body: Pages(
+            nm: widget.nm,
+            pageController: pageController,
+          ),
+        ),
+        const SearchButtonWithLogic(),
+      ],
     );
   }
 }
