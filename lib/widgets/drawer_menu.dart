@@ -53,7 +53,7 @@ class DrawerMenu extends StatelessWidget {
                       'Email: $userEmail',
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 14,
+                        fontSize: 13,
                       ),
                     ),
                   ],

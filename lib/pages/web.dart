@@ -45,9 +45,9 @@ class Youtube extends StatelessWidget {
                 );
               },
             ).toList(),
-            // onPageChanged: (index) {
-            //   print('hello');
-            // },
+            onPageChanged: (index) {
+              //Your Code Here
+            },
             autoPlay: true,
             hasPagination: true,
             pagerSize: 10,
