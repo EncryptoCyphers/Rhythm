@@ -13,10 +13,34 @@ import '../services/get_yt_searches.dart';
 import '../services/player_logic.dart';
 import 'mini_player.dart';
 import 'package:searchbar_animation/searchbar_animation.dart';
+// import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 
+const platform = MethodChannel('com.example.rhythm');
 ValueNotifier<bool> searchHappened = ValueNotifier(false);
 ValueNotifier<bool> isSearchLoading = ValueNotifier(false);
 bool prevSearchHappened = false;
+Uint8List? albumArt;
+
+// Future getArt() async {
+//   await platform.invokeMethod('getArt');
+// }
+
+// Future getMetadata() async {
+//   // ignore: avoid_print
+//   print('1');
+//   getArt();
+//   // print(allSongsDevice[5].uri.toString());
+//   // File file = await toFile(allSongsDevice[5].uri);
+//   // // ignore: avoid_print
+//   // print(file.toString());
+//   // final metadata = await MetadataRetriever.fromFile(
+//   //     File('/0/06 Hasi (Shreya Ghoshal) 190Kbps.mp3'));
+//   // albumArt = metadata.albumArt;
+//   // ignore: avoid_print
+//   // print(albumArt.toString());
+//   // ignore: avoid_print
+//   print('2');
+// }
 
 class SearchPage extends StatefulWidget {
   const SearchPage();
@@ -26,6 +50,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  @override
+  void initState() {
+    super.initState();
+    // getMetadata();
+  }
+
   final pageController = PageController(initialPage: 0);
   DateTime timeBackPressed = DateTime.now();
 
@@ -89,193 +119,205 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: Colors.white,
 
       // Defined in switch_pages.dart
-      body: ValueListenableBuilder<bool>(
-          valueListenable: searchHappened,
-          builder: (BuildContext context, bool value, Widget? child) {
-            if (ytSearchResultsCustom.isEmpty) {
-              return ValueListenableBuilder<bool>(
-                  valueListenable: isSearchLoading,
-                  builder: (BuildContext context, bool value, Widget? child) {
-                    if (isSearchLoading.value) {
-                      return const ShimmerEffect();
-                    } else {
-                      return const Center(
-                        child: Text('Search Something To Show Here'),
-                      );
-                    }
-                  });
-            } else {
-              return ValueListenableBuilder<bool>(
-                  valueListenable: isSearchLoading,
-                  builder: (BuildContext context, bool value, Widget? child) {
-                    if (isSearchLoading.value) {
-                      return const ShimmerEffect();
-                    } else {
-                      prevSearchHappened == searchHappened.value;
-                      return ListView.builder(
-                        itemCount: ytSearchResultsCustom.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              // tileColor: Colors.black26,
-                              //
-                              //
-                              //
-                              //
-                              //...... Artwork ......................................//
-                              //
-                              leading: Image.network(YoutubeThumbnail(
-                                      youtubeId: ytSearchResultsCustom[index]
-                                          .id
-                                          .toString())
-                                  .mq()),
-                              // leading: QueryArtworkWidget(
-                              //   id: allSongs[index].id,
-                              //   type: ArtworkType.AUDIO,
-                              //   nullArtworkWidget: const Icon(Icons.music_note),
-                              //   artworkBorder: const BorderRadius.all(Radius.circular(10)),
-                              // ),
-                              //
-                              //
-                              //
-                              //
-                              //...... Song Name  ......................................//
-                              //
-                              title: Text(
-                                ytSearchResultsCustom[index].title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              //
-                              //
-                              //
-                              //
-                              //...... Artist Name  ......................................//
-                              //
-                              subtitle:
-                                  Text(ytSearchResultsCustom[index].artist),
-                              //
-                              //
-                              //
-                              //
-                              //...... left Button  ......................................//
-                              //
-                              trailing: const Icon(Icons.more_horiz),
-                              //
-                              //
-                              //
-                              //
-                              //...... Song OnTap ......................................//
-                              //
-                              onTap: () {
-                                isPlayingListenable.value = true;
-                                miniPlayerVisibilityListenable.value = true;
-                                currSongIdListenable.value =
-                                    ytSearchResultsCustom[index].id.toString();
-                                getCurrSongInfo(
-                                  id: ytSearchResultsCustom[index]
-                                      .id
-                                      .toString(),
-                                  duration:
-                                      ytSearchResultsCustom[index].duration,
-                                  isWeb: ytSearchResultsCustom[index].isWeb,
-                                  uri: ytSearchResultsCustom[index].uri,
-                                  name: ytSearchResultsCustom[index].title,
-                                  artist: ytSearchResultsCustom[index]
-                                      .artist
-                                      .toString(),
-                                  songIndex: index,
-                                );
-                                playSong(audioPlayer: audioPlayer);
-                                getLocalMiniPlayerSongList(
-                                    ytSearchResultsCustom);
-                              },
+      body:
+          // Container(
+          //   padding: const EdgeInsets.all(2),
+          // child: Image.memory(albumArt!),
+          //   child: Column(
+          //     children: [
+          //       // Image.memory(albumArt!),
+          //       ElevatedButton(
+          //         onPressed: (() {
+          //           getMetadata();
+          //         }),
+          //         child: const Text('hii'),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          ValueListenableBuilder<bool>(
+        valueListenable: searchHappened,
+        builder: (BuildContext context, bool value, Widget? child) {
+          if (ytSearchResultsCustom.isEmpty) {
+            return ValueListenableBuilder<bool>(
+                valueListenable: isSearchLoading,
+                builder: (BuildContext context, bool value, Widget? child) {
+                  if (isSearchLoading.value) {
+                    return const ShimmerEffect();
+                  } else {
+                    return const Center(
+                      child: Text('Search Something To Show Here'),
+                    );
+                  }
+                });
+          } else {
+            return ValueListenableBuilder<bool>(
+                valueListenable: isSearchLoading,
+                builder: (BuildContext context, bool value, Widget? child) {
+                  if (isSearchLoading.value) {
+                    return const ShimmerEffect();
+                  } else {
+                    prevSearchHappened == searchHappened.value;
+                    return ListView.builder(
+                      itemCount: ytSearchResultsCustom.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            // tileColor: Colors.black26,
+                            //
+                            //
+                            //
+                            //
+                            //...... Artwork ......................................//
+                            //
+                            leading: Image.network(YoutubeThumbnail(
+                                    youtubeId: ytSearchResultsCustom[index]
+                                        .id
+                                        .toString())
+                                .mq()),
+                            // leading: QueryArtworkWidget(
+                            //   id: allSongs[index].id,
+                            //   type: ArtworkType.AUDIO,
+                            //   nullArtworkWidget: const Icon(Icons.music_note),
+                            //   artworkBorder: const BorderRadius.all(Radius.circular(10)),
+                            // ),
+                            //
+                            //
+                            //
+                            //
+                            //...... Song Name  ......................................//
+                            //
+                            title: Text(
+                              ytSearchResultsCustom[index].title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          );
-                        },
-                      );
-                    }
-                  });
+                            //
+                            //
+                            //
+                            //
+                            //...... Artist Name  ......................................//
+                            //
+                            subtitle: Text(ytSearchResultsCustom[index].artist),
+                            //
+                            //
+                            //
+                            //
+                            //...... left Button  ......................................//
+                            //
+                            trailing: const Icon(Icons.more_horiz),
+                            //
+                            //
+                            //
+                            //
+                            //...... Song OnTap ......................................//
+                            //
+                            onTap: () {
+                              isPlayingListenable.value = true;
+                              miniPlayerVisibilityListenable.value = true;
+                              currSongIdListenable.value =
+                                  ytSearchResultsCustom[index].id.toString();
+                              getCurrSongInfo(
+                                id: ytSearchResultsCustom[index].id.toString(),
+                                duration: ytSearchResultsCustom[index].duration,
+                                isWeb: ytSearchResultsCustom[index].isWeb,
+                                uri: ytSearchResultsCustom[index].uri,
+                                name: ytSearchResultsCustom[index].title,
+                                artist: ytSearchResultsCustom[index]
+                                    .artist
+                                    .toString(),
+                                songIndex: index,
+                              );
+                              playSong(audioPlayer: audioPlayer);
+                              getLocalMiniPlayerSongList(ytSearchResultsCustom);
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  }
+                });
 
-              // prevSearchHappened == searchHappened.value;
-              // return ListView.builder(
-              //   itemCount: ytSearchResultsCustom.length,
-              //   itemBuilder: (context, index) {
-              //     return Container(
-              //       padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
-              //       child: ListTile(
-              //         shape: RoundedRectangleBorder(
-              //             borderRadius: BorderRadius.circular(20)),
-              //         // tileColor: Colors.black26,
-              //         //
-              //         //
-              //         //
-              //         //
-              //         //...... Artwork ......................................//
-              //         //
-              //         leading: Image.network(YoutubeThumbnail(
-              //                 youtubeId: ytSearchResultsCustom[index].id.toString())
-              //             .mq()),
-              //         // leading: QueryArtworkWidget(
-              //         //   id: allSongs[index].id,
-              //         //   type: ArtworkType.AUDIO,
-              //         //   nullArtworkWidget: const Icon(Icons.music_note),
-              //         //   artworkBorder: const BorderRadius.all(Radius.circular(10)),
-              //         // ),
-              //         //
-              //         //
-              //         //
-              //         //
-              //         //...... Song Name  ......................................//
-              //         //
-              //         title: Text(
-              //           ytSearchResultsCustom[index].title,
-              //           maxLines: 1,
-              //           overflow: TextOverflow.ellipsis,
-              //         ),
-              //         //
-              //         //
-              //         //
-              //         //
-              //         //...... Artist Name  ......................................//
-              //         //
-              //         subtitle: Text(ytSearchResultsCustom[index].artist),
-              //         //
-              //         //
-              //         //
-              //         //
-              //         //...... left Button  ......................................//
-              //         //
-              //         trailing: const Icon(Icons.more_horiz),
-              //         //
-              //         //
-              //         //
-              //         //
-              //         //...... Song OnTap ......................................//
-              //         //
-              //         onTap: () {
-              //           // isPlayingListenable.value = true;
-              //           // miniPlayerVisibilityListenable.value = true;
-              //           // currSongIdListenable.value = ytSearchResultsCustom[index].id;
-              //           // getCurrSongInfo(
-              //           //   id: ytSearchResultsCustom[index].id,
-              //           //   uri: ytSearchResultsCustom[index].uri,
-              //           //   name: ytSearchResultsCustom[index].title,
-              //           //   artist: ytSearchResultsCustom[index].artist.toString(),
-              //           //   songIndex: index,
-              //           // );
-              //           // playSong(audioPlayer: audioPlayer);
-              //           // getLocalMiniPlayerSongList(ytSearchResultsCustom);
-              //         },
-              //       ),
-              //     );
-              //   },
-              // );
-            }
-          }),
+            // prevSearchHappened == searchHappened.value;
+            // return ListView.builder(
+            //   itemCount: ytSearchResultsCustom.length,
+            //   itemBuilder: (context, index) {
+            //     return Container(
+            //       padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
+            //       child: ListTile(
+            //         shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(20)),
+            //         // tileColor: Colors.black26,
+            //         //
+            //         //
+            //         //
+            //         //
+            //         //...... Artwork ......................................//
+            //         //
+            //         leading: Image.network(YoutubeThumbnail(
+            //                 youtubeId: ytSearchResultsCustom[index].id.toString())
+            //             .mq()),
+            //         // leading: QueryArtworkWidget(
+            //         //   id: allSongs[index].id,
+            //         //   type: ArtworkType.AUDIO,
+            //         //   nullArtworkWidget: const Icon(Icons.music_note),
+            //         //   artworkBorder: const BorderRadius.all(Radius.circular(10)),
+            //         // ),
+            //         //
+            //         //
+            //         //
+            //         //
+            //         //...... Song Name  ......................................//
+            //         //
+            //         title: Text(
+            //           ytSearchResultsCustom[index].title,
+            //           maxLines: 1,
+            //           overflow: TextOverflow.ellipsis,
+            //         ),
+            //         //
+            //         //
+            //         //
+            //         //
+            //         //...... Artist Name  ......................................//
+            //         //
+            //         subtitle: Text(ytSearchResultsCustom[index].artist),
+            //         //
+            //         //
+            //         //
+            //         //
+            //         //...... left Button  ......................................//
+            //         //
+            //         trailing: const Icon(Icons.more_horiz),
+            //         //
+            //         //
+            //         //
+            //         //
+            //         //...... Song OnTap ......................................//
+            //         //
+            //         onTap: () {
+            //           // isPlayingListenable.value = true;
+            //           // miniPlayerVisibilityListenable.value = true;
+            //           // currSongIdListenable.value = ytSearchResultsCustom[index].id;
+            //           // getCurrSongInfo(
+            //           //   id: ytSearchResultsCustom[index].id,
+            //           //   uri: ytSearchResultsCustom[index].uri,
+            //           //   name: ytSearchResultsCustom[index].title,
+            //           //   artist: ytSearchResultsCustom[index].artist.toString(),
+            //           //   songIndex: index,
+            //           // );
+            //           // playSong(audioPlayer: audioPlayer);
+            //           // getLocalMiniPlayerSongList(ytSearchResultsCustom);
+            //         },
+            //       ),
+            //     );
+            //   },
+            // );
+          }
+        },
+      ),
     );
   }
 }

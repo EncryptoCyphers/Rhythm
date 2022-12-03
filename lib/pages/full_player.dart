@@ -170,8 +170,13 @@ class _PlayerState extends State<Player> {
                                     currSongIndex--;
                                   });
                                   getCurrSongInfo(
-                                    duration:
-                                        currSongList![currSongIndex].duration,
+                                    duration: currSongIsWeb
+                                        ? (currSongList![currSongIndex]
+                                            .duration)
+                                        : (Duration(
+                                            milliseconds:
+                                                currSongList![currSongIndex]
+                                                    .duration)),
                                     isWeb: currSongList![currSongIndex].isWeb,
                                     id: currSongList![currSongIndex]
                                         .id
@@ -184,7 +189,9 @@ class _PlayerState extends State<Player> {
                                     songIndex: currSongIndex,
                                   );
                                   currSongIdListenable.value =
-                                      currSongList![currSongIndex].id;
+                                      currSongList![currSongIndex]
+                                          .id
+                                          .toString();
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },
@@ -230,8 +237,13 @@ class _PlayerState extends State<Player> {
                                     id: currSongList![currSongIndex]
                                         .id
                                         .toString(),
-                                    duration:
-                                        currSongList![currSongIndex].duration,
+                                    duration: currSongIsWeb
+                                        ? (currSongList![currSongIndex]
+                                            .duration)
+                                        : (Duration(
+                                            milliseconds:
+                                                currSongList![currSongIndex]
+                                                    .duration)),
                                     isWeb: currSongList![currSongIndex].isWeb,
                                     uri: currSongList![currSongIndex].uri,
                                     name: currSongList![currSongIndex].title,
@@ -241,7 +253,9 @@ class _PlayerState extends State<Player> {
                                     songIndex: currSongIndex,
                                   );
                                   currSongIdListenable.value =
-                                      currSongList![currSongIndex].id;
+                                      currSongList![currSongIndex]
+                                          .id
+                                          .toString();
                                   playSong(audioPlayer: audioPlayer);
                                 }
                               },

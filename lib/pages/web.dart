@@ -18,32 +18,67 @@ class Youtube extends StatelessWidget {
       "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
       "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
     ];
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
-          child: Text(
-            'Recent Searches',
-            style: GoogleFonts.laila(
-              color: Colors.deepPurple,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+            child: Text(
+              'Recent Searches',
+              style: GoogleFonts.laila(
+                color: Colors.deepPurple,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          child: GFCarousel(
-            items: imageList.map(
-              (url) {
-                return Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                    child: Image.network(url, fit: BoxFit.cover, width: 1000.0),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: GFCarousel(
+              items: imageList.map(
+                (url) {
+                  return Container(
+                    margin: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(5.0)),
+                      child:
+                          Image.network(url, fit: BoxFit.cover, width: 1000.0),
+                    ),
+                  );
+                },
+              ).toList(),
+              // onPageChanged: (index) {
+              //   print('hello');
+              // },
+              autoPlay: true,
+              hasPagination: true,
+              pagerSize: 10,
+              enlargeMainPage: true,
+              activeIndicator: Colors.deepPurple,
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: ListView.builder(
+              itemCount: imageList.length,
+              itemBuilder: (context, index) {
+                return GFListTile(
+                  avatar: Image(
+                    image: NetworkImage(imageList[index]),
+                    width: 90,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                  titleText: 'Song Name',
+                  subTitleText: 'Artist Name or Channel name if required',
+                  icon: const FaIcon(
+                    FontAwesomeIcons.youtube,
+                    color: Colors.red,
                   ),
                 );
               },
+<<<<<<< HEAD
             ).toList(),
             onPageChanged: (index) {
               //Your Code Here
@@ -53,31 +88,12 @@ class Youtube extends StatelessWidget {
             pagerSize: 10,
             enlargeMainPage: true,
             activeIndicator: Colors.deepPurple,
+=======
+            ),
+>>>>>>> 86ad9e6719647c908e24145d0481caaed783a3ef
           ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: ListView.builder(
-            itemCount: imageList.length,
-            itemBuilder: (context, index) {
-              return GFListTile(
-                avatar: Image(
-                  image: NetworkImage(imageList[index]),
-                  width: 90,
-                  height: 100,
-                  fit: BoxFit.cover,
-                ),
-                titleText: 'Song Name',
-                subTitleText: 'Artist Name or Channel name if required',
-                icon: const FaIcon(
-                  FontAwesomeIcons.youtube,
-                  color: Colors.red,
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
