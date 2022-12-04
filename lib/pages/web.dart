@@ -27,23 +27,20 @@ class _YoutubeState extends State<Youtube> {
     print(trendingSongList[0].title);
   }
   */
-
+  final List<String> imageList = [];
   Future<void> makeTrendingSongList() async {
     //await Future.delayed(const Duration(seconds: 2));
     await trending.getTrendingMusic();
+    for (int i = 0; i < trendingSongList.length; i++) {
+      imageList.add(trendingSongList[i].id);
+    }
+    // print(imageList);
   }
 
   @override
   Widget build(BuildContext context) {
     //Dummy Image Fetch List
-    final List<String> imageList = [
-      "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
-      "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
-      "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
-      "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
-      "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
-      "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
-    ];
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -93,7 +90,6 @@ class _YoutubeState extends State<Youtube> {
               ),
             ),
           ),
-          /*
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.4,
             child: ListView.builder(
@@ -101,34 +97,25 @@ class _YoutubeState extends State<Youtube> {
               itemBuilder: (context, index) {
                 return GFListTile(
                   avatar: Image(
-                    image: NetworkImage(imageList[index]),
+                    image: NetworkImage(
+                        YoutubeThumbnail(youtubeId: imageList[index]).small()),
                     width: 90,
                     height: 100,
                     fit: BoxFit.cover,
                   ),
-                  titleText: 'Song Name',
-                  subTitleText: 'Artist Name or Channel name if required',
+                  titleText: trendingSongList[index].title,
+                  subTitleText: trendingSongList[index].artist,
                   icon: const FaIcon(
                     FontAwesomeIcons.youtube,
                     color: Colors.red,
                   ),
                 );
               },
-<<<<<<< HEAD
-            ).toList(),
-            onPageChanged: (index) {
-              //Your Code Here
-            },
-            autoPlay: true,
-            hasPagination: true,
-            pagerSize: 10,
-            enlargeMainPage: true,
-            activeIndicator: Colors.deepPurple,
-=======
             ),
->>>>>>> 86ad9e6719647c908e24145d0481caaed783a3ef
+            // onPageChanged: (index) {
+            //   //Your Code Here
+            // },
           ),
-          */
         ],
       ),
     );
