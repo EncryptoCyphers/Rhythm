@@ -39,11 +39,10 @@ class _YoutubeState extends State<Youtube> {
 
   @override
   Widget build(BuildContext context) {
-    //Dummy Image Fetch List
-
     return SingleChildScrollView(
       child: Column(
         children: [
+          /*-----------------------------------Text Box-----------------------------------*/
           Padding(
             padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
             child: Text(
@@ -55,6 +54,8 @@ class _YoutubeState extends State<Youtube> {
               ),
             ),
           ),
+
+          /*-----------------------------------Trending Song-----------------------------------*/
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
             child: FutureBuilder(
@@ -79,6 +80,8 @@ class _YoutubeState extends State<Youtube> {
                   }
                 }),
           ),
+
+          /*-----------------------------------Text Box-----------------------------------*/
           Padding(
             padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
             child: Text(
@@ -90,6 +93,8 @@ class _YoutubeState extends State<Youtube> {
               ),
             ),
           ),
+
+          /*-----------------------------------Recent Searches-----------------------------------*/
           FutureBuilder(
             future: makeTrendingSongList(),
             builder: (context, snapshot) {
@@ -106,7 +111,7 @@ class _YoutubeState extends State<Youtube> {
                         avatar: Image(
                           image: NetworkImage(
                               YoutubeThumbnail(youtubeId: imageList[index])
-                                  .small()),
+                                  .mq()),
                           width: 90,
                           height: 100,
                           fit: BoxFit.cover,
@@ -122,7 +127,6 @@ class _YoutubeState extends State<Youtube> {
                   ),
                 );
               }
-
               return const Text('Something went wrong');
             },
           ),
