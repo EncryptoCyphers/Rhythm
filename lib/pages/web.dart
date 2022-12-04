@@ -90,31 +90,41 @@ class _YoutubeState extends State<Youtube> {
               ),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
-            child: ListView.builder(
-              itemCount: trendingSongList.length,
-              itemBuilder: (context, index) {
-                return GFListTile(
-                  avatar: Image(
-                    image: NetworkImage(
-                        YoutubeThumbnail(youtubeId: imageList[index]).small()),
-                    width: 90,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                  titleText: trendingSongList[index].title,
-                  subTitleText: trendingSongList[index].artist,
-                  icon: const FaIcon(
-                    FontAwesomeIcons.youtube,
-                    color: Colors.red,
+          FutureBuilder(
+            future: makeTrendingSongList(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.connectionState == ConnectionState.done ||
+                  snapshot.connectionState == ConnectionState.active) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: ListView.builder(
+                    itemCount: trendingSongList.length,
+                    itemBuilder: (context, index) {
+                      return GFListTile(
+                        avatar: Image(
+                          image: NetworkImage(
+                              YoutubeThumbnail(youtubeId: imageList[index])
+                                  .small()),
+                          width: 90,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        titleText: trendingSongList[index].title,
+                        subTitleText: trendingSongList[index].artist,
+                        icon: const FaIcon(
+                          FontAwesomeIcons.youtube,
+                          color: Colors.red,
+                        ),
+                      );
+                    },
                   ),
                 );
-              },
-            ),
-            // onPageChanged: (index) {
-            //   //Your Code Here
-            // },
+              }
+
+              return const Text('Something went wrong');
+            },
           ),
         ],
       ),
