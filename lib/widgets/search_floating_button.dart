@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player_app/pages/local_search_page.dart';
 
 import '../widgets/b_nav.dart';
 import '../pages/mini_player.dart';
@@ -57,6 +58,12 @@ class SearchButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (navIndexListener.value == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LocalSearch(),
+            ),
+          );
         } else {
           Navigator.push(
             context,
