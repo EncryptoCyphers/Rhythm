@@ -1,11 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:getwidget/components/carousel/gf_carousel.dart';
+//import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:music_player_app/services/trending_songs.dart';
+import 'package:youtube/youtube_thumbnail.dart';
 
-class Youtube extends StatelessWidget {
+// ignore: must_be_immutable
+class Youtube extends StatefulWidget {
   const Youtube({super.key});
+
+  @override
+  State<Youtube> createState() => _YoutubeState();
+}
+
+class _YoutubeState extends State<Youtube> {
+  Trending trending = Trending();
+
+  /*
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    trending.getTrendingMusic();
+    print(trendingSongList[0].title);
+  }
+  */
+
+  Future<void> makeTrendingSongList() async {
+    //await Future.delayed(const Duration(seconds: 2));
+    await trending.getTrendingMusic();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +50,7 @@ class Youtube extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
             child: Text(
-              'Recent Searches',
+              'Trending Songs on YouTube',
               style: GoogleFonts.laila(
                 color: Colors.deepPurple,
                 fontSize: 25,
@@ -34,34 +60,44 @@ class Youtube extends StatelessWidget {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
-            child: GFCarousel(
-              items: imageList.map(
-                (url) {
-                  return Container(
-                    margin: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(5.0)),
-                      child:
-                          Image.network(url, fit: BoxFit.cover, width: 1000.0),
-                    ),
-                  );
-                },
-              ).toList(),
-              // onPageChanged: (index) {
-              //   print('hello');
-              // },
-              autoPlay: true,
-              hasPagination: true,
-              pagerSize: 10,
-              enlargeMainPage: true,
-              activeIndicator: Colors.deepPurple,
+            child: FutureBuilder(
+                future: makeTrendingSongList(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.connectionState == ConnectionState.done ||
+                      snapshot.connectionState == ConnectionState.active) {
+                    return CarouselSlider(
+                      options: CarouselOptions(
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                      ),
+                      items: trendingSongList.map((trendingSong) {
+                        return Image.network(
+                            YoutubeThumbnail(youtubeId: trendingSong.id).mq());
+                      }).toList(),
+                    );
+                  } else {
+                    return const Text('Trending Songs cannot be fetched');
+                  }
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+            child: Text(
+              'Recent Searches',
+              style: GoogleFonts.laila(
+                color: Colors.deepPurple,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
+          /*
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.4,
             child: ListView.builder(
-              itemCount: imageList.length,
+              itemCount: trendingSongList.length,
               itemBuilder: (context, index) {
                 return GFListTile(
                   avatar: Image(
@@ -92,6 +128,7 @@ class Youtube extends StatelessWidget {
             ),
 >>>>>>> 86ad9e6719647c908e24145d0481caaed783a3ef
           ),
+          */
         ],
       ),
     );
