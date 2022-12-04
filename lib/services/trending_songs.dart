@@ -16,7 +16,7 @@ List<TrendingMusic> trendingSongList = [];
 
 class Trending {
   YoutubeDataApi youtubeDataApi = YoutubeDataApi();
-  void getTrendingMusic() async {
+  getTrendingMusic() async {
     List<Video> music = await youtubeDataApi.fetchTrendingMusic();
     trendingSongList = [];
     for (var i = 0; i < music.length; i++) {
