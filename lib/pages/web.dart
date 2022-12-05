@@ -70,7 +70,7 @@ class _YoutubeState extends State<Youtube> {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return const Text(
-                      'Something went wrrong!!',
+                      'Something went wrong!!',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
