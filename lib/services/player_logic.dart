@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 AudioPlayer audioPlayer = AudioPlayer();
 // bool of is Playing
@@ -17,6 +18,7 @@ String currSongArtistName = 'Artist Name';
 String? currSongUri;
 int currSongIndex = 0;
 bool currSongIsWeb = false;
+late VideoId? currSongVideoIdStremable;
 getCurrSongInfo({
   required String id,
   required name,
@@ -25,6 +27,7 @@ getCurrSongInfo({
   required songIndex,
   required Duration duration,
   required bool isWeb,
+  VideoId? streamId,
 }) {
   currSongId = id;
   currSongName = name;
@@ -33,6 +36,7 @@ getCurrSongInfo({
   currSongIndex = songIndex;
   currSongDuration = duration;
   currSongIsWeb = isWeb;
+  currSongVideoIdStremable = streamId;
 }
 
 playSong({required AudioPlayer audioPlayer}) {

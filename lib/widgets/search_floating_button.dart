@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:page_animation_transition/animations/left_to_right_faded_transition.dart';
+import 'package:page_animation_transition/page_animation_transition.dart';
 import 'package:music_player_app/pages/local_search_page.dart';
 
+import '../services/get_yt_searches.dart';
 import '../widgets/b_nav.dart';
 import '../pages/mini_player.dart';
 import '../pages/search_page.dart';
@@ -65,12 +68,19 @@ class SearchButton extends StatelessWidget {
             ),
           );
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SearchPage(),
-            ),
+          ytSearchResults.clear();
+          ytSearchResultsCustom.clear();
+          Navigator.of(context).push(
+            PageAnimationTransition(
+                page: const SearchPage(),
+                pageAnimationType: LeftToRightFadedTransition()),
           );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => const SearchPage(),
+          //   ),
+          // );
         }
       },
       child: Container(

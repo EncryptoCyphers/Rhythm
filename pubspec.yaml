@@ -64,8 +64,12 @@ dependencies:
   font_awesome_flutter: ^10.2.1
   getwidget: ^3.0.1
   flutter_media_metadata: ^1.0.0+1
+<<<<<<< HEAD
   awesome_dialog: ^3.0.2
 
+=======
+  page_animation_transition: ^0.0.9
+>>>>>>> 106b87e0f348b5779c9946a1a5845b02f5c0bc45
 
 dev_dependencies:
   flutter_test:

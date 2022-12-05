@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
+import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
@@ -11,6 +12,7 @@ import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 
 ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
+ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
 
 class Player extends StatefulWidget {
   const Player({
@@ -66,39 +68,85 @@ class _PlayerState extends State<Player> {
                         //Song Banner..........................................................//
 
                         const ArtWork(),
+
                         //Song Name in Marquee.......................................................................................//
                         const SizedBox(
                           height: 50,
                         ),
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: MarqueeText(
-                            text: TextSpan(
-                              text: currSongName,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            style: const TextStyle(
-                              fontSize: 28,
-                            ),
-                            speed: 10,
-                          ),
-                        ),
 
-                        //Artist Name in Marquee.......................................................................................//
+                        ValueListenableBuilder<int>(
+                            valueListenable: currSongIndexListenable,
+                            builder: (BuildContext context, int songIndex,
+                                Widget? child) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                    child: MarqueeText(
+                                      text: TextSpan(
+                                        text: currSongList![songIndex].title,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                      style: const TextStyle(
+                                        fontSize: 28,
+                                      ),
+                                      speed: 10,
+                                    ),
+                                  ),
 
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: MarqueeText(
-                            text: TextSpan(
-                              text: currSongArtistName,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
-                            speed: 10,
-                          ),
-                        ),
+                                  //Artist Name in Marquee.......................................................................................//
+
+                                  Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                    child: MarqueeText(
+                                      text: TextSpan(
+                                        text: currSongList![songIndex].artist,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                      speed: 10,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
+
+                        // Container(
+                        //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        //   child: MarqueeText(
+                        //     text: TextSpan(
+                        //       text: currSongName,
+                        //       style: const TextStyle(color: Colors.white),
+                        //     ),
+                        //     style: const TextStyle(
+                        //       fontSize: 28,
+                        //     ),
+                        //     speed: 10,
+                        //   ),
+                        // ),
+
+                        // //Artist Name in Marquee.......................................................................................//
+
+                        // Container(
+                        //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        //   child: MarqueeText(
+                        //     text: TextSpan(
+                        //       text: currSongArtistName,
+                        //       style: const TextStyle(color: Colors.white),
+                        //     ),
+                        //     style: const TextStyle(
+                        //       fontSize: 18,
+                        //     ),
+                        //     speed: 10,
+                        //   ),
+                        // ),
 
                         const SizedBox(
                           height: 10,
@@ -166,33 +214,41 @@ class _PlayerState extends State<Player> {
                                     currSongIndex <= currSongList!.length &&
                                     currSongList!.length > 1) {
                                   // print(currSongIndex);
-                                  setState(() {
+
+                                  if (currSongIsWeb) {
                                     currSongIndex--;
-                                  });
-                                  getCurrSongInfo(
-                                    duration: currSongIsWeb
-                                        ? (currSongList![currSongIndex]
-                                            .duration)
-                                        : (Duration(
-                                            milliseconds:
-                                                currSongList![currSongIndex]
-                                                    .duration)),
-                                    isWeb: currSongList![currSongIndex].isWeb,
-                                    id: currSongList![currSongIndex]
-                                        .id
-                                        .toString(),
-                                    uri: currSongList![currSongIndex].uri,
-                                    name: currSongList![currSongIndex].title,
-                                    artist: currSongList![currSongIndex]
-                                        .artist
-                                        .toString(),
-                                    songIndex: currSongIndex,
-                                  );
-                                  currSongIdListenable.value =
-                                      currSongList![currSongIndex]
+                                    fetchSongUriForCurrList(currSongIndex);
+                                    currSongIndexListenable.value =
+                                        currSongIndex;
+                                  } else {
+                                    setState(() {
+                                      currSongIndex--;
+                                    });
+                                    getCurrSongInfo(
+                                      duration: currSongIsWeb
+                                          ? (currSongList![currSongIndex]
+                                              .duration)
+                                          : (Duration(
+                                              milliseconds:
+                                                  currSongList![currSongIndex]
+                                                      .duration)),
+                                      isWeb: currSongList![currSongIndex].isWeb,
+                                      id: currSongList![currSongIndex]
                                           .id
-                                          .toString();
-                                  playSong(audioPlayer: audioPlayer);
+                                          .toString(),
+                                      uri: currSongList![currSongIndex].uri,
+                                      name: currSongList![currSongIndex].title,
+                                      artist: currSongList![currSongIndex]
+                                          .artist
+                                          .toString(),
+                                      songIndex: currSongIndex,
+                                    );
+                                    currSongIdListenable.value =
+                                        currSongList![currSongIndex]
+                                            .id
+                                            .toString();
+                                    playSong(audioPlayer: audioPlayer);
+                                  }
                                 }
                               },
                               color: Colors.white,
@@ -233,30 +289,40 @@ class _PlayerState extends State<Player> {
                                   setState(() {
                                     currSongIndex++;
                                   });
-                                  getCurrSongInfo(
-                                    id: currSongList![currSongIndex]
-                                        .id
-                                        .toString(),
-                                    duration: currSongIsWeb
-                                        ? (currSongList![currSongIndex]
-                                            .duration)
-                                        : (Duration(
-                                            milliseconds:
-                                                currSongList![currSongIndex]
-                                                    .duration)),
-                                    isWeb: currSongList![currSongIndex].isWeb,
-                                    uri: currSongList![currSongIndex].uri,
-                                    name: currSongList![currSongIndex].title,
-                                    artist: currSongList![currSongIndex]
-                                        .artist
-                                        .toString(),
-                                    songIndex: currSongIndex,
-                                  );
-                                  currSongIdListenable.value =
-                                      currSongList![currSongIndex]
+                                  if (currSongIsWeb) {
+                                    currSongIndexListenable.value =
+                                        currSongIndex;
+                                    fetchSongUriForCurrList(currSongIndex);
+                                  } else {
+                                    getCurrSongInfo(
+                                      id: currSongList![currSongIndex]
                                           .id
-                                          .toString();
-                                  playSong(audioPlayer: audioPlayer);
+                                          .toString(),
+                                      duration: currSongIsWeb
+                                          ? (currSongList![currSongIndex]
+                                              .duration)
+                                          : (Duration(
+                                              milliseconds:
+                                                  currSongList![currSongIndex]
+                                                      .duration)),
+                                      isWeb: currSongList![currSongIndex].isWeb,
+                                      uri: currSongList![currSongIndex].uri,
+                                      name: currSongList![currSongIndex].title,
+                                      artist: currSongList![currSongIndex]
+                                          .artist
+                                          .toString(),
+                                      songIndex: currSongIndex,
+                                    );
+                                    currSongIdListenable.value =
+                                        currSongList![currSongIndex]
+                                            .id
+                                            .toString();
+                                    playSong(audioPlayer: audioPlayer);
+                                    setState(() {
+                                      currSongList![currSongIndex].title =
+                                          currSongList![currSongIndex].title;
+                                    });
+                                  }
                                 }
                               },
                               color: Colors.white,

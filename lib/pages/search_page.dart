@@ -12,35 +12,46 @@ import '../services/colours.dart';
 import '../services/get_yt_searches.dart';
 import '../services/player_logic.dart';
 import 'mini_player.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
+
 // import 'package:flutter_media_metadata/flutter_media_metadata.dart';
+Future fetchSongUri(index) async {
+  isFetchingUri.value = true;
+  ytSearchResultsCustom[index].uri = await getUri(
+    ytSearchResultsCustom[index].videoIdForFetchStream,
+  );
+  playSongAfterFetch(index);
+  isFetchingUri.value = false;
+}
+
+Future playSongAfterFetch(int index) async {
+  isPlayingListenable.value = true;
+  miniPlayerVisibilityListenable.value = true;
+  currSongIdListenable.value = ytSearchResultsCustom[index].id.toString();
+  getCurrSongInfo(
+    id: ytSearchResultsCustom[index].id.toString(),
+    duration: ytSearchResultsCustom[index].duration,
+    isWeb: ytSearchResultsCustom[index].isWeb,
+    uri: ytSearchResultsCustom[index].uri,
+    name: ytSearchResultsCustom[index].title,
+    artist: ytSearchResultsCustom[index].artist.toString(),
+    songIndex: index,
+    streamId: ytSearchResultsCustom[index].videoIdForFetchStream,
+  );
+  playSong(
+    audioPlayer: audioPlayer,
+  );
+  getLocalMiniPlayerSongList(
+    ytSearchResultsCustom,
+  );
+}
 
 const platform = MethodChannel('com.example.rhythm');
 ValueNotifier<bool> searchHappened = ValueNotifier(false);
 ValueNotifier<bool> isSearchLoading = ValueNotifier(false);
+ValueNotifier<bool> isFetchingUri = ValueNotifier(false);
 bool prevSearchHappened = false;
 Uint8List? albumArt;
-
-// Future getArt() async {
-//   await platform.invokeMethod('getArt');
-// }
-
-// Future getMetadata() async {
-//   // ignore: avoid_print
-//   print('1');
-//   getArt();
-//   // print(allSongsDevice[5].uri.toString());
-//   // File file = await toFile(allSongsDevice[5].uri);
-//   // // ignore: avoid_print
-//   // print(file.toString());
-//   // final metadata = await MetadataRetriever.fromFile(
-//   //     File('/0/06 Hasi (Shreya Ghoshal) 190Kbps.mp3'));
-//   // albumArt = metadata.albumArt;
-//   // ignore: avoid_print
-//   // print(albumArt.toString());
-//   // ignore: avoid_print
-//   print('2');
-// }
+FocusNode myFocusNode = FocusNode();
 
 class SearchPage extends StatefulWidget {
   const SearchPage();
@@ -66,258 +77,238 @@ class _SearchPageState extends State<SearchPage> {
   @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          // Status bar color
-          statusBarColor: fgPurple,
+    return Stack(
+      children: [
+        SafeArea(
+          child: Scaffold(
+            // bottomNavigationBar: Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     const MiniPlayerWidget(),
+            //     SizedBox(
+            //       height: 0,
+            //       width: logicalWidth,
+            //     ),
+            //   ],
+            // ),
+            backgroundColor: Colors.white,
 
-          // Status bar brightness (optional)
-          statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-          statusBarBrightness: Brightness.light, // For iOS (dark icons)
-        ),
-        backgroundColor: fgPurple,
-        /*centerTitle: true,
-            title: const Text("RYTHM"),*/
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.85,
-              child: SearchBarAnimation(
-                  textEditingController: _musicController,
-                  isOriginalAnimation: true,
-                  durationInMilliSeconds: 300,
-                  trailingWidget: const Icon(Icons.search),
-                  secondaryButtonWidget: const Icon(Icons.close),
-                  buttonWidget: const Icon(Icons.search),
-                  isSearchBoxOnRightSide: true,
-                  hintText: "Search Songs, Artists...",
-                  //hintTextColour: Colors.deepPurple,
-                  enableKeyboardFocus: true,
-                  onFieldSubmitted: (String value) {
-                    isSearchLoading.value = true;
-                    fetchSearchResults(_musicController.text);
-                    // _dataService.getMusic(_musicController.text);
-                  }),
+            // Defined in switch_pages.dart
+            body:
+                // Container(
+                //   padding: const EdgeInsets.all(2),
+                // child: Image.memory(albumArt!),
+                //   child: Column(
+                //     children: [
+                //       // Image.memory(albumArt!),
+                //       ElevatedButton(
+                //         onPressed: (() {
+                //           getMetadata();
+                //         }),
+                //         child: const Text('hii'),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Column(
+              children: [
+                // //
+                // //
+                // //
+                // //......Search Bar............................
+                // //
+                Container(
+                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
+                  child: TextField(
+                    controller: _musicController,
+                    onSubmitted: (value) {
+                      isSearchLoading.value = true;
+                      fetchSearchResults(_musicController.text);
+                    },
+                    focusNode: myFocusNode,
+                    decoration: InputDecoration(
+                      icon: IconButton(
+                        onPressed: (() {
+                          Navigator.pop(context);
+                        }),
+                        icon: const Icon(Icons.arrow_back_ios_new),
+                        color: fgPurple,
+                      ),
+                      prefixIcon: Icon(Icons.search, color: bgPurple),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                        borderSide: BorderSide(
+                          color: fgPurple,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: fgPurple,
+                          width: 2.5,
+                        ),
+                      ),
+                      labelText: 'Enter a search term',
+                      labelStyle: TextStyle(
+                        color: bgPurple,
+                      ),
+                    ),
+                  ),
+                ),
+                // //
+                // //
+                // //
+                // //
+                // //
+                // //.................Main Body..................
+                // //
+                Flexible(
+                  child: ValueListenableBuilder<bool>(
+                    valueListenable: searchHappened,
+                    builder: (BuildContext context, bool value, Widget? child) {
+                      if (ytSearchResultsCustom.isEmpty) {
+                        return ValueListenableBuilder<bool>(
+                            valueListenable: isSearchLoading,
+                            builder: (BuildContext context, bool value,
+                                Widget? child) {
+                              if (isSearchLoading.value) {
+                                return const ShimmerEffect();
+                              } else {
+                                return const Center(
+                                  child: Text('Search Something To Show Here'),
+                                );
+                              }
+                            });
+                      } else {
+                        return ValueListenableBuilder<bool>(
+                            valueListenable: isSearchLoading,
+                            builder: (BuildContext context, bool value,
+                                Widget? child) {
+                              if (isSearchLoading.value) {
+                                return const ShimmerEffect();
+                              } else {
+                                prevSearchHappened == searchHappened.value;
+                                return ListView.builder(
+                                  itemCount: ytSearchResultsCustom.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                                      child: ListTile(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        // tileColor: Colors.black26,
+                                        //
+                                        //
+                                        //
+                                        //
+                                        //...... Artwork ......................................//
+                                        //
+                                        leading: Image.network(YoutubeThumbnail(
+                                                youtubeId:
+                                                    ytSearchResultsCustom[index]
+                                                        .id
+                                                        .toString())
+                                            .mq()),
+                                        //
+                                        //
+                                        //
+                                        //
+                                        //...... Song Name  ......................................//
+                                        //
+                                        title: Text(
+                                          ytSearchResultsCustom[index].title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        //
+                                        //
+                                        //
+                                        //
+                                        //...... Artist Name  ......................................//
+                                        //
+                                        subtitle: Text(
+                                            ytSearchResultsCustom[index]
+                                                .artist),
+                                        //
+                                        //
+                                        //
+                                        //
+                                        //...... left Button  ......................................//
+                                        //
+                                        trailing: const Icon(Icons.more_horiz),
+                                        //
+                                        //
+                                        //
+                                        //
+                                        //...... Song OnTap ......................................//
+                                        //
+                                        onTap: () {
+                                          // print(ytSearchResultsCustom[index]
+                                          //     .videoIdForFetchStream
+                                          //     .toString());
+                                          fetchSongUri(index);
+                                          currSongIndexListenable.value = index;
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            });
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const MiniPlayerWidget(),
-          SizedBox(
-            height: 0,
-            width: logicalWidth,
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const MiniPlayerWidget(),
+            SizedBox(
+              height: 0,
+              width: logicalWidth,
+            ),
+          ],
+        ),
+        const LoadingSong(),
+      ],
+    );
+  }
+}
 
-      // Defined in switch_pages.dart
-      body:
-          // Container(
-          //   padding: const EdgeInsets.all(2),
-          // child: Image.memory(albumArt!),
-          //   child: Column(
-          //     children: [
-          //       // Image.memory(albumArt!),
-          //       ElevatedButton(
-          //         onPressed: (() {
-          //           getMetadata();
-          //         }),
-          //         child: const Text('hii'),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          ValueListenableBuilder<bool>(
-        valueListenable: searchHappened,
-        builder: (BuildContext context, bool value, Widget? child) {
-          if (ytSearchResultsCustom.isEmpty) {
-            return ValueListenableBuilder<bool>(
-                valueListenable: isSearchLoading,
-                builder: (BuildContext context, bool value, Widget? child) {
-                  if (isSearchLoading.value) {
-                    return const ShimmerEffect();
-                  } else {
-                    return const Center(
-                      child: Text('Search Something To Show Here'),
-                    );
-                  }
-                });
-          } else {
-            return ValueListenableBuilder<bool>(
-                valueListenable: isSearchLoading,
-                builder: (BuildContext context, bool value, Widget? child) {
-                  if (isSearchLoading.value) {
-                    return const ShimmerEffect();
-                  } else {
-                    prevSearchHappened == searchHappened.value;
-                    return ListView.builder(
-                      itemCount: ytSearchResultsCustom.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            // tileColor: Colors.black26,
-                            //
-                            //
-                            //
-                            //
-                            //...... Artwork ......................................//
-                            //
-                            leading: Image.network(YoutubeThumbnail(
-                                    youtubeId: ytSearchResultsCustom[index]
-                                        .id
-                                        .toString())
-                                .mq()),
-                            // leading: QueryArtworkWidget(
-                            //   id: allSongs[index].id,
-                            //   type: ArtworkType.AUDIO,
-                            //   nullArtworkWidget: const Icon(Icons.music_note),
-                            //   artworkBorder: const BorderRadius.all(Radius.circular(10)),
-                            // ),
-                            //
-                            //
-                            //
-                            //
-                            //...... Song Name  ......................................//
-                            //
-                            title: Text(
-                              ytSearchResultsCustom[index].title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            //
-                            //
-                            //
-                            //
-                            //...... Artist Name  ......................................//
-                            //
-                            subtitle: Text(ytSearchResultsCustom[index].artist),
-                            //
-                            //
-                            //
-                            //
-                            //...... left Button  ......................................//
-                            //
-                            trailing: const Icon(Icons.more_horiz),
-                            //
-                            //
-                            //
-                            //
-                            //...... Song OnTap ......................................//
-                            //
-                            onTap: () {
-                              isPlayingListenable.value = true;
-                              miniPlayerVisibilityListenable.value = true;
-                              currSongIdListenable.value =
-                                  ytSearchResultsCustom[index].id.toString();
-                              getCurrSongInfo(
-                                id: ytSearchResultsCustom[index].id.toString(),
-                                duration: ytSearchResultsCustom[index].duration,
-                                isWeb: ytSearchResultsCustom[index].isWeb,
-                                uri: ytSearchResultsCustom[index].uri,
-                                name: ytSearchResultsCustom[index].title,
-                                artist: ytSearchResultsCustom[index]
-                                    .artist
-                                    .toString(),
-                                songIndex: index,
-                              );
-                              playSong(audioPlayer: audioPlayer);
-                              getLocalMiniPlayerSongList(ytSearchResultsCustom);
-                            },
-                          ),
-                        );
-                      },
-                    );
-                  }
-                });
+class LoadingSong extends StatelessWidget {
+  const LoadingSong({super.key});
 
-            // prevSearchHappened == searchHappened.value;
-            // return ListView.builder(
-            //   itemCount: ytSearchResultsCustom.length,
-            //   itemBuilder: (context, index) {
-            //     return Container(
-            //       padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
-            //       child: ListTile(
-            //         shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(20)),
-            //         // tileColor: Colors.black26,
-            //         //
-            //         //
-            //         //
-            //         //
-            //         //...... Artwork ......................................//
-            //         //
-            //         leading: Image.network(YoutubeThumbnail(
-            //                 youtubeId: ytSearchResultsCustom[index].id.toString())
-            //             .mq()),
-            //         // leading: QueryArtworkWidget(
-            //         //   id: allSongs[index].id,
-            //         //   type: ArtworkType.AUDIO,
-            //         //   nullArtworkWidget: const Icon(Icons.music_note),
-            //         //   artworkBorder: const BorderRadius.all(Radius.circular(10)),
-            //         // ),
-            //         //
-            //         //
-            //         //
-            //         //
-            //         //...... Song Name  ......................................//
-            //         //
-            //         title: Text(
-            //           ytSearchResultsCustom[index].title,
-            //           maxLines: 1,
-            //           overflow: TextOverflow.ellipsis,
-            //         ),
-            //         //
-            //         //
-            //         //
-            //         //
-            //         //...... Artist Name  ......................................//
-            //         //
-            //         subtitle: Text(ytSearchResultsCustom[index].artist),
-            //         //
-            //         //
-            //         //
-            //         //
-            //         //...... left Button  ......................................//
-            //         //
-            //         trailing: const Icon(Icons.more_horiz),
-            //         //
-            //         //
-            //         //
-            //         //
-            //         //...... Song OnTap ......................................//
-            //         //
-            //         onTap: () {
-            //           // isPlayingListenable.value = true;
-            //           // miniPlayerVisibilityListenable.value = true;
-            //           // currSongIdListenable.value = ytSearchResultsCustom[index].id;
-            //           // getCurrSongInfo(
-            //           //   id: ytSearchResultsCustom[index].id,
-            //           //   uri: ytSearchResultsCustom[index].uri,
-            //           //   name: ytSearchResultsCustom[index].title,
-            //           //   artist: ytSearchResultsCustom[index].artist.toString(),
-            //           //   songIndex: index,
-            //           // );
-            //           // playSong(audioPlayer: audioPlayer);
-            //           // getLocalMiniPlayerSongList(ytSearchResultsCustom);
-            //         },
-            //       ),
-            //     );
-            //   },
-            // );
-          }
-        },
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: isFetchingUri,
+      builder: (BuildContext context, bool value, Widget? child) {
+        if (value) {
+          return Center(
+            child: Container(
+              height: (logicalWidth * 0.16),
+              width: (logicalWidth * 0.16),
+              decoration: BoxDecoration(
+                color: bgPurple,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(logicalWidth * 0.05)),
+              ),
+              child: const CircularProgressIndicator(),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 }
