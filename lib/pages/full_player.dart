@@ -92,7 +92,9 @@ class _PlayerState extends State<Player> {
                                           15, 0, 15, 0),
                                       child: MarqueeText(
                                         text: TextSpan(
-                                          text: currSongList![songIndex].title,
+                                          text: (currSongIsWeb)
+                                              ? currSongList![songIndex].title
+                                              : currSongName,
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
@@ -110,7 +112,9 @@ class _PlayerState extends State<Player> {
                                           15, 0, 15, 0),
                                       child: MarqueeText(
                                         text: TextSpan(
-                                          text: currSongList![songIndex].artist,
+                                          text: (currSongIsWeb)
+                                              ? currSongList![songIndex].artist
+                                              : currSongArtistName,
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
