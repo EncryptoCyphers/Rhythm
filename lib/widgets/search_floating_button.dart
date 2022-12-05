@@ -3,6 +3,7 @@ import 'package:page_animation_transition/animations/left_to_right_faded_transit
 import 'package:page_animation_transition/page_animation_transition.dart';
 import 'package:music_player_app/pages/local_search_page.dart';
 
+import '../services/get_yt_searches.dart';
 import '../widgets/b_nav.dart';
 import '../pages/mini_player.dart';
 import '../pages/search_page.dart';
@@ -67,6 +68,8 @@ class SearchButton extends StatelessWidget {
             ),
           );
         } else {
+          ytSearchResults.clear();
+          ytSearchResultsCustom.clear();
           Navigator.of(context).push(
             PageAnimationTransition(
                 page: const SearchPage(),

@@ -1,13 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/pages/search_page.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/data_service_and_song_query.dart';
+import '../services/get_yt_searches.dart';
 import '../services/screen_sizes.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../services/colours.dart';
 import '../services/player_logic.dart';
+
+Future fetchSongUriForCurrList(index) async {
+  isFetchingUri.value = true;
+  currSongList![index].uri = await getUri(
+    currSongList![index].videoIdForFetchStream,
+  );
+  playSongAfterFetch(index);
+  isFetchingUri.value = false;
+}
+
+Future playSongAfterFetch(int index) async {
+  isPlayingListenable.value = true;
+  miniPlayerVisibilityListenable.value = true;
+  currSongIdListenable.value = currSongList![index].id.toString();
+  getCurrSongInfo(
+    id: currSongList![index].id.toString(),
+    duration: currSongList![index].duration,
+    isWeb: currSongList![index].isWeb,
+    uri: currSongList![index].uri,
+    name: currSongList![index].title,
+    artist: currSongList![index].artist.toString(),
+    songIndex: index,
+    streamId: currSongList![index].videoIdForFetchStream,
+  );
+  playSong(
+    audioPlayer: audioPlayer,
+  );
+}
 
 List<CustomSongModel>? currSongList;
 getLocalMiniPlayerSongList(List<CustomSongModel> item) {
@@ -148,24 +178,33 @@ class MiniPlayerInfo extends StatelessWidget {
                             // print(currSongIndex);
 
                             currSongIndex++;
-                            getCurrSongInfo(
-                              id: currSongList![currSongIndex].id.toString(),
-                              uri: currSongList![currSongIndex].uri,
-                              duration: currSongIsWeb
-                                  ? (currSongList![currSongIndex].duration)
-                                  : (Duration(
-                                      milliseconds: currSongList![currSongIndex]
-                                          .duration)),
-                              isWeb: currSongList![currSongIndex].isWeb,
-                              name: currSongList![currSongIndex].title,
-                              artist: currSongList![currSongIndex]
-                                  .artist
-                                  .toString(),
-                              songIndex: currSongIndex,
-                            );
-                            currSongIdListenable.value =
-                                currSongList![currSongIndex].id.toString();
-                            playSong(audioPlayer: audioPlayer);
+                            if (currSongIsWeb) {
+                              fetchSongUriForCurrList(currSongIndex);
+                              // setState(() {
+                              //   currSongList![currSongIndex].title =
+                              //       currSongList![currSongIndex].title;
+                              // });
+                            } else {
+                              getCurrSongInfo(
+                                id: currSongList![currSongIndex].id.toString(),
+                                uri: currSongList![currSongIndex].uri,
+                                duration: currSongIsWeb
+                                    ? (currSongList![currSongIndex].duration)
+                                    : (Duration(
+                                        milliseconds:
+                                            currSongList![currSongIndex]
+                                                .duration)),
+                                isWeb: currSongList![currSongIndex].isWeb,
+                                name: currSongList![currSongIndex].title,
+                                artist: currSongList![currSongIndex]
+                                    .artist
+                                    .toString(),
+                                songIndex: currSongIndex,
+                              );
+                              currSongIdListenable.value =
+                                  currSongList![currSongIndex].id.toString();
+                              playSong(audioPlayer: audioPlayer);
+                            }
                           }
                         },
                         color: const Color.fromARGB(255, 37, 37, 37),

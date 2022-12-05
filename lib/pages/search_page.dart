@@ -24,26 +24,25 @@ Future fetchSongUri(index) async {
 }
 
 Future playSongAfterFetch(int index) async {
-  Future.delayed(const Duration(milliseconds: 150), () {
-    isPlayingListenable.value = true;
-    miniPlayerVisibilityListenable.value = true;
-    currSongIdListenable.value = ytSearchResultsCustom[index].id.toString();
-    getCurrSongInfo(
-      id: ytSearchResultsCustom[index].id.toString(),
-      duration: ytSearchResultsCustom[index].duration,
-      isWeb: ytSearchResultsCustom[index].isWeb,
-      uri: ytSearchResultsCustom[index].uri,
-      name: ytSearchResultsCustom[index].title,
-      artist: ytSearchResultsCustom[index].artist.toString(),
-      songIndex: index,
-    );
-    playSong(
-      audioPlayer: audioPlayer,
-    );
-    getLocalMiniPlayerSongList(
-      ytSearchResultsCustom,
-    );
-  });
+  isPlayingListenable.value = true;
+  miniPlayerVisibilityListenable.value = true;
+  currSongIdListenable.value = ytSearchResultsCustom[index].id.toString();
+  getCurrSongInfo(
+    id: ytSearchResultsCustom[index].id.toString(),
+    duration: ytSearchResultsCustom[index].duration,
+    isWeb: ytSearchResultsCustom[index].isWeb,
+    uri: ytSearchResultsCustom[index].uri,
+    name: ytSearchResultsCustom[index].title,
+    artist: ytSearchResultsCustom[index].artist.toString(),
+    songIndex: index,
+    streamId: ytSearchResultsCustom[index].videoIdForFetchStream,
+  );
+  playSong(
+    audioPlayer: audioPlayer,
+  );
+  getLocalMiniPlayerSongList(
+    ytSearchResultsCustom,
+  );
 }
 
 const platform = MethodChannel('com.example.rhythm');
@@ -82,17 +81,17 @@ class _SearchPageState extends State<SearchPage> {
       children: [
         SafeArea(
           child: Scaffold(
-            bottomNavigationBar: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const MiniPlayerWidget(),
-                SizedBox(
-                  height: 0,
-                  width: logicalWidth,
-                ),
-              ],
-            ),
+            // bottomNavigationBar: Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     const MiniPlayerWidget(),
+            //     SizedBox(
+            //       height: 0,
+            //       width: logicalWidth,
+            //     ),
+            //   ],
+            // ),
             backgroundColor: Colors.white,
 
             // Defined in switch_pages.dart
@@ -129,25 +128,42 @@ class _SearchPageState extends State<SearchPage> {
                     },
                     focusNode: myFocusNode,
                     decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.search),
+                      icon: IconButton(
+                        onPressed: (() {
+                          Navigator.pop(context);
+                        }),
+                        icon: const Icon(Icons.arrow_back_ios_new),
+                        color: fgPurple,
+                      ),
+                      prefixIcon: Icon(Icons.search, color: bgPurple),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: const BorderSide(
-                          color: Colors.green,
+                        borderSide: BorderSide(
+                          color: fgPurple,
                           width: 1.0,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.green,
+                        borderSide: BorderSide(
+                          color: fgPurple,
                           width: 2.5,
                         ),
                       ),
                       labelText: 'Enter a search term',
+                      labelStyle: TextStyle(
+                        color: bgPurple,
+                      ),
                     ),
                   ),
                 ),
+                // //
+                // //
+                // //
+                // //
+                // //
+                // //.................Main Body..................
+                // //
                 Flexible(
                   child: ValueListenableBuilder<bool>(
                     valueListenable: searchHappened,
@@ -231,11 +247,11 @@ class _SearchPageState extends State<SearchPage> {
                                         //...... Song OnTap ......................................//
                                         //
                                         onTap: () {
-                                          print(ytSearchResultsCustom[index]
-                                              .videoIdForFetchStream
-                                              .toString());
-
+                                          // print(ytSearchResultsCustom[index]
+                                          //     .videoIdForFetchStream
+                                          //     .toString());
                                           fetchSongUri(index);
+                                          currSongIndexListenable.value = index;
                                         },
                                       ),
                                     );
@@ -250,6 +266,17 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
           ),
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const MiniPlayerWidget(),
+            SizedBox(
+              height: 0,
+              width: logicalWidth,
+            ),
+          ],
         ),
         const LoadingSong(),
       ],
