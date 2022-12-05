@@ -255,7 +255,9 @@ class MiniArtWork extends StatelessWidget {
           );
         }
         return QueryArtworkWidget(
-          nullArtworkWidget: const Icon(Icons.music_note),
+          nullArtworkWidget: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              child: Image.asset('svg/No-Artwork-square.png')),
           id: int.parse(currSongId),
           type: ArtworkType.AUDIO,
           artworkQuality: FilterQuality.high,

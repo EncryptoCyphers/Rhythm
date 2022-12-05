@@ -261,7 +261,11 @@ class _TracksState extends State<Tracks> {
                               leading: QueryArtworkWidget(
                                 id: allSongsDevice[index].id,
                                 type: ArtworkType.AUDIO,
-                                nullArtworkWidget: const Icon(Icons.music_note),
+                                nullArtworkWidget: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.asset(
+                                        'svg/No-Artwork-square.png')),
                                 artworkBorder:
                                     const BorderRadius.all(Radius.circular(10)),
                               ),

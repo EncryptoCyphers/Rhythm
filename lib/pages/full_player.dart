@@ -437,7 +437,15 @@ class ArtWork extends StatelessWidget {
                   );
                 }
                 return QueryArtworkWidget(
-                  nullArtworkWidget: const Icon(Icons.music_note),
+                  nullArtworkWidget: SizedBox(
+                    height: logicalWidth * 0.75,
+                    width: logicalWidth * 0.75,
+                    child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset(
+                            'svg/No-Artwork-square-transparent.png')),
+                  ),
                   id: int.parse(currSongId),
                   type: ArtworkType.AUDIO,
                   artworkQuality: FilterQuality.high,
