@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, file_names
 
 import 'package:flutter/material.dart';
+import 'package:music_player_app/services/colours.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
 
@@ -19,7 +20,7 @@ class AppInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('About'),
-        backgroundColor: Colors.purple,
+        backgroundColor: fgPurple,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => Navigator.of(context).pop(),
@@ -35,10 +36,13 @@ class AppInfo extends StatelessWidget {
           Image.asset('images/app_icon.jpg', height: 150),
           const Text(
             'RHYTHM Music & MP3 Player',
+            textAlign: TextAlign.center,
+            maxLines: 2,
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.deepPurple),
+              fontWeight: FontWeight.bold,
+              fontSize: 22.5,
+              color: Colors.deepPurple,
+            ),
           ),
           const Text(
             'v1.0.0',
@@ -49,6 +53,8 @@ class AppInfo extends StatelessWidget {
           ),
           const Text(
             'This is an open source project and can be found on',
+            textAlign: TextAlign.center,
+            maxLines: 2,
             style: TextStyle(
               fontSize: 15,
             ),
@@ -85,6 +91,7 @@ class AppInfo extends StatelessWidget {
               fontSize: 15,
             ),
           ),
+          /*
           const Text(
             'and rate us on',
             style: TextStyle(
@@ -115,19 +122,20 @@ class AppInfo extends StatelessWidget {
               )
             ],
           ),
+          */
           Container(
-            height: 10,
+            height: 40,
           ),
           const Text(
             'Made with ❤ by',
             style: TextStyle(
-              fontWeight: FontWeight.bold,
               color: Colors.deepPurple,
-              fontSize: 15,
+              fontSize: 17.5,
             ),
           ),
+          /*
           const SizedBox(
-            height: 30,
+            //height: 30,
             child: TextButton(
               onPressed: _launchUrl3,
               child: Text(
@@ -139,7 +147,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 30,
+            //height: 30,
             child: TextButton(
               onPressed: _launchUrl4,
               child: Text(
@@ -151,7 +159,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 30,
+            //height: 30,
             child: TextButton(
               onPressed: _launchUrl,
               child: Text(
@@ -163,7 +171,7 @@ class AppInfo extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 30,
+            //height: 30,
             child: TextButton(
               onPressed: _launchUrl2,
               child: Text(
@@ -174,6 +182,53 @@ class AppInfo extends StatelessWidget {
               ),
             ),
           ),
+          */
+          GestureDetector(
+            onTap: _launchUrl4,
+            child: const Text(
+              'Bisal Karmakar',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: _launchUrl3,
+            child: const Text(
+              'Arnab Nandi',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: _launchUrl,
+            child: const Text(
+              'Ankit Paul',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          /*
+          GestureDetector(
+            onTap: _launchUrl2,
+            child: const Text(
+              'Arpan De',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          */
         ],
       ),
     );

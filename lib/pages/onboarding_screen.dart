@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/home_page.dart';
 import 'package:music_player_app/pages/password_reset.dart';
 import 'package:music_player_app/pages/signup.dart';
+import 'package:music_player_app/services/colours.dart';
+import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: prefer_typing_uninitialized_variables
 var username;
+bool obscureText = true;
+IconData _icon = Icons.visibility_off_outlined;
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({
@@ -128,7 +132,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                 child: ListView(
                   children: [
-                    Image.asset('images/login.png'),
+                    Image.asset(
+                      'images/login.png',
+                      height: logicalHeight * 0.3,
+                      width: logicalWidth * 0.3,
+                    ),
                     const Text(
                       'Sign In',
                       textAlign: TextAlign.center,
@@ -192,7 +200,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       margin: const EdgeInsets.all(10),
                       child: TextFormField(
                         autofocus: false,
-                        obscureText: true,
+                        obscureText: obscureText,
                         decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
@@ -209,6 +217,22 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           prefixIcon: const Icon(
                             Icons.lock,
                             color: Colors.deepPurple,
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                obscureText == true
+                                    ? obscureText = false
+                                    : obscureText = true;
+                                _icon == Icons.visibility_off_outlined
+                                    ? _icon = Icons.visibility_outlined
+                                    : _icon = Icons.visibility_off_outlined;
+                              });
+                            },
+                            child: Icon(
+                              _icon,
+                              color: fgPurple,
+                            ),
                           ),
                           labelText: 'Password',
                           hintText: 'Please enter your password',
@@ -378,8 +402,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else if (e.code == 'wrong-password') {
-                        const snackBar = SnackBar(
-                          content: Text(
+                        final snackBar = SnackBar(
+                          content: const Text(
                             'Wrong password !!!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -387,6 +411,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             ),
                           ),
                           backgroundColor: Colors.red,
+                          action: SnackBarAction(
+                            label: 'Forgot Password',
+                            textColor: Colors.white,
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const PasswordReset(),
+                              ));
+                            },
+                          ),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } else if (e.code == 'invalid-email') {
