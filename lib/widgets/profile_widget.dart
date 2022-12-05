@@ -71,8 +71,8 @@ class _MyProfileState extends State<MyProfile> {
           child: Stack(
             children: [
               const Positioned(
-                top: 35,
-                right: 35,
+                top: 15,
+                left: 35,
                 child: Text(
                   'Profile Information',
                   textAlign: TextAlign.center,
@@ -85,7 +85,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                top: 90,
+                top: 70,
                 left: 10,
                 child: Row(
                   children: [
@@ -99,7 +99,7 @@ class _MyProfileState extends State<MyProfile> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -107,7 +107,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                top: 125,
+                top: 110,
                 left: 10,
                 child: Row(
                   children: [
@@ -121,7 +121,7 @@ class _MyProfileState extends State<MyProfile> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -129,7 +129,7 @@ class _MyProfileState extends State<MyProfile> {
                 ),
               ),
               Positioned(
-                top: 160,
+                top: 150,
                 left: 10,
                 child: Row(
                   children: [
@@ -143,7 +143,7 @@ class _MyProfileState extends State<MyProfile> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -157,7 +157,7 @@ class _MyProfileState extends State<MyProfile> {
                   child: const Icon(
                     Icons.edit,
                     color: Colors.white,
-                    size: 20,
+                    size: 25,
                   ),
                   onPressed: () {
                     Navigator.push(

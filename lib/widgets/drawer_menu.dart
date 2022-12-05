@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player_app/services/colours.dart';
@@ -197,71 +198,99 @@ class DrawerMenu extends StatelessWidget {
                 ),
                 onTap: () async {
                   //Firebase logout implementation will be done
-
-                  showDialog<String>(
+                  AwesomeDialog(
                     context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      title: const Text(
-                        'Log Out',
-                        style: TextStyle(
-                          color: Colors.deepPurple,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      content: const Text(
-                        'Are you sure ?',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await FirebaseAuth.instance.signOut();
-
-                            FirebaseAuth.instance
-                                .authStateChanges()
-                                .listen((User? user) {
-                              if (user == null) {
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) =>
-                                //         const OnboardingPage(),
-                                //   ),
-                                // );
-                                while (Navigator.canPop(context)) {
-                                  Navigator.pop(context);
-                                }
-                              } else {
-                                // print('User is signed in!');
-                              }
-                            });
-                          },
-                          child: const Text(
-                            'Log Out',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
+                    dialogType: DialogType.question,
+                    headerAnimationLoop: false,
+                    animType: AnimType.bottomSlide,
+                    title: 'Log Out',
+                    desc: 'Are you sure to log out?',
+                    buttonsTextStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
+                    showCloseIcon: true,
+                    btnCancelOnPress: () {
+                      Navigator.pop(context);
+                    },
+                    btnOkOnPress: () async {
+                      await FirebaseAuth.instance.signOut();
+                      FirebaseAuth.instance
+                          .authStateChanges()
+                          .listen((User? user) {
+                        if (user == null) {
+                          while (Navigator.canPop(context)) {
+                            Navigator.pop(context);
+                          }
+                        }
+                      });
+                    },
+                  ).show();
+                  // // showDialog<String>(
+                  // //   context: context,
+                  // //   builder: (BuildContext context) => AlertDialog(
+                  // //     shape: RoundedRectangleBorder(
+                  // //         borderRadius: BorderRadius.circular(25)),
+                  // //     title: const Text(
+                  // //       'Log Out',
+                  // //       style: TextStyle(
+                  // //         color: Colors.deepPurple,
+                  // //         fontSize: 25,
+                  // //         fontWeight: FontWeight.bold,
+                  // //       ),
+                  // //     ),
+                  // //     content: const Text(
+                  // //       'Are you sure ?',
+                  // //       style: TextStyle(
+                  // //         fontSize: 20,
+                  // //       ),
+                  // //     ),
+                  // //     actions: <Widget>[
+                  // //       TextButton(
+                  // //         onPressed: () => Navigator.pop(context),
+                  // //         child: const Text(
+                  // //           'Cancel',
+                  // //           style: TextStyle(
+                  // //             color: Colors.green,
+                  // //             fontSize: 20,
+                  // //           ),
+                  // //         ),
+                  // //       ),
+                  // //       TextButton(
+                  // //         onPressed: () async {
+                  // //           await FirebaseAuth.instance.signOut();
+
+                  // //           FirebaseAuth.instance
+                  // //               .authStateChanges()
+                  // //               .listen((User? user) {
+                  // //             if (user == null) {
+                  // //               // Navigator.pushReplacement(
+                  // //               //   context,
+                  // //               //   MaterialPageRoute(
+                  // //               //     builder: (context) =>
+                  // //               //         const OnboardingPage(),
+                  // //               //   ),
+                  // //               // );
+                  // //               while (Navigator.canPop(context)) {
+                  // //                 Navigator.pop(context);
+                  // //               }
+                  // //             } else {
+                  // //               // print('User is signed in!');
+                  // //             }
+                  // //           });
+                  // //         },
+                  // //         child: const Text(
+                  // //           'Log Out',
+                  // //           style: TextStyle(
+                  // //             color: Colors.red,
+                  // //             fontSize: 20,
+                  // //           ),
+                  // //         ),
+                  // //       ),
+                  // //     ],
+                  // //   ),
+                  // );
                 },
               ),
             ],
