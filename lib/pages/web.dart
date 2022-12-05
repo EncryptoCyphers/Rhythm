@@ -68,24 +68,28 @@ class _YoutubeState extends State<Youtube> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.connectionState == ConnectionState.done ||
-                      snapshot.connectionState == ConnectionState.active) {
-                    return CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        enlargeCenterPage: true,
+                  } else if (snapshot.hasError) {
+                    return const Text(
+                      'Something went wrrong!!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
-                      items: trendingSongList.map((trendingSong) {
-                        return GestureDetector(
-                            onTap: () {},
-                            child: Image.network(
-                              YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
-                            ));
-                      }).toList(),
                     );
-                  } else {
-                    return const Text('Trending Songs cannot be fetched');
                   }
+                  return CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                    ),
+                    items: trendingSongList.map((trendingSong) {
+                      return GestureDetector(
+                          onTap: () {},
+                          child: Image.network(
+                            YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
+                          ));
+                    }).toList(),
+                  );
                 }),
           ),
 
@@ -108,34 +112,38 @@ class _YoutubeState extends State<Youtube> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.connectionState == ConnectionState.done ||
-                  snapshot.connectionState == ConnectionState.active) {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: ListView.builder(
-                    itemCount: trendingSongList.length,
-                    itemBuilder: (context, index) {
-                      return GFListTile(
-                        avatar: Image(
-                          image: NetworkImage(
-                              YoutubeThumbnail(youtubeId: imageList[index])
-                                  .mq()),
-                          width: 90,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                        titleText: trendingSongList[index].title,
-                        subTitleText: trendingSongList[index].artist,
-                        icon: const FaIcon(
-                          FontAwesomeIcons.youtube,
-                          color: Colors.red,
-                        ),
-                      );
-                    },
+              } else if (snapshot.hasError) {
+                return const Text(
+                  'Something went wrrong!!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 );
               }
-              return const Text('Something went wrong');
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: ListView.builder(
+                  itemCount: trendingSongList.length,
+                  itemBuilder: (context, index) {
+                    return GFListTile(
+                      avatar: Image(
+                        image: NetworkImage(
+                            YoutubeThumbnail(youtubeId: imageList[index]).mq()),
+                        width: 90,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                      titleText: trendingSongList[index].title,
+                      subTitleText: trendingSongList[index].artist,
+                      icon: const FaIcon(
+                        FontAwesomeIcons.youtube,
+                        color: Colors.red,
+                      ),
+                    );
+                  },
+                ),
+              );
             },
           ),
         ],
