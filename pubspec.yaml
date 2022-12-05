@@ -65,6 +65,7 @@ dependencies:
   getwidget: ^3.0.1
   flutter_media_metadata: ^1.0.0+1
   page_animation_transition: ^0.0.9
+  loading_animation_widget: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:

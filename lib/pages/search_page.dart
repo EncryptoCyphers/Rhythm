@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/songs.dart';
 // import 'package:music_player_app/services/data_service_and_song_query.dart';
@@ -15,6 +16,7 @@ import 'mini_player.dart';
 
 // import 'package:flutter_media_metadata/flutter_media_metadata.dart';
 Future fetchSongUri(index) async {
+  audioPlayer.pause();
   isFetchingUri.value = true;
   ytSearchResultsCustom[index].uri = await getUri(
     ytSearchResultsCustom[index].videoIdForFetchStream,
@@ -49,6 +51,7 @@ const platform = MethodChannel('com.example.rhythm');
 ValueNotifier<bool> searchHappened = ValueNotifier(false);
 ValueNotifier<bool> isSearchLoading = ValueNotifier(false);
 ValueNotifier<bool> isFetchingUri = ValueNotifier(false);
+ValueNotifier<Color> statusBarColour = ValueNotifier(Colors.white);
 bool prevSearchHappened = false;
 Uint8List? albumArt;
 FocusNode myFocusNode = FocusNode();
@@ -79,194 +82,188 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SafeArea(
-          child: Scaffold(
-            // bottomNavigationBar: Column(
-            //   mainAxisSize: MainAxisSize.min,
-            //   mainAxisAlignment: MainAxisAlignment.end,
-            //   children: [
-            //     const MiniPlayerWidget(),
-            //     SizedBox(
-            //       height: 0,
-            //       width: logicalWidth,
-            //     ),
-            //   ],
-            // ),
-            backgroundColor: Colors.white,
+        // SafeArea(
+        //   child:
+        Scaffold(
+          appBar: AppBar(
+            systemOverlayStyle: const SystemUiOverlayStyle(
+              // Status bar color
+              statusBarColor: Colors.white,
 
-            // Defined in switch_pages.dart
-            body:
-                // Container(
-                //   padding: const EdgeInsets.all(2),
-                // child: Image.memory(albumArt!),
-                //   child: Column(
-                //     children: [
-                //       // Image.memory(albumArt!),
-                //       ElevatedButton(
-                //         onPressed: (() {
-                //           getMetadata();
-                //         }),
-                //         child: const Text('hii'),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                Column(
-              children: [
-                // //
+              // Status bar brightness (optional)
+              statusBarIconBrightness:
+                  Brightness.dark, // For Android (dark icons)
+              statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            ),
+            toolbarHeight: 86,
+            leading: IconButton(
+              onPressed: (() {
+                Navigator.pop(context);
+              }),
+              icon: const Icon(Icons.arrow_back_ios_new),
+              color: fgPurple,
+            ),
+            backgroundColor: Colors.white,
+            title: // //
                 // //
                 // //
                 // //......Search Bar............................
                 // //
                 Container(
-                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
-                  child: TextField(
-                    controller: _musicController,
-                    onSubmitted: (value) {
-                      isSearchLoading.value = true;
-                      fetchSearchResults(_musicController.text);
-                    },
-                    focusNode: myFocusNode,
-                    decoration: InputDecoration(
-                      icon: IconButton(
-                        onPressed: (() {
-                          Navigator.pop(context);
-                        }),
-                        icon: const Icon(Icons.arrow_back_ios_new),
-                        color: fgPurple,
-                      ),
-                      prefixIcon: Icon(Icons.search, color: bgPurple),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
-                          color: fgPurple,
-                          width: 1.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          color: fgPurple,
-                          width: 2.5,
-                        ),
-                      ),
-                      labelText: 'Enter a search term',
-                      labelStyle: TextStyle(
-                        color: bgPurple,
-                      ),
+              padding: const EdgeInsets.fromLTRB(6, 12, 5, 10),
+              child: TextField(
+                controller: _musicController,
+                onSubmitted: (value) {
+                  isSearchLoading.value = true;
+                  fetchSearchResults(_musicController.text);
+                },
+                focusNode: myFocusNode,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search, color: bgPurple),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: BorderSide(
+                      color: fgPurple,
+                      width: 1.0,
                     ),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      color: fgPurple,
+                      width: 2.5,
+                    ),
+                  ),
+                  labelText: 'Enter a search term',
+                  labelStyle: TextStyle(
+                    color: bgPurple,
+                  ),
                 ),
-                // //
-                // //
-                // //
-                // //
-                // //
-                // //.................Main Body..................
-                // //
-                Flexible(
-                  child: ValueListenableBuilder<bool>(
-                    valueListenable: searchHappened,
-                    builder: (BuildContext context, bool value, Widget? child) {
-                      if (ytSearchResultsCustom.isEmpty) {
-                        return ValueListenableBuilder<bool>(
-                            valueListenable: isSearchLoading,
-                            builder: (BuildContext context, bool value,
-                                Widget? child) {
-                              if (isSearchLoading.value) {
-                                return const ShimmerEffect();
-                              } else {
-                                return const Center(
-                                  child: Text('Search Something To Show Here'),
-                                );
-                              }
-                            });
-                      } else {
-                        return ValueListenableBuilder<bool>(
-                            valueListenable: isSearchLoading,
-                            builder: (BuildContext context, bool value,
-                                Widget? child) {
-                              if (isSearchLoading.value) {
-                                return const ShimmerEffect();
-                              } else {
-                                prevSearchHappened == searchHappened.value;
-                                return ListView.builder(
-                                  itemCount: ytSearchResultsCustom.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(2, 2, 2, 2),
-                                      child: ListTile(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        // tileColor: Colors.black26,
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //...... Artwork ......................................//
-                                        //
-                                        leading: Image.network(YoutubeThumbnail(
+              ),
+            ),
+            elevation: 0,
+            // color: Colors.transparent,
+          ),
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              // //
+              // //
+              // //
+              // //
+              // //
+              // //.................Main Body..................
+              // //
+              Flexible(
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: searchHappened,
+                  builder: (BuildContext context, bool value, Widget? child) {
+                    if (ytSearchResultsCustom.isEmpty) {
+                      return ValueListenableBuilder<bool>(
+                          valueListenable: isSearchLoading,
+                          builder: (BuildContext context, bool value,
+                              Widget? child) {
+                            if (isSearchLoading.value) {
+                              return const ShimmerEffect();
+                            } else {
+                              return const Center(
+                                child: Text('Search Something To Show Here'),
+                              );
+                            }
+                          });
+                    } else {
+                      return ValueListenableBuilder<bool>(
+                          valueListenable: isSearchLoading,
+                          builder: (BuildContext context, bool value,
+                              Widget? child) {
+                            if (isSearchLoading.value) {
+                              return const ShimmerEffect();
+                            } else {
+                              prevSearchHappened == searchHappened.value;
+                              return ListView.builder(
+                                itemCount: ytSearchResultsCustom.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                                    child: ListTile(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      // tileColor: Colors.black26,
+                                      //
+                                      //
+                                      //
+                                      //
+                                      //...... Artwork ......................................//
+                                      //
+                                      leading: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(5),
+                                          topRight: Radius.circular(15),
+                                          bottomRight: Radius.circular(5),
+                                          bottomLeft: Radius.circular(15),
+                                        ),
+                                        child: Image.network(YoutubeThumbnail(
                                                 youtubeId:
                                                     ytSearchResultsCustom[index]
                                                         .id
                                                         .toString())
                                             .mq()),
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //...... Song Name  ......................................//
-                                        //
-                                        title: Text(
-                                          ytSearchResultsCustom[index].title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //...... Artist Name  ......................................//
-                                        //
-                                        subtitle: Text(
-                                            ytSearchResultsCustom[index]
-                                                .artist),
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //...... left Button  ......................................//
-                                        //
-                                        trailing: const Icon(Icons.more_horiz),
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //...... Song OnTap ......................................//
-                                        //
-                                        onTap: () {
-                                          // print(ytSearchResultsCustom[index]
-                                          //     .videoIdForFetchStream
-                                          //     .toString());
-                                          fetchSongUri(index);
-                                          currSongIndexListenable.value = index;
-                                        },
                                       ),
-                                    );
-                                  },
-                                );
-                              }
-                            });
-                      }
-                    },
-                  ),
+                                      //
+                                      //
+                                      //
+                                      //
+                                      //...... Song Name  ......................................//
+                                      //
+                                      title: Text(
+                                        ytSearchResultsCustom[index].title,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      //
+                                      //
+                                      //
+                                      //
+                                      //...... Artist Name  ......................................//
+                                      //
+                                      subtitle: Text(
+                                          ytSearchResultsCustom[index].artist),
+                                      //
+                                      //
+                                      //
+                                      //
+                                      //...... left Button  ......................................//
+                                      //
+                                      trailing: const Icon(Icons.more_horiz),
+                                      //
+                                      //
+                                      //
+                                      //
+                                      //...... Song OnTap ......................................//
+                                      //
+                                      onTap: () {
+                                        // print(ytSearchResultsCustom[index]
+                                        //     .videoIdForFetchStream
+                                        //     .toString());
+                                        fetchSongUri(index);
+                                        currSongIndexListenable.value = index;
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          });
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+        // ),
         Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -278,7 +275,6 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ],
         ),
-        const LoadingSong(),
       ],
     );
   }
@@ -292,18 +288,44 @@ class LoadingSong extends StatelessWidget {
     return ValueListenableBuilder<bool>(
       valueListenable: isFetchingUri,
       builder: (BuildContext context, bool value, Widget? child) {
-        if (value) {
-          return Center(
-            child: Container(
-              height: (logicalWidth * 0.16),
-              width: (logicalWidth * 0.16),
-              decoration: BoxDecoration(
-                color: bgPurple,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(logicalWidth * 0.05)),
-              ),
-              child: const CircularProgressIndicator(),
-            ),
+        if (value && playerExpandProgress.value == 76) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                height: 72,
+                // color: Colors.red,
+                width: logicalWidth,
+                child: Container(
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 25,
+                      ),
+                      LoadingAnimationWidget.dotsTriangle(
+                        color: fgPurple,
+                        // leftDotColor: const Color(0xFF1A1A3F),
+                        // rightDotColor: const Color(0xFFEA3799),
+                        size: 65,
+                      ),
+                      const SizedBox(
+                        width: 25,
+                      ),
+                      Material(
+                        child: Text(
+                          "Loading...",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: fgPurple),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
           );
         } else {
           return Container();
