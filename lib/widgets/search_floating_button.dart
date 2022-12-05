@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_animation_transition/animations/left_to_right_faded_transition.dart';
+import 'package:page_animation_transition/page_animation_transition.dart';
 
 import '../widgets/b_nav.dart';
 import '../pages/mini_player.dart';
@@ -58,12 +60,17 @@ class SearchButton extends StatelessWidget {
       onTap: () {
         if (navIndexListener.value == 2) {
         } else {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SearchPage(),
-            ),
+          Navigator.of(context).push(
+            PageAnimationTransition(
+                page: const SearchPage(),
+                pageAnimationType: LeftToRightFadedTransition()),
           );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => const SearchPage(),
+          //   ),
+          // );
         }
       },
       child: Container(

@@ -6,6 +6,7 @@
 
 // import '../pages/search_page.dart';
 //import 'dart:convert';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 //----------------------------------------Searched Song Class Model--------------------------------------//
 class CustomSongModel {
@@ -19,8 +20,11 @@ class CustomSongModel {
   late var uri;
   // ignore: prefer_typing_uninitialized_variables
   late var duration;
+
   late bool isPlaying;
+
   late bool isWeb;
+  late VideoId videoIdForFetchStream;
 }
 
 //----------------------------------------List of Searched Song Objects--------------------------------------//
