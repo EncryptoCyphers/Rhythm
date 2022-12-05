@@ -51,8 +51,11 @@ ValueNotifier<bool> isPlayingListenable = ValueNotifier<bool>(false);
 
 class MiniPlayerWidget extends StatefulWidget {
   const MiniPlayerWidget({
+    // required this.statusBarColor,
     super.key,
   });
+  // final Color statusBarColor;
+
   @override
   State<MiniPlayerWidget> createState() => _MiniPlayerWidgetState();
 }
