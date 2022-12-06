@@ -14,12 +14,20 @@ import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;
 List<CustomSongModel> allSongsDevice = [];
+List songsList = [];
 var dummy = bool;
 
 bool? prevPermissionPreference;
 Future<bool>? storagePermissionFuture;
 ValueNotifier<bool> storagePermissionListener = ValueNotifier<bool>(false);
 ValueNotifier<bool> circularIndicatorWidgetListener = ValueNotifier<bool>(true);
+
+//SongList Creation method for Search Operation
+void songListCreation() {
+  for (var i = 0; i < allSongsDevice.length; i++) {
+    songsList.add(allSongsDevice[i].title);
+  }
+}
 
 class Tracks extends StatefulWidget {
   const Tracks({super.key});
@@ -32,9 +40,8 @@ class _TracksState extends State<Tracks> {
   void initState() {
     // ignore: todo
     // TODO: implement initState
-
-    super.initState();
     setPrevPermissionPreference();
+    super.initState();
   }
 
   setPrevPermissionPreference() async {
