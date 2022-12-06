@@ -7,6 +7,7 @@ import 'package:sweet_nav_bar/sweet_nav_bar.dart';
 // import '../services/switch_pages.dart';
 
 ValueNotifier<int> navIndexListener = ValueNotifier<int>(0);
+var bNavPadding = const EdgeInsets.fromLTRB(0, 0, 45, 0);
 
 class BNav extends StatefulWidget {
   const BNav({super.key, required this.pageController});
@@ -45,6 +46,14 @@ class _BNavState extends State<BNav> {
               //   sweetLabel: 'Home',
               //   iconColors: iconLinearGradiant,
               //   // sweetBackground: Colors.red
+              // ),
+              // SweetNavBarItem(
+              //   sweetIcon: BarItem(
+              //     icon: Icons.home_rounded,
+              //     title: 'Home',
+              //     activeColor: Colors.pink,
+              //     inactiveColor: Colors.teal,
+              //   ),
               // ),
               SweetNavBarItem(
                   sweetIcon: const Icon(FontAwesomeIcons.youtube),

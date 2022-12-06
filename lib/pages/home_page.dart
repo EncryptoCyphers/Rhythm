@@ -2,24 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/services/switch_pages.dart';
 // import 'package:music_player_app/services/data_service_and_song_query.dart';
-import 'package:music_player_app/services/screen_sizes.dart';
-import 'package:music_player_app/widgets/b_nav.dart';
+// import 'package:music_player_app/services/screen_sizes.dart';
+// import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
-import '../widgets/circular_mini_player.dart';
+// import '../widgets/circular_mini_player.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../widgets/search_floating_button.dart';
-import 'mini_player.dart';
-
-// late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-//   begin: Offset.zero,
-//   end: const Offset(1.5, 0.0),
-// ).animate(CurvedAnimation(
-//   parent: _controller,
-//   curve: Curves.elasticIn,
-// ));
+// import 'mini_player.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -109,29 +102,36 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.white,
 
           // Defined in switch_pages.dart
-          body: Pages(
-            nm: widget.nm,
-            pageController: pageController,
+          body: Stack(
+            alignment: Alignment.bottomRight,
+            children: [
+              Pages(
+                nm: widget.nm,
+                pageController: pageController,
+              ),
+              const SearchButtonWithLogic(),
+              MiniPlayerAndBNav(pageController: pageController),
+            ],
           ),
         ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-          child:
-              // SlideTransition(
-              //   position: null,
-              // child:
-              BNav(pageController: pageController),
-        ),
+        // MiniPlayerAndBNav(pageController: pageController),
+        // AnimatedPadding(
+        //   duration: const Duration(milliseconds: 200),
+        //   padding: bNavPadding,
+        //   child:
+        // BNav(pageController: pageController),
         // ),
-        Container(
-          padding: EdgeInsets.fromLTRB(0, 0, logicalWidth - 90, 10),
-          child: const CircularMiniPlayer(),
-        ),
+
+        // ),
+        // Container(
+        //   padding: EdgeInsets.fromLTRB(0, 0, logicalWidth - 90, 10),
+        //   child: const CircularMiniPlayer(),
+        // ),
         // Container(
         //   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
         //   child: const MiniPlayerWidget(),
         // ),
-        const SearchButtonWithLogic(),
+        // const SearchButtonWithLogic(),
       ],
     );
   }

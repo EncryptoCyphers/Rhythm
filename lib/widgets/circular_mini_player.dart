@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
+import 'package:music_player_app/widgets/b_nav.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import '../pages/mini_player.dart';
@@ -24,6 +26,11 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
           valueListenable: miniPlayerVisibilityListenable,
           builder: (BuildContext context, bool playing, Widget? child) {
             if (playing) {
+              // print('affsdfasf');
+              // Future.delayed(const Duration(milliseconds: 10), () {
+              //   bNavPaddingListenable.value =
+              //       const EdgeInsets.fromLTRB(0, 0, 0, 0);
+              // });
               return GestureDetector(
                 onPanUpdate: (details) {
                   if (details.delta.dy < 0) {
@@ -34,6 +41,8 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                     );
                   } else if (details.delta.dy > 0) {
                     audioPlayer.stop();
+                    bNavPaddingListenable.value =
+                        const EdgeInsets.fromLTRB(0, 0, 45, 0);
                     miniPlayerVisibilityListenable.value = false;
                   }
                 },

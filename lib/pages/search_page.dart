@@ -12,6 +12,7 @@ import '../services/colours.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../services/get_yt_searches.dart';
 import '../services/player_logic.dart';
+import '../widgets/circular_mini_player.dart';
 import 'mini_player.dart';
 
 // import 'package:flutter_media_metadata/flutter_media_metadata.dart';
@@ -268,7 +269,9 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const MiniPlayerWidget(),
+            Container(
+                padding: const EdgeInsets.all(20),
+                child: const CircularMiniPlayer()),
             SizedBox(
               height: 0,
               width: logicalWidth,

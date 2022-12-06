@@ -4,13 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:music_player_app/pages/full_player.dart';
-import 'package:music_player_app/pages/mini_player.dart';
+// import 'package:music_player_app/pages/full_player.dart';
+// import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/services/trending_songs.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 
-import '../services/get_yt_searches.dart';
-import '../services/player_logic.dart';
+// import '../services/get_yt_searches.dart';
+// import '../services/player_logic.dart';
 
 // ignore: must_be_immutable
 class Youtube extends StatefulWidget {

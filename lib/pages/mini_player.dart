@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/full_player.dart';
+// import 'package:music_player_app/pages/home_page.dart';
 import 'package:music_player_app/pages/search_page.dart';
+import 'package:music_player_app/widgets/b_nav.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/data_service_and_song_query.dart';
 import '../services/get_yt_searches.dart';
@@ -75,6 +77,7 @@ class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
                   width: logicalWidth,
                 );
               } else {
+                bNavPadding = const EdgeInsets.fromLTRB(0, 0, 0, 0);
                 return Miniplayer(
                   onDismissed: () {
                     audioPlayer.stop();

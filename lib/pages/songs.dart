@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -303,7 +304,12 @@ class _TracksState extends State<Tracks> {
                               //
                               onTap: () {
                                 isPlayingListenable.value = true;
-                                miniPlayerVisibilityListenable.value = true;
+                                bNavPaddingListenable.value =
+                                    const EdgeInsets.fromLTRB(0, 0, 0, 0);
+                                Future.delayed(
+                                    const Duration(milliseconds: 330), () {
+                                  miniPlayerVisibilityListenable.value = true;
+                                });
                                 currSongIdListenable.value =
                                     allSongsDevice[index].id.toString();
                                 getCurrSongInfo(
