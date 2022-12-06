@@ -20,7 +20,7 @@ Future fetchSearchResults(String query) async {
     searchedWebSong.duration = ytSearchResults[i].duration;
     searchedWebSong.isPlaying = false;
     searchedWebSong.isWeb = true;
-    print(searchedWebSong.title);
+    // print(searchedWebSong.title);
     searchedWebSong.uri = '';
     ytSearchResultsCustom.add(searchedWebSong);
   }

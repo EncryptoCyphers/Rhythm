@@ -44,15 +44,15 @@ class _PagesState extends State<Pages> {
           navIndexListener.value = index;
         },
         controller: widget.pageController,
-        children: [
-          Home(
-            nm: FirebaseAuth.instance.currentUser!.email
-                .toString()
-                .split('@')[0],
-          ),
-          const Youtube(),
-          const Tracks(),
-          const SettingsPage(),
+        children: const [
+          // Home(
+          //   nm: FirebaseAuth.instance.currentUser!.email
+          //       .toString()
+          //       .split('@')[0],
+          // ),
+          Youtube(),
+          Tracks(),
+          SettingsPage(),
         ],
       ),
     );

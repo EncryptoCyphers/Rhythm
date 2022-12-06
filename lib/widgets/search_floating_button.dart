@@ -30,13 +30,17 @@ class SearchButtonWithLogic extends StatelessWidget {
                         if (playing) {
                           return Container(
                             padding: const EdgeInsets.fromLTRB(
-                                0, 0, 15, 80 + 60 + 10),
+                                0,
+                                0,
+                                15,
+                                // 80 +
+                                60 + 15),
                             child: const SearchButton(),
                           );
                         } else {
                           return Container(
                             padding:
-                                const EdgeInsets.fromLTRB(0, 0, 15, 60 + 10),
+                                const EdgeInsets.fromLTRB(0, 0, 15, 60 + 15),
                             child: const SearchButton(),
                           );
                         }

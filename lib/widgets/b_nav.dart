@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:music_player_app/services/screen_sizes.dart';
 // import 'package:sweet_nav_bar/sweet_nav_bar.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
+import 'package:sweet_nav_bar/sweet_nav_bar.dart';
 // import '../services/switch_pages.dart';
 
 ValueNotifier<int> navIndexListener = ValueNotifier<int>(0);
@@ -24,47 +26,88 @@ class _BNavState extends State<BNav> {
     return ValueListenableBuilder<int>(
       valueListenable: navIndexListener,
       builder: (BuildContext context, int value, Widget? child) {
-        return SizedBox(
-          height: 60,
-          child: SlidingClippedNavBar.colorful(
-            backgroundColor: Colors.white,
-            barItems: <BarItem>[
-              BarItem(
-                icon: Icons.home_rounded,
-                title: 'Home',
-                activeColor: Colors.pink,
-                inactiveColor: Colors.teal,
-              ),
-              BarItem(
-                icon: FontAwesomeIcons.youtube,
-                title: 'YT Music',
-                activeColor: Colors.pink,
-                inactiveColor: Colors.red,
-              ),
-              BarItem(
-                icon: Icons.play_lesson,
-                title: 'Local',
-                activeColor: Colors.pink,
-                inactiveColor: Colors.deepPurple,
-              ),
-              BarItem(
-                icon: Icons.settings,
-                title: 'Settings',
-                activeColor: Colors.pink,
-                inactiveColor: Colors.red,
+        return Container(
+          color: Colors.transparent,
+          // color: Colors.red,
+          width: logicalWidth - 90,
+          height: 80,
+          child: SweetNavBar(
+            // backgroundColor: Colors.transparent,
+            // paddingGradientColor: iconLinearGradiant,
+            currentIndex: navIndexListener.value,
+            // paddingBackgroundColor: Colors.red,
+            items: [
+              // SweetNavBarItem(
+              //   sweetActive: const Icon(Icons.home),
+              //   sweetIcon: const Icon(
+              //     Icons.home_outlined,
+              //   ),
+              //   sweetLabel: 'Home',
+              //   iconColors: iconLinearGradiant,
+              //   // sweetBackground: Colors.red
+              // ),
+              SweetNavBarItem(
+                  sweetIcon: const Icon(FontAwesomeIcons.youtube),
+                  sweetLabel: 'Yt Music'),
+              SweetNavBarItem(
+                  sweetIcon: const Icon(Icons.play_lesson),
+                  sweetLabel: 'Local'),
+              SweetNavBarItem(
+                sweetIcon: const Icon(Icons.settings),
+                sweetLabel: 'Settings',
               ),
             ],
-            selectedIndex: navIndexListener.value,
-            onButtonPressed: (index) {
-              navIndexListener.value = index;
-              widget.pageController.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOutQuad,
-              );
-              // pageController =
+            onTap: (index) {
+              setState(() {
+                navIndexListener.value = index;
+                widget.pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOutQuad,
+                );
+              });
             },
           ),
+
+          // SlidingClippedNavBar.colorful(
+          //   backgroundColor: Colors.white,
+          //   barItems: <BarItem>[
+          //     BarItem(
+          //       icon: Icons.home_rounded,
+          //       title: 'Home',
+          //       activeColor: Colors.pink,
+          //       inactiveColor: Colors.teal,
+          //     ),
+          //     BarItem(
+          //       icon: FontAwesomeIcons.youtube,
+          //       title: 'YT Music',
+          //       activeColor: Colors.pink,
+          //       inactiveColor: Colors.red,
+          //     ),
+          //     BarItem(
+          //       icon: Icons.play_lesson,
+          //       title: 'Local',
+          //       activeColor: Colors.pink,
+          //       inactiveColor: Colors.deepPurple,
+          //     ),
+          //     BarItem(
+          //       icon: Icons.settings,
+          //       title: 'Settings',
+          //       activeColor: Colors.pink,
+          //       inactiveColor: Colors.red,
+          //     ),
+          //   ],
+          //   selectedIndex: navIndexListener.value,
+          //   onButtonPressed: (index) {
+          //     navIndexListener.value = index;
+          //     widget.pageController.animateToPage(
+          //       index,
+          //       duration: const Duration(milliseconds: 300),
+          //       curve: Curves.easeOutQuad,
+          //     );
+          //     // pageController =
+          //   },
+          // ),
         );
         // return SweetNavBar(
         //   // paddingGradientColor: iconLinearGradiant,

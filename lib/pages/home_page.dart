@@ -7,10 +7,19 @@ import 'package:music_player_app/services/switch_pages.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
+import '../widgets/circular_mini_player.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../widgets/search_floating_button.dart';
 import 'mini_player.dart';
+
+// late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+//   begin: Offset.zero,
+//   end: const Offset(1.5, 0.0),
+// ).animate(CurvedAnimation(
+//   parent: _controller,
+//   curve: Curves.elasticIn,
+// ));
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -70,31 +79,32 @@ class _HomePageState extends State<HomePage> {
           drawer: DrawerMenu(
             pageController: pageController,
           ),
-          bottomNavigationBar: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const MiniPlayerWidget(),
-              ValueListenableBuilder<double>(
-                valueListenable: playerExpandProgress,
-                builder: (BuildContext context, double minPlayerHeight,
-                    Widget? child) {
-                  if (minPlayerHeight <= 100) {
-                    // print('in');
-                    // return const BottomNavBar();
-                    return BNav(
-                      pageController: pageController,
-                    );
-                  } else {
-                    return SizedBox(
-                      height: 0,
-                      width: logicalWidth,
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+          // bottomNavigationBar:
+          //     // Column(
+          //     //   mainAxisSize: MainAxisSize.min,
+          //     //   mainAxisAlignment: MainAxisAlignment.end,
+          //     //   children: [
+          //     //     const MiniPlayerWidget(),
+          //     ValueListenableBuilder<double>(
+          //   valueListenable: playerExpandProgress,
+          //   builder:
+          //       (BuildContext context, double minPlayerHeight, Widget? child) {
+          //     if (minPlayerHeight <= 100) {
+          //       // print('in');
+          //       // return const BottomNavBar();
+          //       return BNav(
+          //         pageController: pageController,
+          //       );
+          //     } else {
+          //       return SizedBox(
+          //         height: 0,
+          //         width: logicalWidth,
+          //       );
+          //     }
+          //   },
+          // ),
+          // ],
+          // ),
 
           backgroundColor: Colors.white,
 
@@ -104,6 +114,23 @@ class _HomePageState extends State<HomePage> {
             pageController: pageController,
           ),
         ),
+        Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          child:
+              // SlideTransition(
+              //   position: null,
+              // child:
+              BNav(pageController: pageController),
+        ),
+        // ),
+        Container(
+          padding: EdgeInsets.fromLTRB(0, 0, logicalWidth - 90, 10),
+          child: const CircularMiniPlayer(),
+        ),
+        // Container(
+        //   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+        //   child: const MiniPlayerWidget(),
+        // ),
         const SearchButtonWithLogic(),
       ],
     );

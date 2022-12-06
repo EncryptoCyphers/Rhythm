@@ -2,6 +2,7 @@
 //import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
@@ -33,11 +34,23 @@ class _PlayerState extends State<Player> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return
+        // SafeArea(
+        //   child:
+        GestureDetector(
+      onPanUpdate: (details) {
+        if (details.delta.dy > 10) {
+          Navigator.pop(context);
+        }
+        // else if (details.delta.dy > 0) {
+        //   miniPlayerVisibilityListenable.value = false;
+        // }
+      },
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
+                Colors.white,
                 Colors.white,
                 fgPurple,
                 // fgPurple,
@@ -45,10 +58,24 @@ class _PlayerState extends State<Player> {
               ],
               begin: const FractionalOffset(0.0, 0.0),
               end: const FractionalOffset(0.0, 1.0),
-              stops: const [0.0, 0.6, 1.0],
+              stops: const [0.0, 0.2, 0.6, 1.0],
               tileMode: TileMode.clamp),
         ),
         child: Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              toolbarHeight: 0,
+              backgroundColor: Colors.transparent,
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                // Status bar color
+                statusBarColor: Colors.white,
+
+                // Status bar brightness (optional)
+                statusBarIconBrightness:
+                    Brightness.dark, // For Android (dark icons)
+                statusBarBrightness: Brightness.light, // For iOS (dark icons)
+              ),
+            ),
             backgroundColor: Colors.transparent,
             body: SingleChildScrollView(
               // child:
@@ -380,6 +407,7 @@ class _PlayerState extends State<Player> {
               ),
               // ),
             )),
+        // ),
       ),
     );
   }

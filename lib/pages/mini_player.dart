@@ -256,14 +256,39 @@ class MiniArtWork extends StatelessWidget {
         }
         return QueryArtworkWidget(
           nullArtworkWidget: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              child: Image.asset('svg/No-Artwork-square.png')),
+            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [
+                        // Colors.white,
+                        veryLightPurple,
+                        fgPurple,
+                        Colors.white,
+                        // fgPurple,
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(0.0, 1.0),
+                      stops: const [0.0, 0.6, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
+                height: 70,
+                width: 70,
+                // color: Colors.white,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(5.5, 4, 5, 7),
+                  child: Image.asset(
+                    'svg/No-Artwork-square-transparent.png',
+                    fit: BoxFit.contain,
+                  ),
+                )),
+          ),
           id: int.parse(currSongId),
           type: ArtworkType.AUDIO,
           artworkQuality: FilterQuality.high,
           artworkHeight: 60,
           artworkWidth: 60,
-          artworkBorder: const BorderRadius.all(Radius.circular(10)),
+          artworkBorder: const BorderRadius.all(Radius.circular(30)),
         );
       },
     );
