@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:marquee_text/marquee_text.dart';
+// import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/full_player.dart';
 // import 'package:music_player_app/pages/home_page.dart';
 import 'package:music_player_app/pages/search_page.dart';
-import 'package:music_player_app/widgets/b_nav.dart';
-
+// import 'package:music_player_app/widgets/b_nav.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:loading_animation_widget/src/staggered_dots_wave/staggered_dots_wave.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/data_service_and_song_query.dart';
 import '../services/get_yt_searches.dart';
-import '../services/screen_sizes.dart';
-import 'package:miniplayer/miniplayer.dart';
+// import '../services/screen_sizes.dart';
+// import 'package:miniplayer/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../services/colours.dart';
 import '../services/player_logic.dart';
@@ -303,7 +304,7 @@ class MiniArtWork extends StatelessWidget {
         // //
         // //
         // //Circular Progress ............................
-        Container(
+        SizedBox(
           height: 75,
           width: 75,
           child: ValueListenableBuilder<Duration>(
@@ -315,7 +316,7 @@ class MiniArtWork extends StatelessWidget {
                 child: CircularProgressIndicator(
                   strokeWidth: 6,
                   // backgroundColor: Colors.transparent,
-                  backgroundColor: Color.fromARGB(25, 0, 0, 0),
+                  backgroundColor: const Color.fromARGB(25, 0, 0, 0),
                   color: fgPurple,
                   value: songPosition.inSeconds.toDouble() /
                       songDuration.inSeconds.toDouble(),
@@ -324,6 +325,26 @@ class MiniArtWork extends StatelessWidget {
             },
           ),
         ),
+        ValueListenableBuilder<bool>(
+            valueListenable: isFetchingUri,
+            builder: (BuildContext context, bool isFetching, Widget? child) {
+              if (isFetching) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                  child: Container(
+                    color: Colors.white,
+                    height: 70,
+                    width: 70,
+                    child: LoadingAnimationWidget.staggeredDotsWave(
+                      color: fgPurple,
+                      size: 50,
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            }),
       ],
     );
   }

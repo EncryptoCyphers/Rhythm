@@ -148,13 +148,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
-  dot_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: dot_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1+4"
   email_validator:
     dependency: "direct main"
     description:
