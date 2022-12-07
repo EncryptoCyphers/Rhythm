@@ -121,7 +121,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
 // second overwrite to pop out of search menu
   @override
-<<<<<<< HEAD
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: () {
@@ -163,71 +162,73 @@ class CustomSearchDelegate extends SearchDelegate {
       }
     }
     return ListView.builder(
-      itemCount: matchQuery.length,
-      itemBuilder: (context, index) {
-        var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
-          onTap: () {
-            // print(query);
-            Navigator.pop(context);
-            int index = indexFinder(result.toString());
-            isPlayingListenable.value = true;
-            miniPlayerVisibilityListenable.value = true;
-            currSongIdListenable.value = allSongsDevice[index].id.toString();
-            getCurrSongInfo(
-              id: allSongsDevice[index].id.toString(),
-              duration: Duration(milliseconds: allSongsDevice[index].duration),
-              isWeb: false,
-              uri: allSongsDevice[index].uri,
-              name: allSongsDevice[index].title,
-              artist: allSongsDevice[index].artist.toString(),
-              songIndex: index,
-            );
-            // print(allSongsDevice[index].title);
-            playSong(audioPlayer: audioPlayer);
-            getLocalMiniPlayerSongList(allSongsDevice);
-          },
-        );
-      },
-=======
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text('Search Music'),
-        backgroundColor: fgPurple,
-      ),
-      body: GFSearchBar(
-        searchList: list,
-        searchQueryBuilder: (query, list) {
-          return list
-              .where((item) =>
-                  item.toString().toLowerCase().contains(query.toLowerCase()))
-              .toList();
-        },
-        overlaySearchListItemBuilder: (item) {
-          return Container(
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              item.toString(),
-              style: const TextStyle(fontSize: 18),
-            ),
+        itemCount: matchQuery.length,
+        itemBuilder: (context, index) {
+          var result = matchQuery[index];
+          return ListTile(
+            title: Text(result),
+            onTap: () {
+              // print(query);
+              Navigator.pop(context);
+              int index = indexFinder(result.toString());
+              isPlayingListenable.value = true;
+              miniPlayerVisibilityListenable.value = true;
+              currSongIdListenable.value = allSongsDevice[index].id.toString();
+              getCurrSongInfo(
+                id: allSongsDevice[index].id.toString(),
+                duration:
+                    Duration(milliseconds: allSongsDevice[index].duration),
+                isWeb: false,
+                uri: allSongsDevice[index].uri,
+                name: allSongsDevice[index].title,
+                artist: allSongsDevice[index].artist.toString(),
+                songIndex: index,
+              );
+              // print(allSongsDevice[index].title);
+              playSong(audioPlayer: audioPlayer);
+              getLocalMiniPlayerSongList(allSongsDevice);
+            },
           );
-        },
-        onItemSelected: (item) {
-          setState(() {
-            print('$item');
-          });
-        },
-      ),
->>>>>>> a03b47adba48065ce2838b03c2c14acba8b5f9f9
-    );
+        });
   }
 }
+
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         leading: IconButton(
+//           icon: const Icon(Icons.arrow_back_ios_new),
+//           onPressed: () => Navigator.of(context).pop(),
+//         ),
+//         title: const Text('Search Music'),
+//         backgroundColor: fgPurple,
+//       ),
+//       body: GFSearchBar(
+//         searchList: list,
+//         searchQueryBuilder: (query, list) {
+//           return list
+//               .where((item) =>
+//                   item.toString().toLowerCase().contains(query.toLowerCase()))
+//               .toList();
+//         },
+//         overlaySearchListItemBuilder: (item) {
+//           return Container(
+//             padding: const EdgeInsets.all(8),
+//             child: Text(
+//               item.toString(),
+//               style: const TextStyle(fontSize: 18),
+//             ),
+//           );
+//         },
+//         onItemSelected: (item) {
+//           setState(() {
+//             print('$item');
+//           });
+//         },
+//       ),
+//     );
+//   }
+// }
 
 // class LocalSearch extends StatefulWidget {
 //   const LocalSearch({super.key});

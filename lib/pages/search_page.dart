@@ -139,78 +139,6 @@ class _SearchPageState extends State<SearchPage> {
                     color: bgPurple,
                   ),
                 ),
-<<<<<<< HEAD
-                // //
-                // //
-                // //
-                // //
-                // //
-                // //.................Main Body..................
-                // //
-                Flexible(
-                  child: ValueListenableBuilder<bool>(
-                    valueListenable: searchHappened,
-                    builder: (BuildContext context, bool value, Widget? child) {
-                      if (ytSearchResultsCustom.isEmpty) {
-                        return ValueListenableBuilder<bool>(
-                            valueListenable: isSearchLoading,
-                            builder: (BuildContext context, bool value,
-                                Widget? child) {
-                              if (isSearchLoading.value) {
-                                return const ShimmerEffect();
-                              } else {
-                                return SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 120),
-                                        child: Text(
-                                          'Search Something To Show Here',
-                                          style: TextStyle(
-                                            color: Colors.deepPurple,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      Image.asset(
-                                        'images/search.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            });
-                      } else {
-                        return ValueListenableBuilder<bool>(
-                            valueListenable: isSearchLoading,
-                            builder: (BuildContext context, bool value,
-                                Widget? child) {
-                              if (isSearchLoading.value) {
-                                return const ShimmerEffect();
-                              } else {
-                                prevSearchHappened == searchHappened.value;
-                                return ListView.builder(
-                                  itemCount: ytSearchResultsCustom.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(2, 2, 2, 2),
-                                      child: ListTile(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        // tileColor: Colors.black26,
-                                        //
-                                        //
-                                        //
-                                        //
-                                        //...... Artwork ......................................//
-                                        //
-                                        leading: Image.network(YoutubeThumbnail(
-=======
               ),
             ),
             elevation: 0,
@@ -238,8 +166,22 @@ class _SearchPageState extends State<SearchPage> {
                             if (isSearchLoading.value) {
                               return const ShimmerEffect();
                             } else {
-                              return const Center(
-                                child: Text('Search Something To Show Here'),
+                              return SingleChildScrollView(
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/search.png'),
+                                      Text(
+                                        'Search Something To Show Here',
+                                        style: TextStyle(
+                                          color: fgPurple,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               );
                             }
                           });
@@ -277,7 +219,6 @@ class _SearchPageState extends State<SearchPage> {
                                           bottomLeft: Radius.circular(15),
                                         ),
                                         child: Image.network(YoutubeThumbnail(
->>>>>>> a03b47adba48065ce2838b03c2c14acba8b5f9f9
                                                 youtubeId:
                                                     ytSearchResultsCustom[index]
                                                         .id

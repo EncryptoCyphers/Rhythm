@@ -264,10 +264,11 @@ class _TracksState extends State<Tracks> {
                                 id: allSongsDevice[index].id,
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    child: Image.asset(
-                                        'svg/No-Artwork-square.png')),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  child:
+                                      Image.asset('svg/No-Artwork-square.png'),
+                                ),
                                 artworkBorder:
                                     const BorderRadius.all(Radius.circular(10)),
                               ),
@@ -541,11 +542,27 @@ class ShimmerEffect extends StatelessWidget {
                   //
                   //...... Artwork ......................................//
                   //
-                  leading: Container(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    color: Colors.white,
-                    width: 55,
-                    height: 55,
+                  // leading: Container(
+                  //   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  //   color: Colors.white,
+                  //   width: 100,
+                  //   height: 100,
+                  // ),
+
+                  //Shimmer Effect Leading Portion changed
+                  leading: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(15),
+                      bottomRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(15),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      color: Colors.white,
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                   //
                   //
