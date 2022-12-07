@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_animation_transition/animations/left_to_right_faded_transition.dart';
+import 'package:page_animation_transition/animations/right_to_left_faded_transition.dart';
+import 'package:page_animation_transition/animations/top_to_bottom_faded.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import 'package:music_player_app/pages/local_search_page.dart';
 
@@ -61,11 +63,21 @@ class SearchButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (navIndexListener.value == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const LocalSearch(),
-            ),
+          // Navigator.push(
+          //   context,
+          //   // MaterialPageRoute(
+          //   //   builder: (context) => const LocalSearch(),
+          //   PageAnimationTransition(
+          //     page: const LocalSearch(),
+          //     pageAnimationType: RightToLeftFadedTransition(),
+          //   ),
+          //   // ),
+          // );
+          showSearch(
+            context: context,
+            // delegate to customize the search bar
+
+            delegate: CustomSearchDelegate(),
           );
         } else {
           ytSearchResults.clear();

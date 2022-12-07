@@ -176,8 +176,27 @@ class _SearchPageState extends State<SearchPage> {
                               if (isSearchLoading.value) {
                                 return const ShimmerEffect();
                               } else {
-                                return const Center(
-                                  child: Text('Search Something To Show Here'),
+                                return SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 120),
+                                        child: Text(
+                                          'Search Something To Show Here',
+                                          style: TextStyle(
+                                            color: Colors.deepPurple,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      Image.asset(
+                                        'images/search.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
+                                  ),
                                 );
                               }
                             });

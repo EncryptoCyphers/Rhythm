@@ -22,13 +22,6 @@ Future<bool>? storagePermissionFuture;
 ValueNotifier<bool> storagePermissionListener = ValueNotifier<bool>(false);
 ValueNotifier<bool> circularIndicatorWidgetListener = ValueNotifier<bool>(true);
 
-//SongList Creation method for Search Operation
-void songListCreation() {
-  for (var i = 0; i < allSongsDevice.length; i++) {
-    songsList.add(allSongsDevice[i].title);
-  }
-}
-
 class Tracks extends StatefulWidget {
   const Tracks({super.key});
   @override
@@ -99,6 +92,8 @@ class _TracksState extends State<Tracks> {
       localSong.isPlaying = false;
       localSong.isWeb = false;
       allSongsDevice.add(localSong);
+      //SongList Creation method for Search Operation
+      songsList.add(localSong.title);
     }
   }
 
