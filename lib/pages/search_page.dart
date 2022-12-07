@@ -170,7 +170,10 @@ class _SearchPageState extends State<SearchPage> {
                                 child: Center(
                                   child: Column(
                                     children: [
-                                      Image.asset('images/search.png'),
+                                      Image.asset(
+                                        'images/search2.gif',
+                                        width: 300,
+                                      ),
                                       Text(
                                         'Search Something To Show Here',
                                         style: TextStyle(

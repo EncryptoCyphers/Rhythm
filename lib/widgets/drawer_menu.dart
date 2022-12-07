@@ -95,9 +95,9 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  navIndexListener.value = 2; //To build navbar
+                  navIndexListener.value = 1; //To build navbar
                   pageController.animateToPage(
-                    2,
+                    1,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOutQuad,
                   ); //To build pages
@@ -157,9 +157,9 @@ class DrawerMenu extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
-                  navIndexListener.value = 3; //To build navbar
+                  navIndexListener.value = 2; //To build navbar
                   pageController.animateToPage(
-                    3,
+                    2,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOutQuad,
                   ); //To build pages
