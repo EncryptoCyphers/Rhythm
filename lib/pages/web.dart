@@ -9,15 +9,54 @@ import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/services/colours.dart';
+import 'package:music_player_app/services/player_logic.dart';
 // import 'package:music_player_app/pages/full_player.dart';
 // import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/services/trending_songs.dart';
 import 'package:youtube/youtube_thumbnail.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+
+import '../services/get_yt_searches.dart';
 
 // import '../services/get_yt_searches.dart';
 // import '../services/player_logic.dart';
 
 // ignore: must_be_immutable
+
+Future fetchSongUriWeb(index) async {
+  audioPlayer.pause();
+  isFetchingUri.value = true;
+  trendingSongList[index].videoIdForFetchStream =
+      VideoId(trendingSongList[index].id.toString());
+  trendingSongList[index].uri = await getUri(
+    trendingSongList[index].videoIdForFetchStream,
+  );
+  playSongAfterFetchWeb(index);
+  isFetchingUri.value = false;
+}
+
+Future playSongAfterFetchWeb(int index) async {
+  isPlayingListenable.value = true;
+  miniPlayerVisibilityListenable.value = true;
+  currSongIdListenable.value = trendingSongList[index].id.toString();
+  getCurrSongInfo(
+    id: trendingSongList[index].id.toString(),
+    duration: trendingSongList[index].duration,
+    isWeb: trendingSongList[index].isWeb,
+    uri: trendingSongList[index].uri,
+    name: trendingSongList[index].title,
+    artist: trendingSongList[index].artist.toString(),
+    songIndex: index,
+    streamId: trendingSongList[index].videoIdForFetchStream,
+  );
+  playSong(
+    audioPlayer: audioPlayer,
+  );
+  getLocalMiniPlayerSongList(
+    trendingSongList,
+  );
+}
+
 class Youtube extends StatefulWidget {
   const Youtube({super.key});
 
@@ -92,6 +131,14 @@ class _YoutubeState extends State<Youtube> {
                       return GestureDetector(
                         onTap: () {
                           print(index);
+                          isPlayingListenable.value = true;
+                          bNavPaddingListenable.value =
+                              const EdgeInsets.fromLTRB(0, 0, 0, 0);
+                          // print(trendingSongList[index]
+                          //     .videoIdForFetchStream
+                          //     .toString());
+                          fetchSongUriWeb(index);
+                          currSongIndexListenable.value = index;
                         },
                         child: Image.network(
                           YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
@@ -201,7 +248,16 @@ class _YoutubeState extends State<Youtube> {
                           color: fgPurple,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        isPlayingListenable.value = true;
+                        bNavPaddingListenable.value =
+                            const EdgeInsets.fromLTRB(0, 0, 0, 0);
+                        // print(trendingSongList[index]
+                        //     .videoIdForFetchStream
+                        //     .toString());
+                        fetchSongUriWeb(index);
+                        currSongIndexListenable.value = index;
+                      },
                     );
                   },
                 ),
