@@ -129,8 +129,9 @@ class _YoutubeState extends State<Youtube> {
                 );
               }
               return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.45,
                 child: ListView.builder(
+                  padding: const EdgeInsets.only(bottom: 75),
                   itemCount: trendingSongList.length,
                   itemBuilder: (context, index) {
                     // return GFListTile(
