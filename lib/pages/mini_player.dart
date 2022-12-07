@@ -7,6 +7,7 @@ import 'package:music_player_app/pages/search_page.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:loading_animation_widget/src/staggered_dots_wave/staggered_dots_wave.dart';
 import 'package:youtube/youtube_thumbnail.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import '../services/data_service_and_song_query.dart';
 import '../services/get_yt_searches.dart';
 // import '../services/screen_sizes.dart';
@@ -17,6 +18,8 @@ import '../services/player_logic.dart';
 
 Future fetchSongUriForCurrList(index) async {
   isFetchingUri.value = true;
+  currSongList![index].videoIdForFetchStream =
+      VideoId(currSongList![index].id.toString());
   currSongList![index].uri = await getUri(
     currSongList![index].videoIdForFetchStream,
   );

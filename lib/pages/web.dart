@@ -130,7 +130,7 @@ class _YoutubeState extends State<Youtube> {
                       int index = trendingSongList.indexOf(trendingSong);
                       return GestureDetector(
                         onTap: () {
-                          print(index);
+                          // print(index);
                           isPlayingListenable.value = true;
                           bNavPaddingListenable.value =
                               const EdgeInsets.fromLTRB(0, 0, 0, 0);
@@ -140,8 +140,16 @@ class _YoutubeState extends State<Youtube> {
                           fetchSongUriWeb(index);
                           currSongIndexListenable.value = index;
                         },
-                        child: Image.network(
-                          YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(7),
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(7),
+                            bottomLeft: Radius.circular(20),
+                          ),
+                          child: Image.network(
+                            YoutubeThumbnail(youtubeId: trendingSong.id).hd(),
+                          ),
                         ),
                       );
                     }).toList(),
