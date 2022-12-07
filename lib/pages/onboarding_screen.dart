@@ -407,7 +407,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             'Wrong password !!!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: 15,
                             ),
                           ),
                           backgroundColor: Colors.red,
@@ -463,7 +463,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       });
                       // await Future.delayed(const Duration(seconds: 1));
                       setState(() {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => HomePage(

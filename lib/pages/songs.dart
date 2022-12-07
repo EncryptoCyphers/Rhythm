@@ -15,6 +15,7 @@ import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;
 List<CustomSongModel> allSongsDevice = [];
+List songsList = [];
 var dummy = bool;
 
 bool? prevPermissionPreference;
@@ -33,9 +34,8 @@ class _TracksState extends State<Tracks> {
   void initState() {
     // ignore: todo
     // TODO: implement initState
-
-    super.initState();
     setPrevPermissionPreference();
+    super.initState();
   }
 
   setPrevPermissionPreference() async {
@@ -93,6 +93,8 @@ class _TracksState extends State<Tracks> {
       localSong.isPlaying = false;
       localSong.isWeb = false;
       allSongsDevice.add(localSong);
+      //SongList Creation method for Search Operation
+      songsList.add(localSong.title);
     }
   }
 

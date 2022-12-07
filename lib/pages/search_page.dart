@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -12,7 +10,6 @@ import '../services/colours.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../services/get_yt_searches.dart';
 import '../services/player_logic.dart';
-import '../widgets/circular_mini_player.dart';
 import 'mini_player.dart';
 
 // import 'package:flutter_media_metadata/flutter_media_metadata.dart';
@@ -167,8 +164,22 @@ class _SearchPageState extends State<SearchPage> {
                             if (isSearchLoading.value) {
                               return const ShimmerEffect();
                             } else {
-                              return const Center(
-                                child: Text('Search Something To Show Here'),
+                              return SingleChildScrollView(
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/search.png'),
+                                      Text(
+                                        'Search Something To Show Here',
+                                        style: TextStyle(
+                                          color: fgPurple,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               );
                             }
                           });
@@ -269,9 +280,7 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-                padding: const EdgeInsets.all(20),
-                child: const CircularMiniPlayer()),
+            const MiniPlayerWidget(),
             SizedBox(
               height: 0,
               width: logicalWidth,
