@@ -261,16 +261,29 @@ class _TracksState extends State<Tracks> {
                               //...... Artwork ......................................//
                               //
                               leading: QueryArtworkWidget(
+                                artworkHeight: 100,
+                                artworkWidth: 100,
                                 id: allSongsDevice[index].id,
                                 type: ArtworkType.AUDIO,
                                 nullArtworkWidget: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child:
-                                      Image.asset('svg/No-Artwork-square.png'),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(5),
+                                    topRight: Radius.circular(15),
+                                    bottomRight: Radius.circular(5),
+                                    bottomLeft: Radius.circular(15),
+                                  ),
+                                  child: Image.asset(
+                                    'svg/No-Artwork-square.png',
+                                    height: 100,
+                                    width: 100,
+                                  ),
                                 ),
-                                artworkBorder:
-                                    const BorderRadius.all(Radius.circular(10)),
+                                artworkBorder: const BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  topRight: Radius.circular(15),
+                                  bottomRight: Radius.circular(5),
+                                  bottomLeft: Radius.circular(15),
+                                ),
                               ),
                               //
                               //
