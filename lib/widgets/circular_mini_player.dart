@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
+import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/widgets/b_nav.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
@@ -45,6 +46,7 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                     );
                     // });
                   } else if (details.delta.dy > 0) {
+                    isFetchingUri.value = false;
                     audioPlayer.stop();
                     bNavPaddingListenable.value =
                         const EdgeInsets.fromLTRB(0, 0, 45, 0);

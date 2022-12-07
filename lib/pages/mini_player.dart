@@ -325,26 +325,6 @@ class MiniArtWork extends StatelessWidget {
             },
           ),
         ),
-        ValueListenableBuilder<bool>(
-            valueListenable: isFetchingUri,
-            builder: (BuildContext context, bool isFetching, Widget? child) {
-              if (isFetching) {
-                return ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(35)),
-                  child: Container(
-                    color: Colors.white,
-                    height: 70,
-                    width: 70,
-                    child: LoadingAnimationWidget.staggeredDotsWave(
-                      color: fgPurple,
-                      size: 50,
-                    ),
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            }),
       ],
     );
   }

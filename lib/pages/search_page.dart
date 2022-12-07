@@ -292,7 +292,50 @@ class _SearchPageState extends State<SearchPage> {
           children: [
             Container(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                child: const CircularMiniPlayer()),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const CircularMiniPlayer(),
+                    ValueListenableBuilder<bool>(
+                        valueListenable: isFetchingUri,
+                        builder: (BuildContext context, bool isFetching,
+                            Widget? child) {
+                          if (isFetching) {
+                            return Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(35)),
+                                  child: Container(
+                                    color: Colors.white,
+                                    height: 70,
+                                    width: 70,
+                                    child: LoadingAnimationWidget
+                                        .staggeredDotsWave(
+                                      color: fgPurple,
+                                      size: 50,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 70,
+                                  width: 70,
+                                  child: CircularProgressIndicator(
+                                    value: 0,
+                                    strokeWidth: 6,
+                                    // backgroundColor: Colors.transparent,
+                                    backgroundColor:
+                                        Color.fromARGB(25, 0, 0, 0),
+                                  ),
+                                )
+                              ],
+                            );
+                          } else {
+                            return Container();
+                          }
+                        }),
+                  ],
+                )),
             SizedBox(
               height: 0,
               width: logicalWidth,
