@@ -121,6 +121,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
 // second overwrite to pop out of search menu
   @override
+<<<<<<< HEAD
   Widget? buildLeading(BuildContext context) {
     return IconButton(
       onPressed: () {
@@ -189,6 +190,41 @@ class CustomSearchDelegate extends SearchDelegate {
           },
         );
       },
+=======
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text('Search Music'),
+        backgroundColor: fgPurple,
+      ),
+      body: GFSearchBar(
+        searchList: list,
+        searchQueryBuilder: (query, list) {
+          return list
+              .where((item) =>
+                  item.toString().toLowerCase().contains(query.toLowerCase()))
+              .toList();
+        },
+        overlaySearchListItemBuilder: (item) {
+          return Container(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              item.toString(),
+              style: const TextStyle(fontSize: 18),
+            ),
+          );
+        },
+        onItemSelected: (item) {
+          setState(() {
+            print('$item');
+          });
+        },
+      ),
+>>>>>>> a03b47adba48065ce2838b03c2c14acba8b5f9f9
     );
   }
 }

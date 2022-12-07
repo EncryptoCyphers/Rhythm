@@ -80,8 +80,8 @@ class SearchButton extends StatelessWidget {
             delegate: CustomSearchDelegate(),
           );
         } else {
-          ytSearchResults.clear();
-          ytSearchResultsCustom.clear();
+          // ytSearchResults.clear();
+          // ytSearchResultsCustom.clear();
           Navigator.of(context).push(
             PageAnimationTransition(
                 page: const SearchPage(),

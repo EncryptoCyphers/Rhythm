@@ -50,7 +50,12 @@ ValueNotifier<bool> miniPlayerVisibilityListenable = ValueNotifier<bool>(false);
 ValueNotifier<bool> isPlayingListenable = ValueNotifier<bool>(false);
 
 class MiniPlayerWidget extends StatefulWidget {
-  const MiniPlayerWidget({super.key});
+  const MiniPlayerWidget({
+    // required this.statusBarColor,
+    super.key,
+  });
+  // final Color statusBarColor;
+
   @override
   State<MiniPlayerWidget> createState() => _MiniPlayerWidgetState();
 }
@@ -58,34 +63,40 @@ class MiniPlayerWidget extends StatefulWidget {
 class _MiniPlayerWidgetState extends State<MiniPlayerWidget> {
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-        valueListenable: miniPlayerVisibilityListenable,
-        builder: (BuildContext context, bool playing, Widget? child) {
-          if (!playing) {
-            return SizedBox(
-              height: 0,
-              width: logicalWidth,
-            );
-          } else {
-            return Miniplayer(
-              onDismissed: () {
-                audioPlayer.stop();
-                miniPlayerVisibilityListenable.value = false;
-              },
-              valueNotifier: playerExpandProgress,
-              minHeight: 76,
-              maxHeight: logicalHeight,
-              builder: (height, percentage) {
-                // playerExpandProgress.value = height;
-                if (height < 100) {
-                  return const MiniPlayerInfo();
-                } else {
-                  return const Player();
-                }
-              },
-            );
-          }
-        });
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        ValueListenableBuilder<bool>(
+            valueListenable: miniPlayerVisibilityListenable,
+            builder: (BuildContext context, bool playing, Widget? child) {
+              if (!playing) {
+                return SizedBox(
+                  height: 0,
+                  width: logicalWidth,
+                );
+              } else {
+                return Miniplayer(
+                  onDismissed: () {
+                    audioPlayer.stop();
+                    miniPlayerVisibilityListenable.value = false;
+                  },
+                  valueNotifier: playerExpandProgress,
+                  minHeight: 76,
+                  maxHeight: logicalHeight,
+                  builder: (height, percentage) {
+                    // playerExpandProgress.value = height;
+                    if (height < 100) {
+                      return const MiniPlayerInfo();
+                    } else {
+                      return const Player();
+                    }
+                  },
+                );
+              }
+            }),
+        const LoadingSong()
+      ],
+    );
   }
 }
 
@@ -232,11 +243,21 @@ class MiniArtWork extends StatelessWidget {
       valueListenable: currSongIdListenable,
       builder: (BuildContext context, String currSongId, Widget? child) {
         if (currSongIsWeb) {
-          return Image.network(
-              YoutubeThumbnail(youtubeId: currSongId.toString()).mq());
+          return ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(5),
+              topRight: Radius.circular(15),
+              bottomRight: Radius.circular(5),
+              bottomLeft: Radius.circular(15),
+            ),
+            child: Image.network(
+                YoutubeThumbnail(youtubeId: currSongId.toString()).mq()),
+          );
         }
         return QueryArtworkWidget(
-          nullArtworkWidget: const Icon(Icons.music_note),
+          nullArtworkWidget: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              child: Image.asset('svg/No-Artwork-square.png')),
           id: int.parse(currSongId),
           type: ArtworkType.AUDIO,
           artworkQuality: FilterQuality.high,
