@@ -149,6 +149,7 @@ class _YoutubeState extends State<Youtube> {
                           ),
                           child: Image.network(
                             YoutubeThumbnail(youtubeId: trendingSong.id).hd(),
+                            // scale: 0.7,
                           ),
                         ),
                       );
