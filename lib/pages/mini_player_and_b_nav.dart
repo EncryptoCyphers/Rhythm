@@ -28,26 +28,29 @@ class _MiniPlayerAndBNavState extends State<MiniPlayerAndBNav> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        ValueListenableBuilder<EdgeInsets>(
-            valueListenable: bNavPaddingListenable,
-            builder: (BuildContext context, EdgeInsets value, Widget? child) {
-              if (value != bNavPadding) {
-                bNavPadding = bNavPaddingListenable.value;
-                return AnimatedPadding(
-                  duration: const Duration(milliseconds: 500),
-                  padding: bNavPaddingListenable.value,
-                  child: BNav(pageController: widget.pageController),
-                );
-              } else {
-                return AnimatedPadding(
-                  duration: const Duration(milliseconds: 500),
-                  padding: bNavPaddingListenable.value,
-                  child: BNav(pageController: widget.pageController),
-                );
-              }
-            }),
         Container(
-          padding: EdgeInsets.fromLTRB(0, 0, logicalWidth - 90, 10),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+          child: ValueListenableBuilder<EdgeInsets>(
+              valueListenable: bNavPaddingListenable,
+              builder: (BuildContext context, EdgeInsets value, Widget? child) {
+                if (value != bNavPadding) {
+                  bNavPadding = bNavPaddingListenable.value;
+                  return AnimatedPadding(
+                    duration: const Duration(milliseconds: 500),
+                    padding: bNavPaddingListenable.value,
+                    child: BNav(pageController: widget.pageController),
+                  );
+                } else {
+                  return AnimatedPadding(
+                    duration: const Duration(milliseconds: 500),
+                    padding: bNavPaddingListenable.value,
+                    child: BNav(pageController: widget.pageController),
+                  );
+                }
+              }),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(0, 0, logicalWidth - 90, 15),
           child: const CircularMiniPlayer(),
         ),
       ],

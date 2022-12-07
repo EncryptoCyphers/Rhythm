@@ -287,7 +287,9 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const CircularMiniPlayer(),
+            Container(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                child: const CircularMiniPlayer()),
             SizedBox(
               height: 0,
               width: logicalWidth,

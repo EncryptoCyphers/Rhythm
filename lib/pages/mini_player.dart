@@ -247,19 +247,16 @@ class MiniArtWork extends StatelessWidget {
       builder: (BuildContext context, String currSongId, Widget? child) {
         if (currSongIsWeb) {
           return ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(5),
-              topRight: Radius.circular(15),
-              bottomRight: Radius.circular(5),
-              bottomLeft: Radius.circular(15),
-            ),
+            borderRadius: const BorderRadius.all(Radius.circular(35)),
             child: Image.network(
-                YoutubeThumbnail(youtubeId: currSongId.toString()).mq()),
+              YoutubeThumbnail(youtubeId: currSongId.toString()).mq(),
+              fit: BoxFit.fitHeight,
+            ),
           );
         }
         return QueryArtworkWidget(
           nullArtworkWidget: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(30)),
+            borderRadius: const BorderRadius.all(Radius.circular(40)),
             child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -282,18 +279,31 @@ class MiniArtWork extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(5.5, 4, 5, 7),
                   child: Image.asset(
                     'svg/No-Artwork-square-transparent.png',
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 )),
           ),
           id: int.parse(currSongId),
           type: ArtworkType.AUDIO,
           artworkQuality: FilterQuality.high,
-          artworkHeight: 60,
+          artworkHeight: 70,
           artworkWidth: 60,
-          artworkBorder: const BorderRadius.all(Radius.circular(30)),
+          artworkBorder: const BorderRadius.all(Radius.circular(35)),
         );
       },
     );
   }
 }
+
+// class MiniArtWork extends StatelessWidget {
+//   const MiniArtWork({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Colors.red,
+//       height: 200,
+//       width: 100,
+//     );
+//   }
+// }

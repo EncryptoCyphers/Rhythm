@@ -20,8 +20,8 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
-      width: 60,
+      height: 70,
+      width: 70,
       child: ValueListenableBuilder<bool>(
           valueListenable: miniPlayerVisibilityListenable,
           builder: (BuildContext context, bool playing, Widget? child) {
