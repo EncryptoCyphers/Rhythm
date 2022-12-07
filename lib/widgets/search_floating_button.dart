@@ -24,7 +24,7 @@ class SearchButtonWithLogic extends StatelessWidget {
             return ValueListenableBuilder<int>(
                 valueListenable: navIndexListener,
                 builder: (BuildContext context, int value, Widget? child) {
-                  if (value != 3) {
+                  if (value != 2) {
                     return ValueListenableBuilder<bool>(
                       valueListenable: miniPlayerVisibilityListenable,
                       builder:

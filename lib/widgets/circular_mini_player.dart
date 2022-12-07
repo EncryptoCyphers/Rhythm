@@ -35,7 +35,8 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
               // });
               return GestureDetector(
                 onPanUpdate: (details) {
-                  if (details.delta.dy < 0) {
+                  int sensitivity = 5;
+                  if (details.delta.dy < sensitivity) {
                     // Future.delayed(Duration(milliseconds: 50), () {
                     Navigator.of(context).push(
                       PageAnimationTransition(
@@ -49,6 +50,47 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                         const EdgeInsets.fromLTRB(0, 0, 45, 0);
                     miniPlayerVisibilityListenable.value = false;
                   }
+                  // if (details.delta.dx > 0) {
+                  //   () {
+                  //     if (currSongIndex >= 0 &&
+                  //         currSongIndex < currSongList!.length &&
+                  //         currSongList!.length > 1) {
+                  //       // print(currSongIndex);
+
+                  //       currSongIndex++;
+                  //       if (currSongIsWeb) {
+                  //         fetchSongUriForCurrList(currSongIndex);
+                  //         // setState(() {
+                  //         //   currSongList![currSongIndex].title =
+                  //         //       currSongList![currSongIndex].title;
+                  //         // });
+                  //       } else {
+                  //         getCurrSongInfo(
+                  //           id: currSongList![currSongIndex].id.toString(),
+                  //           uri: currSongList![currSongIndex].uri,
+                  //           duration: currSongIsWeb
+                  //               ? (currSongList![currSongIndex].duration)
+                  //               : (Duration(
+                  //                   milliseconds:
+                  //                       currSongList![currSongIndex].duration)),
+                  //           isWeb: currSongList![currSongIndex].isWeb,
+                  //           name: currSongList![currSongIndex].title,
+                  //           artist:
+                  //               currSongList![currSongIndex].artist.toString(),
+                  //           songIndex: currSongIndex,
+                  //         );
+                  //         currSongIdListenable.value =
+                  //             currSongList![currSongIndex].id.toString();
+                  //         playSong(audioPlayer: audioPlayer);
+                  //       }
+                  //     }
+                  //   };
+                  // } else if (details.delta.dx < -sensitivity) {
+                  //   // audioPlayer.stop();
+                  //   // bNavPaddingListenable.value =
+                  //   //     const EdgeInsets.fromLTRB(0, 0, 45, 0);
+                  //   // miniPlayerVisibilityListenable.value = false;
+                  // }
                 },
                 onTap: () {
                   if (isPlaying) {
@@ -60,6 +102,40 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                   }
                   isPlaying = !isPlaying;
                 },
+                onDoubleTap: () {
+                  if (currSongIndex >= 0 &&
+                      currSongIndex < currSongList!.length &&
+                      currSongList!.length > 1) {
+                    // print(currSongIndex);
+
+                    currSongIndex++;
+                    if (currSongIsWeb) {
+                      fetchSongUriForCurrList(currSongIndex);
+                      // setState(() {
+                      //   currSongList![currSongIndex].title =
+                      //       currSongList![currSongIndex].title;
+                      // });
+                    } else {
+                      getCurrSongInfo(
+                        id: currSongList![currSongIndex].id.toString(),
+                        uri: currSongList![currSongIndex].uri,
+                        duration: currSongIsWeb
+                            ? (currSongList![currSongIndex].duration)
+                            : (Duration(
+                                milliseconds:
+                                    currSongList![currSongIndex].duration)),
+                        isWeb: currSongList![currSongIndex].isWeb,
+                        name: currSongList![currSongIndex].title,
+                        artist: currSongList![currSongIndex].artist.toString(),
+                        songIndex: currSongIndex,
+                      );
+                      currSongIdListenable.value =
+                          currSongList![currSongIndex].id.toString();
+                      playSong(audioPlayer: audioPlayer);
+                    }
+                  }
+                },
+                // : ,
                 // onTap: () {
                 //   Navigator.of(context).push(
                 //     PageAnimationTransition(

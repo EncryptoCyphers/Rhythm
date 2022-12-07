@@ -241,6 +241,7 @@ class _TracksState extends State<Tracks> {
                       //...... List builder  Widget......................................//
                       //
                       return ListView.builder(
+                        padding: const EdgeInsets.only(bottom: 80),
                         itemCount: allSongsDevice.length,
                         itemBuilder: ((context, index) {
                           //
@@ -353,6 +354,7 @@ class _TracksState extends State<Tracks> {
                             ),
                           );
                         }),
+                        // Container()
                       );
                     }
                   },
