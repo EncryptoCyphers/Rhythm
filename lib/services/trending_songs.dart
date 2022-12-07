@@ -1,9 +1,11 @@
 import 'package:music_player_app/services/json_object_model.dart';
 //import 'package:youtube_data_api/youtube_data_api.dart';
 //import 'package:youtube_data_api/models/video.dart';
+import 'package:music_player_app/services/data_service_and_song_query.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+/*
 class TrendingMusic {
   // ignore: prefer_typing_uninitialized_variables
   late var id;
@@ -14,8 +16,9 @@ class TrendingMusic {
   // ignore: prefer_typing_uninitialized_variables
   late var duration;
 }
+*/
 
-List<TrendingMusic> trendingSongList = [];
+List<CustomSongModel> trendingSongList = [];
 
 class Trending {
   /*
@@ -50,11 +53,14 @@ class Trending {
         .toList();
     trendingSongList = [];
     for (int i = 0; i < list.length; i++) {
-      TrendingMusic trendingMusic = TrendingMusic();
+      CustomSongModel trendingMusic = CustomSongModel();
       trendingMusic.id = list[i].videoId;
       trendingMusic.artist = list[i].author;
       trendingMusic.title = list[i].title;
-      trendingMusic.duration = list[i].lengthSeconds;
+      trendingMusic.duration = Duration(seconds: list[i].lengthSeconds);
+      //trendingMusic.videoIdForFetchStream = list[i].videoId;
+      trendingMusic.isPlaying = false;
+      trendingMusic.isWeb = true;
       trendingSongList.add(trendingMusic);
     }
   }

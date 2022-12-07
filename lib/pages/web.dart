@@ -88,13 +88,15 @@ class _YoutubeState extends State<Youtube> {
                       enlargeCenterPage: true,
                     ),
                     items: trendingSongList.map((trendingSong) {
+                      int index = trendingSongList.indexOf(trendingSong);
                       return GestureDetector(
-                          onTap: () {
-                            debugPrint("Tapped");
-                          },
-                          child: Image.network(
-                            YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
-                          ));
+                        onTap: () {
+                          print(index);
+                        },
+                        child: Image.network(
+                          YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
+                        ),
+                      );
                     }).toList(),
                   );
                 }),
@@ -190,7 +192,8 @@ class _YoutubeState extends State<Youtube> {
                         ),
                       ),
                       trailing: Text(
-                        Duration(seconds: trendingSongList[index].duration)
+                        trendingSongList[index]
+                            .duration
                             .toString()
                             .substring(3, 7),
                         style: TextStyle(
