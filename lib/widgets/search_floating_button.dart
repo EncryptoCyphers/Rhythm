@@ -66,7 +66,7 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (navIndexListener.value == 2) {
+        if (navIndexListener.value == 1) {
           // Navigator.push(
           //   context,
           //   // MaterialPageRoute(
