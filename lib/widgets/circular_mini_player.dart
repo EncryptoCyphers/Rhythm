@@ -26,7 +26,7 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.bottomRight,
+      alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
           height: 70,
@@ -159,40 +159,6 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                 }
               }),
         ),
-        ValueListenableBuilder<bool>(
-            valueListenable: isFetchingUri,
-            builder: (BuildContext context, bool isFetching, Widget? child) {
-              if (isFetching) {
-                return Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(35)),
-                      child: Container(
-                        color: Colors.white,
-                        height: 70,
-                        width: 70,
-                        child: LoadingAnimationWidget.staggeredDotsWave(
-                          color: fgPurple,
-                          size: 50,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 70,
-                      width: 70,
-                      child: CircularProgressIndicator(
-                        value: 0,
-                        strokeWidth: 6,
-                        // backgroundColor: Colors.transparent,
-                        backgroundColor: Color.fromARGB(25, 0, 0, 0),
-                      ),
-                    )
-                  ],
-                );
-              } else {
-                return Container();
-              }
-            }),
       ],
     );
   }

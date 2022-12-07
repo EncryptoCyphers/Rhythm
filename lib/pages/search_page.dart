@@ -293,7 +293,7 @@ class _SearchPageState extends State<SearchPage> {
             Container(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                 child: Stack(
-                  alignment: Alignment.center,
+                  alignment: Alignment.bottomCenter,
                   children: [
                     const CircularMiniPlayer(),
                     ValueListenableBuilder<bool>(
