@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/songs.dart';
 // import 'package:music_player_app/services/data_service_and_song_query.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
+import 'package:music_player_app/widgets/circular_mini_player.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/colours.dart';
 //import '../widgets/bottomNavigationBar.dart';
@@ -256,6 +258,10 @@ class _SearchPageState extends State<SearchPage> {
                                       //...... Song OnTap ......................................//
                                       //
                                       onTap: () {
+                                        isPlayingListenable.value = true;
+                                        bNavPaddingListenable.value =
+                                            const EdgeInsets.fromLTRB(
+                                                0, 0, 0, 0);
                                         // print(ytSearchResultsCustom[index]
                                         //     .videoIdForFetchStream
                                         //     .toString());
@@ -276,11 +282,12 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
         // ),
+
         Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const MiniPlayerWidget(),
+            const CircularMiniPlayer(),
             SizedBox(
               height: 0,
               width: logicalWidth,
