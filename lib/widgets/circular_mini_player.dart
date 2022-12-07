@@ -9,6 +9,8 @@ import 'package:page_animation_transition/page_animation_transition.dart';
 import '../pages/mini_player.dart';
 import '../services/player_logic.dart';
 
+EdgeInsets miniPlayerPadding = const EdgeInsets.all(0);
+
 class CircularMiniPlayer extends StatefulWidget {
   const CircularMiniPlayer({super.key});
 
@@ -34,11 +36,13 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
               return GestureDetector(
                 onPanUpdate: (details) {
                   if (details.delta.dy < 0) {
+                    // Future.delayed(Duration(milliseconds: 50), () {
                     Navigator.of(context).push(
                       PageAnimationTransition(
                           page: const Player(),
                           pageAnimationType: BottomToTopTransition()),
                     );
+                    // });
                   } else if (details.delta.dy > 0) {
                     audioPlayer.stop();
                     bNavPaddingListenable.value =
