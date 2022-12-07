@@ -4,6 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/pages/mini_player.dart';
+import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
+import 'package:music_player_app/pages/search_page.dart';
+import 'package:music_player_app/services/colours.dart';
 // import 'package:music_player_app/pages/full_player.dart';
 // import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/services/trending_songs.dart';
@@ -84,7 +89,9 @@ class _YoutubeState extends State<Youtube> {
                     ),
                     items: trendingSongList.map((trendingSong) {
                       return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            debugPrint("Tapped");
+                          },
                           child: Image.network(
                             YoutubeThumbnail(youtubeId: trendingSong.id).mq(),
                           ));
@@ -126,20 +133,71 @@ class _YoutubeState extends State<Youtube> {
                 child: ListView.builder(
                   itemCount: trendingSongList.length,
                   itemBuilder: (context, index) {
-                    return GFListTile(
-                      avatar: Image(
-                        image: NetworkImage(
-                            YoutubeThumbnail(youtubeId: imageList[index]).mq()),
-                        width: 90,
-                        height: 100,
-                        fit: BoxFit.cover,
+                    // return GFListTile(
+                    //   avatar: Image(
+                    //     image: NetworkImage(
+                    //         YoutubeThumbnail(youtubeId: imageList[index]).mq()),
+                    //     width: 90,
+                    //     height: 100,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    //   titleText: trendingSongList[index].title,
+                    //   subTitleText: trendingSongList[index].artist,
+                    //   icon: const FaIcon(
+                    //     FontAwesomeIcons.youtube,
+                    //     color: Colors.red,
+                    //   ),
+                    // );
+                    return ListTile(
+                      contentPadding: const EdgeInsets.only(
+                        bottom: 10,
+                        left: 10,
+                        right: 10,
                       ),
-                      titleText: trendingSongList[index].title,
-                      subTitleText: trendingSongList[index].artist,
-                      icon: const FaIcon(
-                        FontAwesomeIcons.youtube,
-                        color: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
+                      leading: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(5),
+                          bottomLeft: Radius.circular(15),
+                        ),
+                        child: Image.network(
+                          YoutubeThumbnail(
+                            youtubeId: imageList[index],
+                          ).mq(),
+                          fit: BoxFit.cover,
+                          width: 90,
+                          height: 90,
+                        ),
+                      ),
+                      title: Text(
+                        trendingSongList[index].title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        trendingSongList[index].artist,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 170, 80, 249),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      trailing: Text(
+                        Duration(seconds: trendingSongList[index].duration)
+                            .toString()
+                            .substring(3, 7),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: fgPurple,
+                        ),
+                      ),
+                      onTap: () {},
                     );
                   },
                 ),

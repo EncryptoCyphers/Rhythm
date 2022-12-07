@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/services/colours.dart';
 import '../pages/user_profile.dart';
 
@@ -24,9 +25,15 @@ class _MyProfileState extends State<MyProfile> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.red,
+          // return const Center(
+          //   child: CircularProgressIndicator(
+          //     color: Colors.red,
+          //   ),
+          // );
+          return Center(
+            child: LoadingAnimationWidget.inkDrop(
+              color: Colors.deepPurple,
+              size: 50,
             ),
           );
         }
@@ -72,7 +79,7 @@ class _MyProfileState extends State<MyProfile> {
             children: [
               const Positioned(
                 top: 15,
-                left: 35,
+                left: 15,
                 child: Text(
                   'Profile Information',
                   textAlign: TextAlign.center,
