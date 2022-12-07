@@ -67,7 +67,6 @@ dependencies:
   awesome_dialog: ^3.0.2
   page_animation_transition: ^0.0.9
   loading_animation_widget: ^1.2.0+3
-  circular_progress_bar: ^0.0.4
 
 dev_dependencies:
   flutter_test:
