@@ -273,10 +273,13 @@ class _TracksState extends State<Tracks> {
                                     bottomRight: Radius.circular(5),
                                     bottomLeft: Radius.circular(15),
                                   ),
-                                  child: Image.asset(
-                                    'svg/No-Artwork-square.png',
-                                    height: 100,
-                                    width: 100,
+                                  child: Container(
+                                    color: Colors.grey[300],
+                                    child: Image.asset(
+                                      'svg/No-Artwork-square.png',
+                                      height: 100,
+                                      width: 100,
+                                    ),
                                   ),
                                 ),
                                 artworkBorder: const BorderRadius.only(
@@ -303,8 +306,11 @@ class _TracksState extends State<Tracks> {
                               //
                               //...... Artist Name  ......................................//
                               //
-                              subtitle:
-                                  Text(allSongsDevice[index].artist.toString()),
+                              subtitle: Text(
+                                allSongsDevice[index].artist.toString(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                               //
                               //
                               //
