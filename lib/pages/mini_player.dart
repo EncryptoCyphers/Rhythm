@@ -330,7 +330,7 @@ class MiniArtWork extends StatelessWidget {
             builder: (BuildContext context, bool isFetching, Widget? child) {
               if (isFetching) {
                 return ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                  borderRadius: const BorderRadius.all(Radius.circular(35)),
                   child: Container(
                     color: Colors.white,
                     height: 70,
