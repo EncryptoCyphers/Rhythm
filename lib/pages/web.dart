@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
@@ -95,83 +96,98 @@ class _YoutubeState extends State<Youtube> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          /*-----------------------------------Text Box-----------------------------------*/
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
-            child: Text(
-              'Trending Songs on YouTube',
-              style: GoogleFonts.laila(
-                color: Colors.deepPurple,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-
-          /*-----------------------------------Trending Song-----------------------------------*/
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: FutureBuilder(
-                future: makeTrendingSongList(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Text(
-                      'Something went wrong!!',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    );
-                  }
-                  return CarouselSlider(
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      enlargeCenterPage: true,
+          Container(
+            color: Colors.white,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                /*-----------------------------------Text Box-----------------------------------*/
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+                  child: Text(
+                    'Trending Songs on YouTube',
+                    style: GoogleFonts.laila(
+                      color: Colors.deepPurple,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
                     ),
-                    items: trendingSongList.map((trendingSong) {
-                      int index = trendingSongList.indexOf(trendingSong);
-                      return GestureDetector(
-                        onTap: () {
-                          // print(index);
-                          isPlayingListenable.value = true;
-                          bNavPaddingListenable.value =
-                              const EdgeInsets.fromLTRB(0, 0, 0, 0);
-                          // print(trendingSongList[index]
-                          //     .videoIdForFetchStream
-                          //     .toString());
-                          fetchSongUriWeb(index);
-                          currSongIndexListenable.value = index;
-                        },
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(7),
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(7),
-                            bottomLeft: Radius.circular(20),
-                          ),
-                          child: Image.network(
-                            YoutubeThumbnail(youtubeId: trendingSong.id).hd(),
-                            // scale: 0.7,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  );
-                }),
-          ),
+                  ),
+                ),
 
-          /*-----------------------------------Text Box-----------------------------------*/
-          Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
-            child: Text(
-              'Recent Searches',
-              style: GoogleFonts.laila(
-                color: Colors.deepPurple,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
+                /*-----------------------------------Trending Song-----------------------------------*/
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  child: FutureBuilder(
+                      future: makeTrendingSongList(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: LoadingAnimationWidget.dotsTriangle(
+                              color: Colors.deepPurple,
+                              size: 50,
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Text(
+                            'Something went wrong!!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          );
+                        }
+                        return CarouselSlider(
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                          ),
+                          items: trendingSongList.map((trendingSong) {
+                            int index = trendingSongList.indexOf(trendingSong);
+                            return GestureDetector(
+                              onTap: () {
+                                // print(index);
+                                isPlayingListenable.value = true;
+                                bNavPaddingListenable.value =
+                                    const EdgeInsets.fromLTRB(0, 0, 0, 0);
+                                // print(trendingSongList[index]
+                                //     .videoIdForFetchStream
+                                //     .toString());
+                                fetchSongUriWeb(index);
+                                currSongIndexListenable.value = index;
+                              },
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(7),
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(7),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                                child: Image.network(
+                                  YoutubeThumbnail(youtubeId: trendingSong.id)
+                                      .hd(),
+                                  // scale: 0.7,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      }),
+                ),
+
+                /*-----------------------------------Text Box-----------------------------------*/
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+                  child: Text(
+                    'Coming Soon',
+                    style: GoogleFonts.laila(
+                      color: Colors.deepPurple,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -180,7 +196,12 @@ class _YoutubeState extends State<Youtube> {
             future: makeTrendingSongList(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                  child: LoadingAnimationWidget.inkDrop(
+                    color: Colors.deepPurple,
+                    size: 50,
+                  ),
+                );
               } else if (snapshot.hasError) {
                 return const Text(
                   'Something went wrong!!',
