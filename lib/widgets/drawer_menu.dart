@@ -60,28 +60,28 @@ class DrawerMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              ListTile(
-                leading: const Icon(
-                  Icons.home,
-                  color: Colors.deepPurple,
-                ),
-                title: const Text(
-                  'Home',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onTap: () {
-                  navIndexListener.value = 0; //To build navbar
-                  pageController.animateToPage(
-                    0,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeOutQuad,
-                  );
-                  Navigator.pop(context); //to pop out the drawer instantly
-                },
-              ),
+              // ListTile(
+              //   leading: const Icon(
+              //     Icons.home,
+              //     color: Colors.deepPurple,
+              //   ),
+              //   title: const Text(
+              //     'Home',
+              //     style: TextStyle(
+              //       fontSize: 18,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     navIndexListener.value = 0; //To build navbar
+              //     pageController.animateToPage(
+              //       0,
+              //       duration: const Duration(milliseconds: 300),
+              //       curve: Curves.easeOutQuad,
+              //     );
+              //     Navigator.pop(context); //to pop out the drawer instantly
+              //   },
+              // ),
               ListTile(
                 leading: const Icon(
                   Icons.storage,
@@ -146,11 +146,11 @@ class DrawerMenu extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(
-                  Icons.settings,
+                  Icons.person,
                   color: Colors.deepPurple,
                 ),
                 title: const Text(
-                  'Settings',
+                  'Profile',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

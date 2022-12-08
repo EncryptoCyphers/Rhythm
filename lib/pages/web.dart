@@ -28,6 +28,19 @@ void listTileColorChange(int index) {
   listIndex.value = index;
 }
 
+Widget iconSelector(int index, int listIndexValue) {
+  if (index == listIndexValue) {
+    return const Icon(Icons.play_arrow_rounded);
+  }
+  return Text(
+    trendingSongList[index].duration.toString().substring(3, 7),
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      color: fgPurple,
+    ),
+  );
+}
+
 Future fetchSongUriWeb(index) async {
   audioPlayer.pause();
   isFetchingUri.value = true;
@@ -275,16 +288,7 @@ class _YoutubeState extends State<Youtube> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          trailing: Text(
-                            trendingSongList[index]
-                                .duration
-                                .toString()
-                                .substring(3, 7),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: fgPurple,
-                            ),
-                          ),
+                          trailing: iconSelector(index, listIndex.value),
                           onTap: () {
                             listTileColorChange(index);
                             isPlayingListenable.value = true;

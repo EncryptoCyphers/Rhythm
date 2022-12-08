@@ -17,6 +17,10 @@ late List<SongModel> allSongs;
 List<CustomSongModel> allSongsDevice = [];
 List songsList = [];
 var dummy = bool;
+final listIndex = ValueNotifier<int>(0);
+void listTileColorChange(int index) {
+  listIndex.value = index;
+}
 
 bool? prevPermissionPreference;
 Future<bool>? storagePermissionFuture;
@@ -240,121 +244,141 @@ class _TracksState extends State<Tracks> {
                       //
                       //...... List builder  Widget......................................//
                       //
-                      return ListView.builder(
-                        padding: const EdgeInsets.only(bottom: 80),
-                        itemCount: allSongsDevice.length,
-                        itemBuilder: ((context, index) {
-                          //
-                          //
-                          //
-                          //
-                          //...... Song Card  Widget......................................//
-                          //
-                          return Container(
-                            padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
-                            child: ListTile(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              // tileColor: Colors.black26,
+                      return ValueListenableBuilder(
+                        valueListenable: listIndex,
+                        builder: (context, value, child) {
+                          return ListView.builder(
+                            padding: const EdgeInsets.only(bottom: 80),
+                            itemCount: allSongsDevice.length,
+                            itemBuilder: ((context, index) {
                               //
                               //
                               //
                               //
-                              //...... Artwork ......................................//
+                              //...... Song Card  Widget......................................//
                               //
-                              leading: QueryArtworkWidget(
-                                artworkHeight: 100,
-                                artworkWidth: 100,
-                                id: allSongsDevice[index].id,
-                                type: ArtworkType.AUDIO,
-                                nullArtworkWidget: ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(5),
-                                    bottomLeft: Radius.circular(15),
-                                  ),
-                                  child: Container(
-                                    color: Colors.grey[300],
-                                    child: Image.asset(
-                                      'svg/No-Artwork-square.png',
-                                      height: 100,
-                                      width: 100,
+                              return Container(
+                                padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                                child: ListTile(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  // tileColor: Colors.black26,
+                                  //
+                                  //
+                                  //
+                                  //
+                                  //...... Artwork ......................................//
+                                  //
+                                  leading: QueryArtworkWidget(
+                                    artworkHeight: 100,
+                                    artworkWidth: 100,
+                                    id: allSongsDevice[index].id,
+                                    type: ArtworkType.AUDIO,
+                                    nullArtworkWidget: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(5),
+                                        topRight: Radius.circular(15),
+                                        bottomRight: Radius.circular(5),
+                                        bottomLeft: Radius.circular(15),
+                                      ),
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        child: Image.asset(
+                                          'svg/No-Artwork-square.png',
+                                          height: 100,
+                                          width: 100,
+                                        ),
+                                      ),
+                                    ),
+                                    artworkBorder: const BorderRadius.only(
+                                      topLeft: Radius.circular(5),
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(15),
                                     ),
                                   ),
+                                  //
+                                  //
+                                  //
+                                  //
+                                  //...... Song Name  ......................................//
+                                  //
+                                  title: Text(
+                                    allSongsDevice[index].title,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  //
+                                  //
+                                  //
+                                  //
+                                  //...... Artist Name  ......................................//
+                                  //
+                                  subtitle: Text(
+                                    allSongsDevice[index].artist.toString(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  //
+                                  //
+                                  //
+                                  //
+                                  //...... left Button  ......................................//
+                                  //
+                                  trailing: Text(
+                                    Duration(
+                                            milliseconds:
+                                                allSongsDevice[index].duration)
+                                        .toString()
+                                        .substring(3, 7),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: fgPurple,
+                                    ),
+                                  ),
+                                  //
+                                  //
+                                  //
+                                  //
+                                  //...... Song OnTap ......................................//
+                                  //
+                                  onTap: () {
+                                    listTileColorChange(index);
+                                    isPlayingListenable.value = true;
+                                    bNavPaddingListenable.value =
+                                        const EdgeInsets.fromLTRB(0, 0, 0, 0);
+                                    Future.delayed(
+                                        const Duration(milliseconds: 330), () {
+                                      miniPlayerVisibilityListenable.value =
+                                          true;
+                                    });
+                                    currSongIdListenable.value =
+                                        allSongsDevice[index].id.toString();
+                                    getCurrSongInfo(
+                                      id: allSongsDevice[index].id.toString(),
+                                      duration: Duration(
+                                          milliseconds:
+                                              allSongsDevice[index].duration),
+                                      isWeb: false,
+                                      uri: allSongsDevice[index].uri,
+                                      name: allSongsDevice[index].title,
+                                      artist: allSongsDevice[index]
+                                          .artist
+                                          .toString(),
+                                      songIndex: index,
+                                    );
+                                    // print(allSongsDevice[index].title);
+                                    playSong(audioPlayer: audioPlayer);
+                                    getLocalMiniPlayerSongList(allSongsDevice);
+                                  },
+                                  selected: index == listIndex.value,
+                                  selectedTileColor: Colors.grey.shade200,
                                 ),
-                                artworkBorder: const BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  topRight: Radius.circular(15),
-                                  bottomRight: Radius.circular(5),
-                                  bottomLeft: Radius.circular(15),
-                                ),
-                              ),
-                              //
-                              //
-                              //
-                              //
-                              //...... Song Name  ......................................//
-                              //
-                              title: Text(
-                                allSongsDevice[index].title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              //
-                              //
-                              //
-                              //
-                              //...... Artist Name  ......................................//
-                              //
-                              subtitle: Text(
-                                allSongsDevice[index].artist.toString(),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              //
-                              //
-                              //
-                              //
-                              //...... left Button  ......................................//
-                              //
-                              trailing: const Icon(Icons.more_horiz),
-                              //
-                              //
-                              //
-                              //
-                              //...... Song OnTap ......................................//
-                              //
-                              onTap: () {
-                                isPlayingListenable.value = true;
-                                bNavPaddingListenable.value =
-                                    const EdgeInsets.fromLTRB(0, 0, 0, 0);
-                                Future.delayed(
-                                    const Duration(milliseconds: 330), () {
-                                  miniPlayerVisibilityListenable.value = true;
-                                });
-                                currSongIdListenable.value =
-                                    allSongsDevice[index].id.toString();
-                                getCurrSongInfo(
-                                  id: allSongsDevice[index].id.toString(),
-                                  duration: Duration(
-                                      milliseconds:
-                                          allSongsDevice[index].duration),
-                                  isWeb: false,
-                                  uri: allSongsDevice[index].uri,
-                                  name: allSongsDevice[index].title,
-                                  artist:
-                                      allSongsDevice[index].artist.toString(),
-                                  songIndex: index,
-                                );
-                                // print(allSongsDevice[index].title);
-                                playSong(audioPlayer: audioPlayer);
-                                getLocalMiniPlayerSongList(allSongsDevice);
-                              },
-                            ),
+                              );
+                            }),
+                            // Container()
                           );
-                        }),
-                        // Container()
+                        },
                       );
                     }
                   },
