@@ -22,6 +22,20 @@ void listTileColorChange(int index) {
   listIndex.value = index;
 }
 
+//Trailing Icon Selector function
+// Widget iconSelector(int index, int listIndexValue, List<CustomSongModel> allSongsDevice) {
+//   if (index == listIndexValue) {
+//     return const Icon(Icons.bar_chart_rounded);
+//   }
+//   return Text(
+//     allSongsDevice[index].duration.toString().substring(3, 7),
+//     style: TextStyle(
+//       fontWeight: FontWeight.bold,
+//       color: fgPurple,
+//     ),
+//   );
+// }
+
 bool? prevPermissionPreference;
 Future<bool>? storagePermissionFuture;
 ValueNotifier<bool> storagePermissionListener = ValueNotifier<bool>(false);
@@ -325,17 +339,18 @@ class _TracksState extends State<Tracks> {
                                   //
                                   //...... left Button  ......................................//
                                   //
-                                  trailing: Text(
-                                    Duration(
-                                            milliseconds:
-                                                allSongsDevice[index].duration)
-                                        .toString()
-                                        .substring(3, 7),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: fgPurple,
-                                    ),
-                                  ),
+                                  trailing: const Icon(Icons.bar_chart_rounded),
+                                  // iconSelector(index, listIndex.value, allSongsDevice),
+                                  //     Text(
+                                  //   allSongsDevice[index]
+                                  //       .duration
+                                  //       .toString()
+                                  //       .substring(3, 7),
+                                  //   style: TextStyle(
+                                  //     fontWeight: FontWeight.bold,
+                                  //     color: fgPurple,
+                                  //   ),
+                                  // ),
                                   //
                                   //
                                   //

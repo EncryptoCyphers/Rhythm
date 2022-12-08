@@ -30,7 +30,7 @@ void listTileColorChange(int index) {
 
 Widget iconSelector(int index, int listIndexValue) {
   if (index == listIndexValue) {
-    return const Icon(Icons.play_arrow_rounded);
+    return const Icon(Icons.bar_chart_rounded);
   }
   return Text(
     trendingSongList[index].duration.toString().substring(3, 7),
