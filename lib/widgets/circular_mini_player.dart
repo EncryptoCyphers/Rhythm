@@ -1,16 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
-import 'package:music_player_app/widgets/b_nav.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import '../pages/mini_player.dart';
-import '../services/colours.dart';
 import '../services/player_logic.dart';
 
 EdgeInsets miniPlayerPadding = const EdgeInsets.all(0);

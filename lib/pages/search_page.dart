@@ -57,7 +57,7 @@ Uint8List? albumArt;
 FocusNode myFocusNode = FocusNode();
 
 class SearchPage extends StatefulWidget {
-  const SearchPage();
+  const SearchPage({super.key});
 
   @override
   State<SearchPage> createState() => _SearchPageState();

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_animation_transition/animations/left_to_right_faded_transition.dart';
-import 'package:page_animation_transition/animations/right_to_left_faded_transition.dart';
-import 'package:page_animation_transition/animations/top_to_bottom_faded.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import 'package:music_player_app/pages/local_search_page.dart';
 
-import '../services/get_yt_searches.dart';
 import '../widgets/b_nav.dart';
 import '../pages/mini_player.dart';
 import '../pages/search_page.dart';

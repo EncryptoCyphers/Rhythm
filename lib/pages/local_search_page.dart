@@ -91,7 +91,6 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/songs.dart';
-import 'package:music_player_app/services/colours.dart';
 
 import '../services/player_logic.dart';
 

@@ -36,6 +36,7 @@ class NavBarButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _NavBarButtonState createState() => _NavBarButtonState();
 }
 
@@ -57,8 +58,6 @@ class _NavBarButtonState extends State<NavBarButton>
   }
 
   Widget _buildCard(double height, [Color? color]) {
-    final double deviceWidth = logicalWidth - 90 - 20;
-
     return Container(
       color: Colors.white,
       child: SizedBox(

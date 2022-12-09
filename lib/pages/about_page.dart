@@ -1,9 +1,6 @@
-// ignore_for_file: deprecated_member_use, file_names
-
 import 'package:flutter/material.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:launch_review/launch_review.dart';
 
 final Uri _url = Uri.parse('https://www.linkedin.com/in/ankit-paul-914936234/');
 final Uri _url2 = Uri.parse('https://www.linkedin.com/in/arpan-de-001ab31b9/');
@@ -241,6 +238,7 @@ Future<void> _launchUrl() async {
   }
 }
 
+// ignore: unused_element
 Future<void> _launchUrl2() async {
   if (!await launchUrl(_url2)) {
     throw 'Could not launch $_url2';

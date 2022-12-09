@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:getwidget/components/carousel/gf_carousel.dart';
-import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/pages/full_player.dart';
@@ -88,7 +86,6 @@ class _YoutubeState extends State<Youtube> {
   /*
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     trending.getTrendingMusic();
     print(trendingSongList[0].title);
