@@ -17,9 +17,11 @@ late List<SongModel> allSongs;
 List<CustomSongModel> allSongsDevice = [];
 List songsList = [];
 var dummy = bool;
+var firstLoad = true;
 final listIndex = ValueNotifier<int>(0);
 void listTileColorChange(int index) {
   listIndex.value = index;
+  firstLoad = false;
 }
 
 //Trailing Icon Selector function
@@ -386,7 +388,8 @@ class _TracksState extends State<Tracks> {
                                     playSong(audioPlayer: audioPlayer);
                                     getLocalMiniPlayerSongList(allSongsDevice);
                                   },
-                                  selected: index == listIndex.value,
+                                  selected: index == listIndex.value &&
+                                      firstLoad == false,
                                   selectedTileColor: Colors.grey.shade200,
                                 ),
                               );

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/pages/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
+import 'package:music_player_app/pages/web.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import '../pages/mini_player.dart';
+import '../services/global.dart';
 import '../services/player_logic.dart';
 
 EdgeInsets miniPlayerPadding = const EdgeInsets.all(0);
@@ -112,6 +114,8 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                         // print(currSongIndex);
 
                         currSongIndex++;
+                        MyClass.listIndex.value = currSongIndex;
+                        debugPrint(MyClass.listIndex.value.toString());
                         if (currSongIsWeb) {
                           fetchSongUriForCurrList(currSongIndex);
                           // setState(() {
