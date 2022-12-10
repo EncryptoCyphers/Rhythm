@@ -46,8 +46,10 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                       if (details.delta.dy.abs() > details.delta.dx.abs()) {
                         //print("Vertical");
                         if (details.delta.dy > 3) {
-                          //print("U -> D");
+                          // print("U -> D");
                           isFetchingUri.value = false;
+                          MyClass.listIndex.value = -1;
+                          // print(MyClass.isSelected.value);
                           audioPlayer.stop();
                           bNavPaddingListenable.value =
                               const EdgeInsets.fromLTRB(0, 0, 45, 0);

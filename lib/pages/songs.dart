@@ -9,6 +9,7 @@ import 'package:shimmer/shimmer.dart';
 
 //.............................Created Imports....................................................................//
 import '../services/data_service_and_song_query.dart';
+import '../services/global.dart';
 import '../widgets/full_player.dart';
 import 'mini_player.dart';
 import '../services/player_logic.dart';
@@ -17,9 +18,19 @@ late List<SongModel> allSongs;
 List<CustomSongModel> allSongsDevice = [];
 List songsList = [];
 var dummy = bool;
-final listIndex = ValueNotifier<int>(0);
+// final listIndex = ValueNotifier<int>(0);
 void listTileColorChange(int index) {
-  listIndex.value = index;
+  MyClass.listIndex.value = index;
+  MyClass.firstLoad = false;
+  MyClass.dismissedSong = false;
+  if (index == MyClass.listIndex.value &&
+      MyClass.firstLoad == false &&
+      MyClass.dismissedSong == false) {
+    MyClass.isSelected.value = true;
+    return;
+  }
+  MyClass.isSelected.value = false;
+  // print(firstLoad);
 }
 
 //Trailing Icon Selector function
@@ -259,7 +270,7 @@ class _TracksState extends State<Tracks> {
                       //...... List builder  Widget......................................//
                       //
                       return ValueListenableBuilder(
-                        valueListenable: listIndex,
+                        valueListenable: MyClass.listIndex,
                         builder: (context, value, child) {
                           return SizedBox.expand(
                             child: ListView.builder(
@@ -392,7 +403,8 @@ class _TracksState extends State<Tracks> {
                                       getLocalMiniPlayerSongList(
                                           allSongsDevice);
                                     },
-                                    selected: index == listIndex.value,
+                                    selected: MyClass.isSelected.value &&
+                                        index == MyClass.listIndex.value,
                                     selectedTileColor: Colors.grey.shade200,
                                   ),
                                 );

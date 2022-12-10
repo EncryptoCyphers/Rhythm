@@ -68,11 +68,21 @@ class _YoutubeState extends State<Youtube> {
   void listTileColorChange(int index) {
     MyClass.listIndex.value = index;
     MyClass.firstLoad = false;
+    MyClass.dismissedSong = false;
+    if (index == MyClass.listIndex.value &&
+        MyClass.firstLoad == false &&
+        MyClass.dismissedSong == false) {
+      MyClass.isSelected.value = true;
+      return;
+    }
+    MyClass.isSelected.value = false;
     // print(firstLoad);
   }
 
   Widget iconSelector(int index, int listIndexValue) {
-    if (index == listIndexValue && MyClass.firstLoad == false) {
+    if (index == listIndexValue &&
+        MyClass.firstLoad == false &&
+        MyClass.dismissedSong == false) {
       return const Icon(Icons.bar_chart_rounded);
     }
     return Text(
@@ -301,8 +311,8 @@ class _YoutubeState extends State<Youtube> {
                             fetchSongUriWeb(index);
                             currSongIndexListenable.value = index;
                           },
-                          selected: index == MyClass.listIndex.value &&
-                              MyClass.firstLoad == false,
+                          selected: MyClass.isSelected.value &&
+                              index == MyClass.listIndex.value,
                           selectedTileColor: Colors.grey.shade200,
                         );
                       },
