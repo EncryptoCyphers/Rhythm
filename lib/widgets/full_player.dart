@@ -250,48 +250,9 @@ class _PlayerState extends State<Player> {
 
                               IconButton(
                                 onPressed: () {
-                                  if (currSongIndex > 0 &&
-                                      currSongIndex <= currSongList!.length &&
-                                      currSongList!.length > 1) {
-                                    // print(currSongIndex);
-                                    audioPlayer.pause();
-                                    if (currSongIsWeb) {
-                                      currSongIndex--;
-                                      fetchSongUriForCurrList(currSongIndex);
-                                      currSongIndexListenable.value =
-                                          currSongIndex;
-                                    } else {
-                                      setState(() {
-                                        currSongIndex--;
-                                      });
-                                      getCurrSongInfo(
-                                        duration: currSongIsWeb
-                                            ? (currSongList![currSongIndex]
-                                                .duration)
-                                            : (Duration(
-                                                milliseconds:
-                                                    currSongList![currSongIndex]
-                                                        .duration)),
-                                        isWeb:
-                                            currSongList![currSongIndex].isWeb,
-                                        id: currSongList![currSongIndex]
-                                            .id
-                                            .toString(),
-                                        uri: currSongList![currSongIndex].uri,
-                                        name:
-                                            currSongList![currSongIndex].title,
-                                        artist: currSongList![currSongIndex]
-                                            .artist
-                                            .toString(),
-                                        songIndex: currSongIndex,
-                                      );
-                                      currSongIdListenable.value =
-                                          currSongList![currSongIndex]
-                                              .id
-                                              .toString();
-                                      playSong(audioPlayer: audioPlayer);
-                                    }
-                                  }
+                                  setState(() {
+                                    skipToPrev();
+                                  });
                                 },
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_previous_rounded),
@@ -346,52 +307,9 @@ class _PlayerState extends State<Player> {
 
                               IconButton(
                                 onPressed: () {
-                                  if (currSongIndex >= 0 &&
-                                      currSongIndex <
-                                          currSongList!.length - 1 &&
-                                      currSongList!.length > 1) {
-                                    audioPlayer.pause();
-                                    // print(currSongIndex);
-                                    setState(() {
-                                      currSongIndex++;
-                                    });
-                                    if (currSongIsWeb) {
-                                      currSongIndexListenable.value =
-                                          currSongIndex;
-                                      fetchSongUriForCurrList(currSongIndex);
-                                    } else {
-                                      getCurrSongInfo(
-                                        id: currSongList![currSongIndex]
-                                            .id
-                                            .toString(),
-                                        duration: currSongIsWeb
-                                            ? (currSongList![currSongIndex]
-                                                .duration)
-                                            : (Duration(
-                                                milliseconds:
-                                                    currSongList![currSongIndex]
-                                                        .duration)),
-                                        isWeb:
-                                            currSongList![currSongIndex].isWeb,
-                                        uri: currSongList![currSongIndex].uri,
-                                        name:
-                                            currSongList![currSongIndex].title,
-                                        artist: currSongList![currSongIndex]
-                                            .artist
-                                            .toString(),
-                                        songIndex: currSongIndex,
-                                      );
-                                      currSongIdListenable.value =
-                                          currSongList![currSongIndex]
-                                              .id
-                                              .toString();
-                                      playSong(audioPlayer: audioPlayer);
-                                      setState(() {
-                                        currSongList![currSongIndex].title =
-                                            currSongList![currSongIndex].title;
-                                      });
-                                    }
-                                  }
+                                  setState(() {
+                                    skipToNext();
+                                  });
                                 },
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_next_rounded),

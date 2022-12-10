@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
@@ -10,70 +10,6 @@ import '../services/player_logic.dart';
 
 int horizontalSwipeVariable = 0;
 EdgeInsets miniPlayerPadding = const EdgeInsets.all(0);
-
-void skipToPrev() {
-  if (currSongIndex >= 0 &&
-      currSongIndex < currSongList!.length &&
-      currSongList!.length > 1) {
-    // print(currSongIndex);
-
-    currSongIndex--;
-    if (currSongIsWeb) {
-      currSongIndexListenable.value = currSongIndex;
-      fetchSongUriForCurrList(currSongIndex);
-      // setState(() {
-      //   currSongList![currSongIndex].title =
-      //       currSongList![currSongIndex].title;
-      // });
-    } else {
-      getCurrSongInfo(
-        id: currSongList![currSongIndex].id.toString(),
-        uri: currSongList![currSongIndex].uri,
-        duration: currSongIsWeb
-            ? (currSongList![currSongIndex].duration)
-            : (Duration(milliseconds: currSongList![currSongIndex].duration)),
-        isWeb: currSongList![currSongIndex].isWeb,
-        name: currSongList![currSongIndex].title,
-        artist: currSongList![currSongIndex].artist.toString(),
-        songIndex: currSongIndex,
-      );
-      currSongIdListenable.value = currSongList![currSongIndex].id.toString();
-      playSong(audioPlayer: audioPlayer);
-    }
-  }
-}
-
-void skipToNext() {
-  if (currSongIndex >= 0 &&
-      currSongIndex < currSongList!.length &&
-      currSongList!.length > 1) {
-    // print(currSongIndex);
-
-    currSongIndex++;
-    if (currSongIsWeb) {
-      currSongIndexListenable.value = currSongIndex;
-      fetchSongUriForCurrList(currSongIndex);
-      // setState(() {
-      //   currSongList![currSongIndex].title =
-      //       currSongList![currSongIndex].title;
-      // });
-    } else {
-      getCurrSongInfo(
-        id: currSongList![currSongIndex].id.toString(),
-        uri: currSongList![currSongIndex].uri,
-        duration: currSongIsWeb
-            ? (currSongList![currSongIndex].duration)
-            : (Duration(milliseconds: currSongList![currSongIndex].duration)),
-        isWeb: currSongList![currSongIndex].isWeb,
-        name: currSongList![currSongIndex].title,
-        artist: currSongList![currSongIndex].artist.toString(),
-        songIndex: currSongIndex,
-      );
-      currSongIdListenable.value = currSongList![currSongIndex].id.toString();
-      playSong(audioPlayer: audioPlayer);
-    }
-  }
-}
 
 class CircularMiniPlayer extends StatefulWidget {
   const CircularMiniPlayer({super.key});

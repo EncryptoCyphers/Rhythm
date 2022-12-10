@@ -88,7 +88,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/songs.dart';
 

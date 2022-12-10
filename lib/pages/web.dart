@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
