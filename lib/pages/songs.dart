@@ -6,7 +6,8 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
-
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 //.............................Created Imports....................................................................//
 import '../services/data_service_and_song_query.dart';
 import '../widgets/full_player.dart';
@@ -21,6 +22,9 @@ final listIndex = ValueNotifier<int>(0);
 void listTileColorChange(int index) {
   listIndex.value = index;
 }
+
+final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+List<SongInfo> newDepricatedSongList = [];
 
 //Trailing Icon Selector function
 // Widget iconSelector(int index, int listIndexValue, List<CustomSongModel> allSongsDevice) {
@@ -66,8 +70,10 @@ class _TracksState extends State<Tracks> {
     }
     if (await Permission.storage.isGranted) {
       storagePermissionListener.value = await Permission.storage.isGranted;
+      await getDepricatedSongList();
       await getAllSongList();
-      await getCustomSongModel();
+      // await getCustomSongModel();
+      await getCustomSongModelFromDepricatedList();
     }
     prefs.setBool('prevPermissionPreferenceHasValue', true);
   }
@@ -96,6 +102,17 @@ class _TracksState extends State<Tracks> {
 
   // //
   // //
+  // //For Depricated List Fetch
+  // //
+  Future getDepricatedSongList() async {
+    newDepricatedSongList = await audioQuery.getSongs();
+    // for (SongInfo i in newList) {
+    //   // print(i.title);
+    // }
+  }
+
+  // //
+  // //
   // //
   // //
   // //.........SongModel to CustomSongModel
@@ -108,6 +125,23 @@ class _TracksState extends State<Tracks> {
       localSong.artist = allSongs[i].artist.toString();
       localSong.duration = allSongs[i].duration;
       localSong.uri = allSongs[i].uri;
+      localSong.isPlaying = false;
+      localSong.isWeb = false;
+      allSongsDevice.add(localSong);
+      //SongList Creation method for Search Operation
+      songsList.add(localSong.title);
+    }
+  }
+
+  Future getCustomSongModelFromDepricatedList() async {
+    allSongsDevice.clear();
+    for (int i = 0; i < allSongs.length; i++) {
+      CustomSongModel localSong = CustomSongModel();
+      localSong.id = newDepricatedSongList[i].id;
+      localSong.title = newDepricatedSongList[i].title.toString();
+      localSong.artist = newDepricatedSongList[i].artist.toString();
+      localSong.duration = int.parse(newDepricatedSongList[i].duration);
+      localSong.uri = newDepricatedSongList[i].uri;
       localSong.isPlaying = false;
       localSong.isWeb = false;
       allSongsDevice.add(localSong);
@@ -136,15 +170,19 @@ class _TracksState extends State<Tracks> {
     if (await Permission.storage.request().isGranted) {
       storagePermissionListener.value = await Permission.storage.isGranted;
       await runShimmerEffect();
+      await getDepricatedSongList();
       await getAllSongList();
-      await getCustomSongModel();
+      // await getCustomSongModel();
+      await getCustomSongModelFromDepricatedList();
     } else if (await Permission.storage.request().isPermanentlyDenied) {
       await openAppSettings();
       if (await Permission.storage.request().isGranted) {
         storagePermissionListener.value = await Permission.storage.isGranted;
         await runShimmerEffect();
+        await getDepricatedSongList();
         await getAllSongList();
-        await getCustomSongModel();
+        // await getCustomSongModel();
+        await getCustomSongModelFromDepricatedList();
       }
     }
     return Permission.storage.isGranted;
@@ -289,7 +327,7 @@ class _TracksState extends State<Tracks> {
                                     leading: QueryArtworkWidget(
                                       artworkHeight: 100,
                                       artworkWidth: 100,
-                                      id: allSongsDevice[index].id,
+                                      id: int.parse(allSongsDevice[index].id),
                                       type: ArtworkType.AUDIO,
                                       nullArtworkWidget: ClipRRect(
                                         borderRadius: const BorderRadius.only(

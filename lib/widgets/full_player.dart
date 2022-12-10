@@ -3,10 +3,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/search_page.dart';
+import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
@@ -382,22 +384,64 @@ class ArtWork extends StatelessWidget {
                     ],
                   );
                 }
-                return QueryArtworkWidget(
-                  nullArtworkWidget: SizedBox(
-                    height: logicalWidth * 0.75,
-                    width: logicalWidth * 0.75,
-                    child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: Image.asset(
-                            'svg/No-Artwork-square-transparent.png')),
-                  ),
-                  id: int.parse(currSongId),
-                  type: ArtworkType.AUDIO,
-                  artworkQuality: FilterQuality.high,
-                  artworkHeight: logicalWidth * 0.75,
-                  artworkWidth: logicalWidth * 0.75,
+                return ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: FutureBuilder<Uint8List>(
+                      future: audioQuery.getArtwork(
+                          size: Size(logicalWidth * 0.75, logicalWidth * 0.75),
+                          type: ResourceType.SONG,
+                          id: newDepricatedSongList[currSongIndex].id),
+                      builder: (_, snapshot) {
+                        if (snapshot.data == null) {
+                          // print(newDepricatedSongList[currSongIndex].id);
+                          return const SizedBox(
+                            height: 250.0,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+                        return SizedBox(
+                          height: logicalWidth * 0.75,
+                          width: logicalWidth * 0.75,
+                          child: Image.memory(
+                            snapshot.data!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                child: SizedBox(
+                                  height: logicalWidth * 0.75,
+                                  width: logicalWidth * 0.75,
+                                  child: Image.asset(
+                                    'svg/No-Artwork-square-transparent.png',
+                                    fit: BoxFit.contain,
+                                    scale: 0.5,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }),
                 );
+                // QueryArtworkWidget(
+                //   nullArtworkWidget: SizedBox(
+                //     height: logicalWidth * 0.75,
+                //     width: logicalWidth * 0.75,
+                //     child: ClipRRect(
+                //         borderRadius:
+                //             const BorderRadius.all(Radius.circular(10)),
+                //         child: Image.asset(
+                //             'svg/No-Artwork-square-transparent.png')),
+                //   ),
+                //   id: int.parse(currSongId),
+                //   type: ArtworkType.AUDIO,
+                //   artworkQuality: FilterQuality.high,
+                //   artworkHeight: logicalWidth * 0.75,
+                //   artworkWidth: logicalWidth * 0.75,
+                // );
               },
             );
           }

@@ -1,9 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-class Downloads extends StatelessWidget {
+final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+List<SongInfo> newList = [];
+getSongs() async {
+  newList = await audioQuery.getSongs();
+  for (SongInfo i in newList) {
+    print(i.title);
+  }
+}
+
+class Downloads extends StatefulWidget {
   const Downloads({Key? key}) : super(key: key);
+
+  @override
+  State<Downloads> createState() => _DownloadsState();
+}
+
+class _DownloadsState extends State<Downloads> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSongs();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,46 +41,65 @@ class Downloads extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              width: double.infinity,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  FontAwesomeIcons.solidFaceFrown,
-                  size: 80,
-                  color: Color.fromARGB(255, 116, 92, 201),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  children: [
-                    Text(
-                      'ERROR',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: fgPurple,
-                      ),
-                    ),
-                    Text(
-                      'Service Unavailable',
-                      style: TextStyle(
-                        fontSize: 17.5,
-                        color: fgPurple,
-                      ),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
-        ));
+        body: FutureBuilder<Uint8List>(
+            future: audioQuery.getArtwork(
+                size: Size(550, 550),
+                type: ResourceType.SONG,
+                id: newList[11].id),
+            builder: (_, snapshot) {
+              if (snapshot.data == null) {
+                print(newList[12].id.toString());
+                return const SizedBox(
+                  height: 250.0,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+
+              return Image.memory(snapshot.data!);
+            })
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        //     const SizedBox(
+        //       width: double.infinity,
+        //     ),
+        //     Row(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         const Icon(
+        //           FontAwesomeIcons.solidFaceFrown,
+        //           size: 80,
+        //           color: Color.fromARGB(255, 116, 92, 201),
+        //         ),
+        //         const SizedBox(
+        //           width: 20,
+        //         ),
+        //         Column(
+        //           children: [
+        //             Text(
+        //               'ERROR',
+        //               style: TextStyle(
+        //                 fontSize: 35,
+        //                 fontWeight: FontWeight.bold,
+        //                 color: fgPurple,
+        //               ),
+        //             ),
+        //             Text(
+        //               'Service Unavailable',
+        //               style: TextStyle(
+        //                 fontSize: 17.5,
+        //                 color: fgPurple,
+        //               ),
+        //             )
+        //           ],
+        //         )
+        //       ],
+        //     )
+        //   ],
+        // )
+        );
   }
 }
