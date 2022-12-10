@@ -113,6 +113,7 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
 
                         currSongIndex++;
                         if (currSongIsWeb) {
+                          currSongIndexListenable.value = currSongIndex;
                           fetchSongUriForCurrList(currSongIndex);
                           // setState(() {
                           //   currSongList![currSongIndex].title =
