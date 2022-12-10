@@ -33,10 +33,37 @@ class _PlayerState extends State<Player> {
   @override
   void initState() {
     super.initState();
+    setStatusBackGroundTransParent();
+  }
+
+  Future setStatusBackGroundTransParent() async {
+    Future.delayed(const Duration(milliseconds: 400), () {
+      setState(() {
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            // Status bar color
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness:
+                Brightness.light, // For Android (dark icons)
+            statusBarBrightness: Brightness.light, // For iOS (dark icons)
+          ),
+        );
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     // Status bar color
+    //     statusBarColor: Colors.transparent,
+
+    //     // Status bar brightness (optional)
+    //     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+    //     statusBarBrightness: Brightness.light, // For iOS (dark icons)
+    //   ),
+    // );
     return
         // SafeArea(
         //   child:
@@ -50,35 +77,40 @@ class _PlayerState extends State<Player> {
         // }
       },
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                Colors.white,
-                Colors.white,
-                fgPurple,
-                // fgPurple,
-                veryLightPurple,
-              ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(0.0, 1.0),
-              stops: const [0.0, 0.2, 0.6, 1.0],
-              tileMode: TileMode.clamp),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('svg/black-background.jpg'),
+            fit: BoxFit.cover,
+          ),
+          // gradient: LinearGradient(
+          //     colors: [
+          //       Colors.white,
+          //       Colors.white,
+          //       fgPurple,
+          //       // fgPurple,
+          //       veryLightPurple,
+          //     ],
+          //     begin: const FractionalOffset(0.0, 0.0),
+          //     end: const FractionalOffset(0.0, 1.0),
+          //     stops: const [0.0, 0.2, 0.6, 1.0],
+          //     tileMode: TileMode.clamp),
         ),
         child: Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              toolbarHeight: 0,
-              backgroundColor: Colors.transparent,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                // Status bar color
-                statusBarColor: Colors.white,
+            extendBodyBehindAppBar: true,
+            // appBar: AppBar(
+            //   elevation: 0,
+            //   toolbarHeight: 0,
+            //   backgroundColor: Colors.transparent,
+            //   systemOverlayStyle: const SystemUiOverlayStyle(
+            //     // Status bar color
+            //     statusBarColor: Colors.white,
 
-                // Status bar brightness (optional)
-                statusBarIconBrightness:
-                    Brightness.dark, // For Android (dark icons)
-                statusBarBrightness: Brightness.light, // For iOS (dark icons)
-              ),
-            ),
+            //     // Status bar brightness (optional)
+            //     statusBarIconBrightness:
+            //         Brightness.dark, // For Android (dark icons)
+            //     statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            //   ),
+            // ),
             backgroundColor: Colors.transparent,
             body: SingleChildScrollView(
               // child:
