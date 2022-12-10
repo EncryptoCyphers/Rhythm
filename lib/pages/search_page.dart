@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/songs.dart';
 // import 'package:music_player_app/services/data_service_and_song_query.dart';

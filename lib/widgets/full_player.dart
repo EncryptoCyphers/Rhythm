@@ -7,7 +7,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/search_page.dart';
-import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/global.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -252,49 +251,9 @@ class _PlayerState extends State<Player> {
 
                               IconButton(
                                 onPressed: () {
-                                  if (currSongIndex > 0 &&
-                                      currSongIndex <= currSongList!.length &&
-                                      currSongList!.length > 1) {
-                                    // print(currSongIndex);
-                                    audioPlayer.pause();
-                                    if (currSongIsWeb) {
-                                      currSongIndex--;
-                                      fetchSongUriForCurrList(currSongIndex);
-                                      currSongIndexListenable.value =
-                                          currSongIndex;
-                                    } else {
-                                      setState(() {
-                                        currSongIndex--;
-                                        MyClass.listIndex.value = currSongIndex;
-                                      });
-                                      getCurrSongInfo(
-                                        duration: currSongIsWeb
-                                            ? (currSongList![currSongIndex]
-                                                .duration)
-                                            : (Duration(
-                                                milliseconds:
-                                                    currSongList![currSongIndex]
-                                                        .duration)),
-                                        isWeb:
-                                            currSongList![currSongIndex].isWeb,
-                                        id: currSongList![currSongIndex]
-                                            .id
-                                            .toString(),
-                                        uri: currSongList![currSongIndex].uri,
-                                        name:
-                                            currSongList![currSongIndex].title,
-                                        artist: currSongList![currSongIndex]
-                                            .artist
-                                            .toString(),
-                                        songIndex: currSongIndex,
-                                      );
-                                      currSongIdListenable.value =
-                                          currSongList![currSongIndex]
-                                              .id
-                                              .toString();
-                                      playSong(audioPlayer: audioPlayer);
-                                    }
-                                  }
+                                  setState(() {
+                                    skipToPrev();
+                                  });
                                 },
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_previous_rounded),
@@ -396,6 +355,9 @@ class _PlayerState extends State<Player> {
                                       });
                                     }
                                   }
+                                  setState(() {
+                                    skipToNext();
+                                  });
                                 },
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_next_rounded),

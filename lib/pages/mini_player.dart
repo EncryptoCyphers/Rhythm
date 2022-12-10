@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:marquee_text/marquee_text.dart';
-import 'package:music_player_app/pages/full_player.dart';
+import 'package:music_player_app/widgets/full_player.dart';
 // import 'package:music_player_app/pages/home_page.dart';
 import 'package:music_player_app/pages/search_page.dart';
 // import 'package:music_player_app/widgets/b_nav.dart';
@@ -319,8 +319,10 @@ class MiniArtWork extends StatelessWidget {
                   // backgroundColor: Colors.transparent,
                   backgroundColor: const Color.fromARGB(25, 0, 0, 0),
                   color: fgPurple,
-                  value: songPosition.inSeconds.toDouble() /
-                      songDuration.inSeconds.toDouble(),
+                  value:
+                      // 0,
+                      songPosition.inSeconds.toDouble() /
+                          songDuration.inSeconds.toDouble(),
                 ),
               );
             },
