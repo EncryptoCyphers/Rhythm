@@ -7,13 +7,13 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 AudioPlayer audioPlayer = AudioPlayer();
 // bool of is Playing
 bool isPlaying = false;
-Duration songPosition = const Duration();
-Duration songDuration = const Duration();
+Duration songPosition = const Duration(seconds: 0);
+Duration songDuration = const Duration(seconds: 1);
 ValueNotifier<Duration> songPositionListenable =
-    ValueNotifier<Duration>(const Duration());
+    ValueNotifier<Duration>(const Duration(seconds: 0));
 String currSongId = "0";
 String currSongName = 'CurrSongName';
-Duration currSongDuration = const Duration(seconds: 0);
+Duration currSongDuration = const Duration(seconds: 1);
 String currSongArtistName = 'Artist Name';
 String? currSongUri;
 int currSongIndex = 0;

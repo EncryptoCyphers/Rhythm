@@ -319,8 +319,10 @@ class MiniArtWork extends StatelessWidget {
                   // backgroundColor: Colors.transparent,
                   backgroundColor: const Color.fromARGB(25, 0, 0, 0),
                   color: fgPurple,
-                  value: songPosition.inSeconds.toDouble() /
-                      songDuration.inSeconds.toDouble(),
+                  value: 
+                      // 0,
+                      songPosition.inSeconds.toDouble() /
+                          songDuration.inSeconds.toDouble(),
                 ),
               );
             },
