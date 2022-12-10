@@ -10,6 +10,7 @@ import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
+import 'package:music_player_app/services/global.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
@@ -309,6 +310,53 @@ class _PlayerState extends State<Player> {
 
                               IconButton(
                                 onPressed: () {
+                                  if (currSongIndex >= 0 &&
+                                      currSongIndex <
+                                          currSongList!.length - 1 &&
+                                      currSongList!.length > 1) {
+                                    audioPlayer.pause();
+                                    // print(currSongIndex);
+                                    setState(() {
+                                      currSongIndex++;
+                                      MyClass.listIndex.value = currSongIndex;
+                                    });
+                                    if (currSongIsWeb) {
+                                      currSongIndexListenable.value =
+                                          currSongIndex;
+                                      fetchSongUriForCurrList(currSongIndex);
+                                    } else {
+                                      getCurrSongInfo(
+                                        id: currSongList![currSongIndex]
+                                            .id
+                                            .toString(),
+                                        duration: currSongIsWeb
+                                            ? (currSongList![currSongIndex]
+                                                .duration)
+                                            : (Duration(
+                                                milliseconds:
+                                                    currSongList![currSongIndex]
+                                                        .duration)),
+                                        isWeb:
+                                            currSongList![currSongIndex].isWeb,
+                                        uri: currSongList![currSongIndex].uri,
+                                        name:
+                                            currSongList![currSongIndex].title,
+                                        artist: currSongList![currSongIndex]
+                                            .artist
+                                            .toString(),
+                                        songIndex: currSongIndex,
+                                      );
+                                      currSongIdListenable.value =
+                                          currSongList![currSongIndex]
+                                              .id
+                                              .toString();
+                                      playSong(audioPlayer: audioPlayer);
+                                      setState(() {
+                                        currSongList![currSongIndex].title =
+                                            currSongList![currSongIndex].title;
+                                      });
+                                    }
+                                  }
                                   setState(() {
                                     skipToNext();
                                   });

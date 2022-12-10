@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_player_app/services/global.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../widgets/full_player.dart';
@@ -74,6 +75,7 @@ void skipToPrev() {
     // print(currSongIndex);
 
     currSongIndex--;
+    MyClass.listIndex.value = currSongIndex;
     if (currSongIsWeb) {
       currSongIndexListenable.value = currSongIndex;
       fetchSongUriForCurrList(currSongIndex);
@@ -106,6 +108,7 @@ void skipToNext() {
     // print(currSongIndex);
 
     currSongIndex++;
+    MyClass.listIndex.value = currSongIndex;
     if (currSongIsWeb) {
       currSongIndexListenable.value = currSongIndex;
       fetchSongUriForCurrList(currSongIndex);

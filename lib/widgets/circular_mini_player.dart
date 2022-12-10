@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
+import 'package:music_player_app/pages/web.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import '../pages/mini_player.dart';
+import '../services/global.dart';
 import '../services/player_logic.dart';
 
 int horizontalSwipeVariable = 0;
@@ -44,8 +46,10 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                       if (details.delta.dy.abs() > details.delta.dx.abs()) {
                         //print("Vertical");
                         if (details.delta.dy > 3) {
-                          //print("U -> D");
+                          // print("U -> D");
                           isFetchingUri.value = false;
+                          MyClass.listIndex.value = -1;
+                          // print(MyClass.isSelected.value);
                           audioPlayer.stop();
                           bNavPaddingListenable.value =
                               const EdgeInsets.fromLTRB(0, 0, 45, 0);
@@ -110,6 +114,50 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                       }
                       isPlaying = !isPlaying;
                     },
+                    onDoubleTap: () {
+                      if (currSongIndex >= 0 &&
+                          currSongIndex < currSongList!.length &&
+                          currSongList!.length > 1) {
+                        // print(currSongIndex);
+
+                        currSongIndex++;
+                        MyClass.listIndex.value = currSongIndex;
+                        debugPrint(MyClass.listIndex.value.toString());
+                        if (currSongIsWeb) {
+                          fetchSongUriForCurrList(currSongIndex);
+                          // setState(() {
+                          //   currSongList![currSongIndex].title =
+                          //       currSongList![currSongIndex].title;
+                          // });
+                        } else {
+                          getCurrSongInfo(
+                            id: currSongList![currSongIndex].id.toString(),
+                            uri: currSongList![currSongIndex].uri,
+                            duration: currSongIsWeb
+                                ? (currSongList![currSongIndex].duration)
+                                : (Duration(
+                                    milliseconds:
+                                        currSongList![currSongIndex].duration)),
+                            isWeb: currSongList![currSongIndex].isWeb,
+                            name: currSongList![currSongIndex].title,
+                            artist:
+                                currSongList![currSongIndex].artist.toString(),
+                            songIndex: currSongIndex,
+                          );
+                          currSongIdListenable.value =
+                              currSongList![currSongIndex].id.toString();
+                          playSong(audioPlayer: audioPlayer);
+                        }
+                      }
+                    },
+                    // : ,
+                    // onTap: () {
+                    //   Navigator.of(context).push(
+                    //     PageAnimationTransition(
+                    //         page: const Player(),
+                    //         pageAnimationType: BottomToTopTransition()),
+                    //   );
+                    // },
                     //onDoubleTap: () {
                     // skipToNext();
                     //},
