@@ -506,7 +506,7 @@ class _AnimatedBackGroundContainerState
   @override
   void initState() {
     super.initState();
-    getCurrBG();
+    //getCurrBG();
   }
 
   @override
@@ -524,59 +524,73 @@ class _AnimatedBackGroundContainerState
               ),
             );
           } else {
-            return FutureBuilder<Uint8List>(
-              future: audioQuery.getArtwork(
-                size: const Size(550, 550),
-                type: ResourceType.SONG,
-                id: newDepricatedSongList[currSongIndex].id,
-              ),
-              builder: (_, snapshot) {
-                if (snapshot.data == null) {
-                  // print("fjkahfjk\n\n\n\n");
-                  return Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: MemoryImage(defaultBG),
-                        fit: BoxFit.cover,
+            if (!currSongIsWeb) {
+              return FutureBuilder<Uint8List>(
+                future: audioQuery.getArtwork(
+                  size: const Size(550, 550),
+                  type: ResourceType.SONG,
+                  id: newDepricatedSongList[currSongIndex].id,
+                ),
+                builder: (_, snapshot) {
+                  if (snapshot.data == null) {
+                    // print("fjkahfjk\n\n\n\n");
+                    return Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: MemoryImage(defaultBG),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  );
-                }
-                return Stack(
-                  children: [
-                    (!currSongIsWeb)
-                        ? Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: (snapshot.data!.isEmpty)
-                                    ? MemoryImage(defaultBG)
-                                    : MemoryImage(snapshot.data!),
-                                fit: BoxFit.cover,
-                              ),
-                              color: const Color.fromARGB(119, 0, 0, 0),
-                            ),
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  YoutubeThumbnail(
-                                          youtubeId: currSongId.toString())
-                                      .mq(),
+                    );
+                  }
+                  return Stack(
+                    children: [
+                      (!currSongIsWeb)
+                          ? Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: (snapshot.data!.isEmpty)
+                                      ? MemoryImage(defaultBG)
+                                      : MemoryImage(snapshot.data!),
+                                  fit: BoxFit.cover,
                                 ),
-                                fit: BoxFit.cover,
+                                color: const Color.fromARGB(119, 0, 0, 0),
                               ),
-                              color: const Color.fromARGB(119, 0, 0, 0),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    YoutubeThumbnail(
+                                            youtubeId: currSongId.toString())
+                                        .mq(),
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                                color: const Color.fromARGB(119, 0, 0, 0),
+                              ),
                             ),
-                          ),
-                    Container(
-                      color: const Color.fromARGB(119, 0, 0, 0),
+                      Container(
+                        color: const Color.fromARGB(119, 0, 0, 0),
+                      ),
+                    ],
+                  );
+                  // print(currBG.toString());
+                },
+              );
+            } else {
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      YoutubeThumbnail(youtubeId: currSongId.toString()).mq(),
                     ),
-                  ],
-                );
-                // print(currBG.toString());
-              },
-            );
+                    fit: BoxFit.cover,
+                  ),
+                  color: const Color.fromARGB(119, 0, 0, 0),
+                ),
+              );
+            }
           }
         });
   }
