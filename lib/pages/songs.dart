@@ -308,7 +308,7 @@ class _TracksState extends State<Tracks> {
                       //...... List builder  Widget......................................//
                       //
                       return ValueListenableBuilder(
-                        valueListenable: MyClass.listIndex,
+                        valueListenable: MyClass.localListIndex,
                         builder: (context, value, child) {
                           return SizedBox.expand(
                             child: ListView.builder(
