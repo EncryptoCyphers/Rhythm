@@ -15,10 +15,12 @@ import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/global.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:device_information/device_information.dart';
 
 ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
 ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
@@ -433,6 +435,8 @@ class ArtWork extends StatelessWidget {
                         // (newDepricatedSongList[currSongIndex].albumArtwork ==
                         //         null)
                         //     ?
+                        // (apiLevel > 29)
+                        //     ?
                         FutureBuilder<Uint8List>(
                             future: audioQuery.getArtwork(
                                 size: Size(
@@ -474,6 +478,13 @@ class ArtWork extends StatelessWidget {
                                 ),
                               );
                             })
+                    //     :
+                    //     QueryArtworkWidget(
+                    //   id: int.parse(currSongId),
+                    //   type: ArtworkType.AUDIO,
+                    //   artworkHeight: logicalWidth * 0.75,
+                    //   artworkWidth: logicalWidth * 0.75,
+                    // )
                     // : Image.file(
                     //     File(newDepricatedSongList[currSongIndex].uri)),
                     );

@@ -10,6 +10,7 @@ import 'package:music_player_app/services/switch_pages.dart';
 import '../services/colours.dart';
 // import '../widgets/circular_mini_player.dart';
 import '../services/player_logic.dart';
+import '../services/screen_sizes.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../widgets/search_floating_button.dart';
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getCurrBG();
+    getDeviceInfo();
   }
 
   getCurrBG() async {

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:device_information/device_information.dart';
+
 var pixelRatio = window.devicePixelRatio;
 
 //Size in physical pixels
@@ -24,3 +26,22 @@ var paddingBottom = window.padding.bottom / window.devicePixelRatio;
 //Safe area in logical pixels
 var safeWidth = logicalWidth - paddingLeft - paddingRight;
 var safeHeight = logicalHeight - paddingTop - paddingBottom;
+
+// ignore: prefer_typing_uninitialized_variables
+late var platformVersion;
+// ignore: prefer_typing_uninitialized_variables
+late var imeiNo;
+// ignore: prefer_typing_uninitialized_variables
+late var modelName;
+// ignore: prefer_typing_uninitialized_variables
+late var manufacturer;
+// ignore: prefer_typing_uninitialized_variables
+late var apiLevel;
+
+Future getDeviceInfo() async {
+  platformVersion = await DeviceInformation.platformVersion;
+  imeiNo = await DeviceInformation.deviceIMEINumber;
+  modelName = await DeviceInformation.deviceModel;
+  manufacturer = await DeviceInformation.deviceManufacturer;
+  apiLevel = await DeviceInformation.apiLevel;
+}
