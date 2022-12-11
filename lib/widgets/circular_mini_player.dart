@@ -48,6 +48,7 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                           // print("U -> D");
                           isFetchingUri.value = false;
                           MyClass.listIndex.value = -1;
+                          MyClass.localListIndex.value = -1;
                           // print(MyClass.isSelected.value);
                           audioPlayer.stop();
                           bNavPaddingListenable.value =
@@ -120,15 +121,16 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                         // print(currSongIndex);
 
                         currSongIndex++;
-                        MyClass.listIndex.value = currSongIndex;
                         debugPrint(MyClass.listIndex.value.toString());
                         if (currSongIsWeb) {
+                          MyClass.listIndex.value = currSongIndex;
                           fetchSongUriForCurrList(currSongIndex);
                           // setState(() {
                           //   currSongList![currSongIndex].title =
                           //       currSongList![currSongIndex].title;
                           // });
                         } else {
+                          MyClass.localListIndex.value = currSongIndex;
                           getCurrSongInfo(
                             id: currSongList![currSongIndex].id.toString(),
                             uri: currSongList![currSongIndex].uri,

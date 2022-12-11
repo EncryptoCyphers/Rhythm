@@ -80,8 +80,8 @@ void skipToPrev() {
     // print(currSongIndex);
 
     currSongIndex--;
-    MyClass.listIndex.value = currSongIndex;
     if (currSongIsWeb) {
+      MyClass.listIndex.value = currSongIndex;
       currSongIndexListenable.value = currSongIndex;
       fetchSongUriForCurrList(currSongIndex);
       // setState(() {
@@ -89,6 +89,7 @@ void skipToPrev() {
       //       currSongList![currSongIndex].title;
       // });
     } else {
+      MyClass.localListIndex.value = currSongIndex;
       getCurrSongInfo(
         id: currSongList![currSongIndex].id.toString(),
         uri: currSongList![currSongIndex].uri,
@@ -113,8 +114,8 @@ void skipToNext() {
     // print(currSongIndex);
 
     currSongIndex++;
-    MyClass.listIndex.value = currSongIndex;
     if (currSongIsWeb) {
+      MyClass.listIndex.value = currSongIndex;
       currSongIndexListenable.value = currSongIndex;
       fetchSongUriForCurrList(currSongIndex);
       // setState(() {
@@ -122,6 +123,7 @@ void skipToNext() {
       //       currSongList![currSongIndex].title;
       // });
     } else {
+      MyClass.localListIndex.value = currSongIndex;
       getCurrSongInfo(
         id: currSongList![currSongIndex].id.toString(),
         uri: currSongList![currSongIndex].uri,
