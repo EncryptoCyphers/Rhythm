@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:marquee_text/marquee_text.dart';
@@ -11,7 +12,6 @@ import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/global.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
