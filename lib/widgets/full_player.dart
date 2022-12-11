@@ -428,52 +428,55 @@ class ArtWork extends StatelessWidget {
                   );
                 }
                 return ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: (newDepricatedSongList[currSongIndex].albumArtwork ==
-                          null)
-                      ? FutureBuilder<Uint8List>(
-                          future: audioQuery.getArtwork(
-                              size: Size(
-                                  logicalWidth * 0.75, logicalWidth * 0.75),
-                              type: ResourceType.SONG,
-                              id: newDepricatedSongList[currSongIndex].id),
-                          builder: (_, snapshot) {
-                            if (snapshot.data == null) {
-                              // print(newDepricatedSongList[currSongIndex].id);
-                              return const SizedBox(
-                                height: 250.0,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child:
+                        // (newDepricatedSongList[currSongIndex].albumArtwork ==
+                        //         null)
+                        //     ?
+                        FutureBuilder<Uint8List>(
+                            future: audioQuery.getArtwork(
+                                size: Size(
+                                    logicalWidth * 0.75, logicalWidth * 0.75),
+                                type: ResourceType.SONG,
+                                id: newDepricatedSongList[currSongIndex].id),
+                            builder: (_, snapshot) {
+                              if (snapshot.data == null) {
+                                // print(newDepricatedSongList[currSongIndex].id);
+                                return const SizedBox(
+                                  height: 250.0,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              }
+
+                              return SizedBox(
+                                height: logicalWidth * 0.75,
+                                width: logicalWidth * 0.75,
+                                child: Image.memory(
+                                  snapshot.data!,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      child: SizedBox(
+                                        height: logicalWidth * 0.75,
+                                        width: logicalWidth * 0.75,
+                                        child: Image.asset(
+                                          'svg/No-Artwork-square-transparent.png',
+                                          fit: BoxFit.contain,
+                                          scale: 0.5,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               );
-                            }
-                            return SizedBox(
-                              height: logicalWidth * 0.75,
-                              width: logicalWidth * 0.75,
-                              child: Image.memory(
-                                snapshot.data!,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    child: SizedBox(
-                                      height: logicalWidth * 0.75,
-                                      width: logicalWidth * 0.75,
-                                      child: Image.asset(
-                                        'svg/No-Artwork-square-transparent.png',
-                                        fit: BoxFit.contain,
-                                        scale: 0.5,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          })
-                      : Image.file(
-                          File(newDepricatedSongList[currSongIndex].filePath)),
-                );
+                            })
+                    // : Image.file(
+                    //     File(newDepricatedSongList[currSongIndex].uri)),
+                    );
                 // QueryArtworkWidget(
                 //   nullArtworkWidget: SizedBox(
                 //     height: logicalWidth * 0.75,
