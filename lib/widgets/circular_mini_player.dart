@@ -58,7 +58,7 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                           //print("D -> U");
                           Navigator.of(context).push(
                             PageAnimationTransition(
-                                page: const Player(),
+                                page: Player(),
                                 pageAnimationType: BottomToTopTransition()),
                           );
                         }

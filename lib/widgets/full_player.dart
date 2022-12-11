@@ -20,7 +20,7 @@ ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
 ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
 
 class Player extends StatefulWidget {
-  const Player({
+  Player({
     Key? key,
     // required this.statusBarColor,
   }) : super(key: key);
@@ -36,6 +36,7 @@ class _PlayerState extends State<Player> {
     setStatusBackGroundTransParent();
   }
 
+  final keyOfBackGround = GlobalKey<_AnimatedBackGroundContainerState>();
   Future setStatusBackGroundTransParent() async {
     Future.delayed(const Duration(milliseconds: 400), () {
       setState(() {
@@ -67,348 +68,279 @@ class _PlayerState extends State<Player> {
     return
         // SafeArea(
         //   child:
-        GestureDetector(
-      onPanUpdate: (details) {
-        if (details.delta.dy > 10) {
-          Navigator.pop(context);
-        }
-        // else if (details.delta.dy > 0) {
-        //   miniPlayerVisibilityListenable.value = false;
-        // }
-      },
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('svg/black-background.jpg'),
-            fit: BoxFit.cover,
-          ),
-          // gradient: LinearGradient(
-          //     colors: [
-          //       Colors.white,
-          //       Colors.white,
-          //       fgPurple,
-          //       // fgPurple,
-          //       veryLightPurple,
-          //     ],
-          //     begin: const FractionalOffset(0.0, 0.0),
-          //     end: const FractionalOffset(0.0, 1.0),
-          //     stops: const [0.0, 0.2, 0.6, 1.0],
-          //     tileMode: TileMode.clamp),
+        Stack(
+      children: [
+        AnimatedBackGroundContainer(
+          key: keyOfBackGround,
         ),
-        child: Scaffold(
-            extendBodyBehindAppBar: true,
-            // appBar: AppBar(
-            //   elevation: 0,
-            //   toolbarHeight: 0,
-            //   backgroundColor: Colors.transparent,
-            //   systemOverlayStyle: const SystemUiOverlayStyle(
-            //     // Status bar color
-            //     statusBarColor: Colors.white,
+        GestureDetector(
+          onPanUpdate: (details) {
+            if (details.delta.dy > 10) {
+              Navigator.pop(context);
+            }
+            // else if (details.delta.dy > 0) {
+            //   miniPlayerVisibilityListenable.value = false;
+            // }
+          },
+          child: Scaffold(
+              extendBodyBehindAppBar: true,
+              backgroundColor: Colors.transparent,
+              body: SingleChildScrollView(
+                // child:
+                // SafeArea(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // IconButton(
+                      //   onPressed: () {
+                      //     Navigator.pop(context);
+                      //   },
+                      //   icon: const Icon(Icons.arrow_back_ios_new),
+                      // ),
+                      const SizedBox(
+                        height: 60,
+                      ),
+                      Center(
+                        child: Column(
+                          children: [
+                            //Song Banner..........................................................//
 
-            //     // Status bar brightness (optional)
-            //     statusBarIconBrightness:
-            //         Brightness.dark, // For Android (dark icons)
-            //     statusBarBrightness: Brightness.light, // For iOS (dark icons)
-            //   ),
-            // ),
-            backgroundColor: Colors.transparent,
-            body: SingleChildScrollView(
-              // child:
-              // SafeArea(
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // IconButton(
-                    //   onPressed: () {
-                    //     Navigator.pop(context);
-                    //   },
-                    //   icon: const Icon(Icons.arrow_back_ios_new),
-                    // ),
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    Center(
-                      child: Column(
-                        children: [
-                          //Song Banner..........................................................//
+                            const ArtWork(),
 
-                          const ArtWork(),
+                            //Song Name in Marquee.......................................................................................//
+                            const SizedBox(
+                              height: 50,
+                            ),
 
-                          //Song Name in Marquee.......................................................................................//
-                          const SizedBox(
-                            height: 50,
-                          ),
-
-                          ValueListenableBuilder<int>(
-                              valueListenable: currSongIndexListenable,
-                              builder: (BuildContext context, int songIndex,
-                                  Widget? child) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 0, 15, 0),
-                                      child: MarqueeText(
-                                        text: TextSpan(
-                                          text: (currSongIsWeb)
-                                              ? currSongList![songIndex].title
-                                              : currSongName,
+                            ValueListenableBuilder<int>(
+                                valueListenable: currSongIndexListenable,
+                                builder: (BuildContext context, int songIndex,
+                                    Widget? child) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 0, 15, 0),
+                                        child: MarqueeText(
+                                          text: TextSpan(
+                                            text: (currSongIsWeb)
+                                                ? currSongList![songIndex].title
+                                                : currSongName,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
                                           style: const TextStyle(
-                                              color: Colors.white),
+                                            fontSize: 28,
+                                          ),
+                                          speed: 10,
                                         ),
-                                        style: const TextStyle(
-                                          fontSize: 28,
-                                        ),
-                                        speed: 10,
                                       ),
-                                    ),
 
-                                    //Artist Name in Marquee.......................................................................................//
+                                      //Artist Name in Marquee.......................................................................................//
 
-                                    Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 0, 15, 0),
-                                      child: MarqueeText(
-                                        text: TextSpan(
-                                          text: (currSongIsWeb)
-                                              ? currSongList![songIndex].artist
-                                              : currSongArtistName,
+                                      Container(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 0, 15, 0),
+                                        child: MarqueeText(
+                                          text: TextSpan(
+                                            text: (currSongIsWeb)
+                                                ? currSongList![songIndex]
+                                                    .artist
+                                                : currSongArtistName,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
                                           style: const TextStyle(
-                                              color: Colors.white),
+                                            fontSize: 18,
+                                          ),
+                                          speed: 10,
                                         ),
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                        ),
-                                        speed: 10,
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  );
+                                }),
+
+                            // Container(
+                            //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                            //   child: MarqueeText(
+                            //     text: TextSpan(
+                            //       text: currSongName,
+                            //       style: const TextStyle(color: Colors.white),
+                            //     ),
+                            //     style: const TextStyle(
+                            //       fontSize: 28,
+                            //     ),
+                            //     speed: 10,
+                            //   ),
+                            // ),
+
+                            // //Artist Name in Marquee.......................................................................................//
+
+                            // Container(
+                            //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                            //   child: MarqueeText(
+                            //     text: TextSpan(
+                            //       text: currSongArtistName,
+                            //       style: const TextStyle(color: Colors.white),
+                            //     ),
+                            //     style: const TextStyle(
+                            //       fontSize: 18,
+                            //     ),
+                            //     speed: 10,
+                            //   ),
+                            // ),
+
+                            const SizedBox(
+                              height: 10,
+                            ),
+
+                            //Current and End Time of songs....................................//
+
+                            ValueListenableBuilder<Duration>(
+                              valueListenable: songPositionListenable,
+                              builder: (BuildContext context,
+                                  Duration songPosition, Widget? child) {
+                                return Container(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        songPosition.toString().split(".")[0],
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                      Text(
+                                        songDuration.toString().split(".")[0],
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                 );
-                              }),
+                              },
+                            ),
 
-                          // Container(
-                          //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          //   child: MarqueeText(
-                          //     text: TextSpan(
-                          //       text: currSongName,
-                          //       style: const TextStyle(color: Colors.white),
-                          //     ),
-                          //     style: const TextStyle(
-                          //       fontSize: 28,
-                          //     ),
-                          //     speed: 10,
-                          //   ),
-                          // ),
+                            // PlayBack Slider ...................................................//
 
-                          // //Artist Name in Marquee.......................................................................................//
+                            ValueListenableBuilder<Duration>(
+                              valueListenable: songPositionListenable,
+                              builder: (BuildContext context,
+                                  Duration songPosition, Widget? child) {
+                                return Slider(
+                                    min: const Duration(microseconds: 0)
+                                        .inSeconds
+                                        .toDouble(),
+                                    value: songPosition.inSeconds.toDouble(),
+                                    max: songDuration.inSeconds.toDouble(),
+                                    activeColor: Colors.white,
+                                    inactiveColor: veryLightPurple,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        changeToSeconds(val.toInt());
+                                        val = val;
+                                      });
+                                    });
+                              },
+                            ),
 
-                          // Container(
-                          //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          //   child: MarqueeText(
-                          //     text: TextSpan(
-                          //       text: currSongArtistName,
-                          //       style: const TextStyle(color: Colors.white),
-                          //     ),
-                          //     style: const TextStyle(
-                          //       fontSize: 18,
-                          //     ),
-                          //     speed: 10,
-                          //   ),
-                          // ),
+                            //Control Buttons....................................................//
 
-                          const SizedBox(
-                            height: 10,
-                          ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Previous Song Button..........................................//
 
-                          //Current and End Time of songs....................................//
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      skipToPrev();
+                                    });
+                                  },
+                                  color: Colors.white,
+                                  icon: const Icon(Icons.skip_previous_rounded),
+                                  iconSize: 60,
+                                ),
 
-                          ValueListenableBuilder<Duration>(
-                            valueListenable: songPositionListenable,
-                            builder: (BuildContext context,
-                                Duration songPosition, Widget? child) {
-                              return Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                // Play--Pause Button.............................................//
+
+                                Stack(
                                   children: [
-                                    Text(
-                                      songPosition.toString().split(".")[0],
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      songDuration.toString().split(".")[0],
-                                      style:
-                                          const TextStyle(color: Colors.white),
+                                    ValueListenableBuilder<bool>(
+                                        valueListenable: isFetchingUri,
+                                        builder: (BuildContext context,
+                                            bool isFetching, Widget? child) {
+                                          if (isFetching) {
+                                            return Container(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      5.5, 5.5, 0, 0),
+                                              child: LoadingAnimationWidget
+                                                  .threeArchedCircle(
+                                                color: Colors.white,
+                                                size: 65,
+                                              ),
+                                            );
+                                          } else {
+                                            return Container();
+                                          }
+                                        }),
+                                    IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (isPlaying) {
+                                            isPlayingListenable.value = false;
+                                            audioPlayer.pause();
+                                          } else {
+                                            isPlayingListenable.value = true;
+                                            audioPlayer.play();
+                                          }
+                                          isPlaying = !isPlaying;
+                                        });
+                                      },
+                                      color: Colors.white,
+                                      icon: isPlaying
+                                          ? const Icon(
+                                              Icons.pause_circle_filled)
+                                          : const Icon(
+                                              Icons.play_circle_filled),
+                                      iconSize: 60,
                                     ),
                                   ],
                                 ),
-                              );
-                            },
-                          ),
 
-                          // PlayBack Slider ...................................................//
+                                // Next Song Button..........................................//
 
-                          ValueListenableBuilder<Duration>(
-                            valueListenable: songPositionListenable,
-                            builder: (BuildContext context,
-                                Duration songPosition, Widget? child) {
-                              return Slider(
-                                  min: const Duration(microseconds: 0)
-                                      .inSeconds
-                                      .toDouble(),
-                                  value: songPosition.inSeconds.toDouble(),
-                                  max: songDuration.inSeconds.toDouble(),
-                                  activeColor: Colors.white,
-                                  inactiveColor: veryLightPurple,
-                                  onChanged: (val) {
+                                IconButton(
+                                  onPressed: () {
+                                    final state = keyOfBackGround.currentState!;
+                                    state.setStateForBackground();
                                     setState(() {
-                                      changeToSeconds(val.toInt());
-                                      val = val;
+                                      skipToNext();
                                     });
-                                  });
-                            },
-                          ),
-
-                          //Control Buttons....................................................//
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              // Previous Song Button..........................................//
-
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    skipToPrev();
-                                  });
-                                },
-                                color: Colors.white,
-                                icon: const Icon(Icons.skip_previous_rounded),
-                                iconSize: 60,
-                              ),
-
-                              // Play--Pause Button.............................................//
-
-                              Stack(
-                                children: [
-                                  ValueListenableBuilder<bool>(
-                                      valueListenable: isFetchingUri,
-                                      builder: (BuildContext context,
-                                          bool isFetching, Widget? child) {
-                                        if (isFetching) {
-                                          return Container(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                5.5, 5.5, 0, 0),
-                                            child: LoadingAnimationWidget
-                                                .threeArchedCircle(
-                                              color: Colors.white,
-                                              size: 65,
-                                            ),
-                                          );
-                                        } else {
-                                          return Container();
-                                        }
-                                      }),
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (isPlaying) {
-                                          isPlayingListenable.value = false;
-                                          audioPlayer.pause();
-                                        } else {
-                                          isPlayingListenable.value = true;
-                                          audioPlayer.play();
-                                        }
-                                        isPlaying = !isPlaying;
-                                      });
-                                    },
-                                    color: Colors.white,
-                                    icon: isPlaying
-                                        ? const Icon(Icons.pause_circle_filled)
-                                        : const Icon(Icons.play_circle_filled),
-                                    iconSize: 60,
-                                  ),
-                                ],
-                              ),
-
-                              // Next Song Button..........................................//
-
-                              IconButton(
-                                onPressed: () {
-                                  if (currSongIndex >= 0 &&
-                                      currSongIndex <
-                                          currSongList!.length - 1 &&
-                                      currSongList!.length > 1) {
-                                    audioPlayer.pause();
-                                    // print(currSongIndex);
-                                    setState(() {
-                                      currSongIndex++;
-                                      MyClass.listIndex.value = currSongIndex;
-                                    });
-                                    if (currSongIsWeb) {
-                                      currSongIndexListenable.value =
-                                          currSongIndex;
-                                      fetchSongUriForCurrList(currSongIndex);
-                                    } else {
-                                      getCurrSongInfo(
-                                        id: currSongList![currSongIndex]
-                                            .id
-                                            .toString(),
-                                        duration: currSongIsWeb
-                                            ? (currSongList![currSongIndex]
-                                                .duration)
-                                            : (Duration(
-                                                milliseconds:
-                                                    currSongList![currSongIndex]
-                                                        .duration)),
-                                        isWeb:
-                                            currSongList![currSongIndex].isWeb,
-                                        uri: currSongList![currSongIndex].uri,
-                                        name:
-                                            currSongList![currSongIndex].title,
-                                        artist: currSongList![currSongIndex]
-                                            .artist
-                                            .toString(),
-                                        songIndex: currSongIndex,
-                                      );
-                                      currSongIdListenable.value =
-                                          currSongList![currSongIndex]
-                                              .id
-                                              .toString();
-                                      playSong(audioPlayer: audioPlayer);
-                                      setState(() {
-                                        currSongList![currSongIndex].title =
-                                            currSongList![currSongIndex].title;
-                                      });
-                                    }
-                                  }
-                                  setState(() {
-                                    skipToNext();
-                                  });
-                                },
-                                color: Colors.white,
-                                icon: const Icon(Icons.skip_next_rounded),
-                                iconSize: 60,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                                  },
+                                  color: Colors.white,
+                                  icon: const Icon(Icons.skip_next_rounded),
+                                  iconSize: 60,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              // ),
-            )),
-        // ),
-      ),
+                // ),
+              )),
+        ),
+      ],
     );
   }
 
@@ -526,5 +458,48 @@ class ArtWork extends StatelessWidget {
             );
           }
         });
+  }
+}
+
+class AnimatedBackGroundContainer extends StatefulWidget {
+  const AnimatedBackGroundContainer({
+    super.key,
+  });
+  @override
+  State<AnimatedBackGroundContainer> createState() =>
+      _AnimatedBackGroundContainerState();
+}
+
+class _AnimatedBackGroundContainerState
+    extends State<AnimatedBackGroundContainer> {
+  var child1 = Container(
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('svg/black-background.jpg'),
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+  var child2 = Container(
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('svg/white.jpg'),
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+  late var child = child1;
+  setStateForBackground() {
+    setState(() {
+      (child == child1) ? (child = child2) : (child = child1);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 200),
+      child: child,
+    );
   }
 }
