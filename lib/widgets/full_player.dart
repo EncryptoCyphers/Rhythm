@@ -2,6 +2,7 @@
 //import 'dart:typed_data';
 
 import 'dart:developer';
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -95,272 +96,270 @@ class _PlayerState extends State<Player> {
               // }
             },
             child: Scaffold(
-                extendBodyBehindAppBar: true,
-                backgroundColor: Colors.transparent,
-                body: SingleChildScrollView(
+              extendBodyBehindAppBar: true,
+              backgroundColor: Colors.transparent,
+              body:
+                  // SingleChildScrollView(
                   // child:
                   // SafeArea(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // IconButton(
-                        //   onPressed: () {
-                        //     Navigator.pop(context);
-                        //   },
-                        //   icon: const Icon(Icons.arrow_back_ios_new),
-                        // ),
-                        const SizedBox(
-                          height: 60,
-                        ),
-                        Center(
-                          child: Column(
-                            children: [
-                              //Song Banner..........................................................//
+                  // child:
+                  Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // IconButton(
+                    //   onPressed: () {
+                    //     Navigator.pop(context);
+                    //   },
+                    //   icon: const Icon(Icons.arrow_back_ios_new),
+                    // ),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    Center(
+                      child: Column(
+                        children: [
+                          //Song Banner..........................................................//
 
-                              const ArtWork(),
+                          const ArtWork(),
 
-                              //Song Name in Marquee.......................................................................................//
-                              const SizedBox(
-                                height: 50,
-                              ),
+                          //Song Name in Marquee.......................................................................................//
+                          const SizedBox(
+                            height: 50,
+                          ),
 
-                              ValueListenableBuilder<int>(
-                                  valueListenable: currSongIndexListenable,
-                                  builder: (BuildContext context, int songIndex,
-                                      Widget? child) {
-                                    return Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15, 0, 15, 0),
-                                          child: MarqueeText(
-                                            text: TextSpan(
-                                              text: (currSongIsWeb)
-                                                  ? currSongList![songIndex]
-                                                      .title
-                                                  : currSongName,
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            style: const TextStyle(
-                                              fontSize: 28,
-                                            ),
-                                            speed: 10,
-                                          ),
-                                        ),
-
-                                        //Artist Name in Marquee.......................................................................................//
-
-                                        Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15, 0, 15, 0),
-                                          child: MarqueeText(
-                                            text: TextSpan(
-                                              text: (currSongIsWeb)
-                                                  ? currSongList![songIndex]
-                                                      .artist
-                                                  : currSongArtistName,
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                            ),
-                                            speed: 10,
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  }),
-
-                              // Container(
-                              //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                              //   child: MarqueeText(
-                              //     text: TextSpan(
-                              //       text: currSongName,
-                              //       style: const TextStyle(color: Colors.white),
-                              //     ),
-                              //     style: const TextStyle(
-                              //       fontSize: 28,
-                              //     ),
-                              //     speed: 10,
-                              //   ),
-                              // ),
-
-                              // //Artist Name in Marquee.......................................................................................//
-
-                              // Container(
-                              //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                              //   child: MarqueeText(
-                              //     text: TextSpan(
-                              //       text: currSongArtistName,
-                              //       style: const TextStyle(color: Colors.white),
-                              //     ),
-                              //     style: const TextStyle(
-                              //       fontSize: 18,
-                              //     ),
-                              //     speed: 10,
-                              //   ),
-                              // ),
-
-                              const SizedBox(
-                                height: 10,
-                              ),
-
-                              //Current and End Time of songs....................................//
-
-                              ValueListenableBuilder<Duration>(
-                                valueListenable: songPositionListenable,
-                                builder: (BuildContext context,
-                                    Duration songPosition, Widget? child) {
-                                  return Container(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          songPosition.toString().split(".")[0],
+                          ValueListenableBuilder<int>(
+                              valueListenable: currSongIndexListenable,
+                              builder: (BuildContext context, int songIndex,
+                                  Widget? child) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
+                                      child: MarqueeText(
+                                        text: TextSpan(
+                                          text: (currSongIsWeb)
+                                              ? currSongList![songIndex].title
+                                              : currSongName,
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
-                                        Text(
-                                          songDuration.toString().split(".")[0],
-                                          style: const TextStyle(
-                                              color: Colors.white),
+                                        style: const TextStyle(
+                                          fontSize: 28,
                                         ),
-                                      ],
+                                        speed: 10,
+                                      ),
                                     ),
-                                  );
+
+                                    //Artist Name in Marquee.......................................................................................//
+
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
+                                      child: MarqueeText(
+                                        text: TextSpan(
+                                          text: (currSongIsWeb)
+                                              ? currSongList![songIndex].artist
+                                              : currSongArtistName,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                        speed: 10,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
+
+                          // Container(
+                          //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          //   child: MarqueeText(
+                          //     text: TextSpan(
+                          //       text: currSongName,
+                          //       style: const TextStyle(color: Colors.white),
+                          //     ),
+                          //     style: const TextStyle(
+                          //       fontSize: 28,
+                          //     ),
+                          //     speed: 10,
+                          //   ),
+                          // ),
+
+                          // //Artist Name in Marquee.......................................................................................//
+
+                          // Container(
+                          //   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          //   child: MarqueeText(
+                          //     text: TextSpan(
+                          //       text: currSongArtistName,
+                          //       style: const TextStyle(color: Colors.white),
+                          //     ),
+                          //     style: const TextStyle(
+                          //       fontSize: 18,
+                          //     ),
+                          //     speed: 10,
+                          //   ),
+                          // ),
+
+                          const SizedBox(
+                            height: 10,
+                          ),
+
+                          //Current and End Time of songs....................................//
+
+                          ValueListenableBuilder<Duration>(
+                            valueListenable: songPositionListenable,
+                            builder: (BuildContext context,
+                                Duration songPosition, Widget? child) {
+                              return Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      songPosition.toString().split(".")[0],
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      songDuration.toString().split(".")[0],
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+
+                          // PlayBack Slider ...................................................//
+
+                          ValueListenableBuilder<Duration>(
+                            valueListenable: songPositionListenable,
+                            builder: (BuildContext context,
+                                Duration songPosition, Widget? child) {
+                              return Slider(
+                                  min: const Duration(microseconds: 0)
+                                      .inSeconds
+                                      .toDouble(),
+                                  value: songPosition.inSeconds.toDouble(),
+                                  max: songDuration.inSeconds.toDouble(),
+                                  activeColor: Colors.white,
+                                  inactiveColor: veryLightPurple,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      changeToSeconds(val.toInt());
+                                      val = val;
+                                    });
+                                  });
+                            },
+                          ),
+
+                          //Control Buttons....................................................//
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              // Previous Song Button..........................................//
+
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    skipToPrev();
+                                  });
                                 },
+                                color: Colors.white,
+                                icon: const Icon(Icons.skip_previous_rounded),
+                                iconSize: 60,
                               ),
 
-                              // PlayBack Slider ...................................................//
+                              // Play--Pause Button.............................................//
 
-                              ValueListenableBuilder<Duration>(
-                                valueListenable: songPositionListenable,
-                                builder: (BuildContext context,
-                                    Duration songPosition, Widget? child) {
-                                  return Slider(
-                                      min: const Duration(microseconds: 0)
-                                          .inSeconds
-                                          .toDouble(),
-                                      value: songPosition.inSeconds.toDouble(),
-                                      max: songDuration.inSeconds.toDouble(),
-                                      activeColor: Colors.white,
-                                      inactiveColor: veryLightPurple,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          changeToSeconds(val.toInt());
-                                          val = val;
-                                        });
-                                      });
-                                },
-                              ),
-
-                              //Control Buttons....................................................//
-
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              Stack(
                                 children: [
-                                  // Previous Song Button..........................................//
-
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        skipToPrev();
-                                      });
-                                    },
-                                    color: Colors.white,
-                                    icon:
-                                        const Icon(Icons.skip_previous_rounded),
-                                    iconSize: 60,
-                                  ),
-
-                                  // Play--Pause Button.............................................//
-
-                                  Stack(
-                                    children: [
-                                      ValueListenableBuilder<bool>(
-                                          valueListenable: isFetchingUri,
-                                          builder: (BuildContext context,
-                                              bool isFetching, Widget? child) {
-                                            if (isFetching) {
-                                              return Container(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        5.5, 5.5, 0, 0),
-                                                child: LoadingAnimationWidget
-                                                    .threeArchedCircle(
-                                                  color: Colors.white,
-                                                  size: 65,
-                                                ),
-                                              );
-                                            } else {
-                                              return Container();
-                                            }
-                                          }),
-                                      ValueListenableBuilder<bool>(
-                                          valueListenable: isPlayingListenable,
-                                          builder: (BuildContext context,
-                                              bool isPlaying, Widget? child) {
-                                            return IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  if (isPlaying) {
-                                                    isPlayingListenable.value =
-                                                        false;
-                                                    audioPlayer.pause();
-                                                  } else {
-                                                    isPlayingListenable.value =
-                                                        true;
-                                                    audioPlayer.play();
-                                                  }
-                                                  setState(() {
-                                                    isPlaying = !isPlaying;
-                                                  });
-                                                });
-                                              },
+                                  ValueListenableBuilder<bool>(
+                                      valueListenable: isFetchingUri,
+                                      builder: (BuildContext context,
+                                          bool isFetching, Widget? child) {
+                                        if (isFetching) {
+                                          return Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                5.5, 5.5, 0, 0),
+                                            child: LoadingAnimationWidget
+                                                .threeArchedCircle(
                                               color: Colors.white,
-                                              icon: isPlaying
-                                                  ? const Icon(
-                                                      Icons.pause_circle_filled)
-                                                  : const Icon(
-                                                      Icons.play_circle_filled),
-                                              iconSize: 60,
-                                            );
-                                          }),
-                                    ],
-                                  ),
-
-                                  // Next Song Button..........................................//
-
-                                  IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        skipToNext();
-                                      });
-                                    },
-                                    color: Colors.white,
-                                    icon: const Icon(Icons.skip_next_rounded),
-                                    iconSize: 60,
-                                  ),
+                                              size: 65,
+                                            ),
+                                          );
+                                        } else {
+                                          return Container();
+                                        }
+                                      }),
+                                  ValueListenableBuilder<bool>(
+                                      valueListenable: isPlayingListenable,
+                                      builder: (BuildContext context,
+                                          bool isPlaying, Widget? child) {
+                                        return IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (isPlaying) {
+                                                isPlayingListenable.value =
+                                                    false;
+                                                audioPlayer.pause();
+                                              } else {
+                                                isPlayingListenable.value =
+                                                    true;
+                                                audioPlayer.play();
+                                              }
+                                              setState(() {
+                                                isPlaying = !isPlaying;
+                                              });
+                                            });
+                                          },
+                                          color: Colors.white,
+                                          icon: isPlaying
+                                              ? const Icon(
+                                                  Icons.pause_circle_filled)
+                                              : const Icon(
+                                                  Icons.play_circle_filled),
+                                          iconSize: 60,
+                                        );
+                                      }),
                                 ],
+                              ),
+
+                              // Next Song Button..........................................//
+
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    skipToNext();
+                                  });
+                                },
+                                color: Colors.white,
+                                icon: const Icon(Icons.skip_next_rounded),
+                                iconSize: 60,
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  // ),
-                )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              // ),
+              // ),
+            ),
           ),
         ),
       ],
@@ -430,45 +429,50 @@ class ArtWork extends StatelessWidget {
                 }
                 return ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  child: FutureBuilder<Uint8List>(
-                      future: audioQuery.getArtwork(
-                          size: Size(logicalWidth * 0.75, logicalWidth * 0.75),
-                          type: ResourceType.SONG,
-                          id: newDepricatedSongList[currSongIndex].id),
-                      builder: (_, snapshot) {
-                        if (snapshot.data == null) {
-                          // print(newDepricatedSongList[currSongIndex].id);
-                          return const SizedBox(
-                            height: 250.0,
-                            child: Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        }
-                        return SizedBox(
-                          height: logicalWidth * 0.75,
-                          width: logicalWidth * 0.75,
-                          child: Image.memory(
-                            snapshot.data!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                child: SizedBox(
-                                  height: logicalWidth * 0.75,
-                                  width: logicalWidth * 0.75,
-                                  child: Image.asset(
-                                    'svg/No-Artwork-square-transparent.png',
-                                    fit: BoxFit.contain,
-                                    scale: 0.5,
-                                  ),
+                  child: (newDepricatedSongList[currSongIndex].albumArtwork ==
+                          null)
+                      ? FutureBuilder<Uint8List>(
+                          future: audioQuery.getArtwork(
+                              size: Size(
+                                  logicalWidth * 0.75, logicalWidth * 0.75),
+                              type: ResourceType.SONG,
+                              id: newDepricatedSongList[currSongIndex].id),
+                          builder: (_, snapshot) {
+                            if (snapshot.data == null) {
+                              // print(newDepricatedSongList[currSongIndex].id);
+                              return const SizedBox(
+                                height: 250.0,
+                                child: Center(
+                                  child: CircularProgressIndicator(),
                                 ),
                               );
-                            },
-                          ),
-                        );
-                      }),
+                            }
+                            return SizedBox(
+                              height: logicalWidth * 0.75,
+                              width: logicalWidth * 0.75,
+                              child: Image.memory(
+                                snapshot.data!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: SizedBox(
+                                      height: logicalWidth * 0.75,
+                                      width: logicalWidth * 0.75,
+                                      child: Image.asset(
+                                        'svg/No-Artwork-square-transparent.png',
+                                        fit: BoxFit.contain,
+                                        scale: 0.5,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          })
+                      : Image.file(
+                          File(newDepricatedSongList[currSongIndex].filePath)),
                 );
                 // QueryArtworkWidget(
                 //   nullArtworkWidget: SizedBox(
