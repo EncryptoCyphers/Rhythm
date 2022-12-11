@@ -306,27 +306,36 @@ class _PlayerState extends State<Player> {
                                               return Container();
                                             }
                                           }),
-                                      IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            if (isPlaying) {
-                                              isPlayingListenable.value = false;
-                                              audioPlayer.pause();
-                                            } else {
-                                              isPlayingListenable.value = true;
-                                              audioPlayer.play();
-                                            }
-                                            isPlaying = !isPlaying;
-                                          });
-                                        },
-                                        color: Colors.white,
-                                        icon: isPlaying
-                                            ? const Icon(
-                                                Icons.pause_circle_filled)
-                                            : const Icon(
-                                                Icons.play_circle_filled),
-                                        iconSize: 60,
-                                      ),
+                                      ValueListenableBuilder<bool>(
+                                          valueListenable: isPlayingListenable,
+                                          builder: (BuildContext context,
+                                              bool isPlaying, Widget? child) {
+                                            return IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (isPlaying) {
+                                                    isPlayingListenable.value =
+                                                        false;
+                                                    audioPlayer.pause();
+                                                  } else {
+                                                    isPlayingListenable.value =
+                                                        true;
+                                                    audioPlayer.play();
+                                                  }
+                                                  setState(() {
+                                                    isPlaying = !isPlaying;
+                                                  });
+                                                });
+                                              },
+                                              color: Colors.white,
+                                              icon: isPlaying
+                                                  ? const Icon(
+                                                      Icons.pause_circle_filled)
+                                                  : const Icon(
+                                                      Icons.play_circle_filled),
+                                              iconSize: 60,
+                                            );
+                                          }),
                                     ],
                                   ),
 
@@ -374,7 +383,7 @@ class ArtWork extends StatelessWidget {
         builder: (BuildContext context, bool isFetching, Widget? child) {
           if (isFetching) {
             return SizedBox(
-              height: 200,
+              height: logicalWidth * 0.8,
               width: logicalWidth * 0.8,
               child: LoadingAnimationWidget.prograssiveDots(
                   color: Colors.white, size: 150),
