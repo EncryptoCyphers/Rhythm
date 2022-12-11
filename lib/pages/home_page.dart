@@ -36,10 +36,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    getCurrBG();
   }
 
   getCurrBG() async {
-    final ByteData bytes = await rootBundle.load('assets/logo.jpg');
+    final ByteData bytes = await rootBundle.load('svg/black-background.jpg');
     defaultBG = bytes.buffer.asUint8List();
   }
 

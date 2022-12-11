@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/services/global.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
+import '../pages/songs.dart';
 import '../widgets/full_player.dart';
 import '../pages/mini_player.dart';
 
@@ -24,8 +26,8 @@ String? currSongUri;
 int currSongIndex = 0;
 bool currSongIsWeb = false;
 late VideoId? currSongVideoIdStremable;
-Uint8List defaultBG = Uint8List.fromList([]);
-Uint8List currBG = Uint8List.fromList([]);
+late Uint8List defaultBG;
+late Uint8List currBG;
 getCurrSongInfo({
   required String id,
   required name,
@@ -135,4 +137,17 @@ void skipToNext() {
       playSong(audioPlayer: audioPlayer);
     }
   }
+}
+
+Future<Uint8List> getCurrBG() async {
+  currBG.clear();
+  // currBG = defaultBG;
+  currBG = await audioQuery.getArtwork(
+      size: const Size(550, 550),
+      type: ResourceType.SONG,
+      id: newDepricatedSongList[currSongIndex].id);
+  // if (currBG.isEmpty) {
+  //   currBG = defaultBG;
+  // }
+  return currBG;
 }
