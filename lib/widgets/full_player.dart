@@ -435,7 +435,7 @@ class ArtWork extends StatelessWidget {
                         // (newDepricatedSongList[currSongIndex].albumArtwork ==
                         //         null)
                         //     ?
-                        // (apiLevel > 29)
+                        // (apiLevel >= 29)
                         //     ?
                         FutureBuilder<Uint8List>(
                             future: audioQuery.getArtwork(
