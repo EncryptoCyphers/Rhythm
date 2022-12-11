@@ -69,6 +69,7 @@ class _YoutubeState extends State<Youtube> {
     MyClass.listIndex.value = index;
     MyClass.firstLoad = false;
     MyClass.dismissedSong = false;
+    MyClass.localListIndex.value = -1;
     if (index == MyClass.listIndex.value &&
         MyClass.firstLoad == false &&
         MyClass.dismissedSong == false) {

@@ -24,6 +24,7 @@ void listTileColorChange(int index) {
   MyClass.localListIndex.value = index;
   MyClass.firstLoad = false;
   MyClass.dismissedSong = false;
+  MyClass.listIndex.value = -1;
   if (index == MyClass.localListIndex.value &&
       MyClass.firstLoad == false &&
       MyClass.dismissedSong == false) {
