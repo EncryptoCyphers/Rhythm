@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_audio_query/flutter_audio_query.dart';
@@ -11,7 +9,7 @@ List<SongInfo> newList = [];
 getSongs() async {
   newList = await audioQuery.getSongs();
   for (SongInfo i in newList) {
-    print(i.title);
+    debugPrint(i.title);
   }
 }
 
@@ -25,7 +23,6 @@ class Downloads extends StatefulWidget {
 class _DownloadsState extends State<Downloads> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getSongs();
   }
@@ -43,12 +40,12 @@ class _DownloadsState extends State<Downloads> {
         ),
         body: FutureBuilder<Uint8List>(
             future: audioQuery.getArtwork(
-                size: Size(550, 550),
+                size: const Size(550, 550),
                 type: ResourceType.SONG,
                 id: newList[11].id),
             builder: (_, snapshot) {
               if (snapshot.data == null) {
-                print(newList[12].id.toString());
+                debugPrint(newList[12].id.toString());
                 return const SizedBox(
                   height: 250.0,
                   child: Center(

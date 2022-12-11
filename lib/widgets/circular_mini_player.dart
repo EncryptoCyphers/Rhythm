@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
-import 'package:music_player_app/pages/web.dart';
 import 'package:page_animation_transition/animations/bottom_to_top_transition.dart';
 import 'package:page_animation_transition/page_animation_transition.dart';
 import '../pages/mini_player.dart';

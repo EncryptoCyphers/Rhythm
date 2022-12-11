@@ -124,6 +124,7 @@ class _YoutubeState extends State<Youtube> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                /*
                 /*-----------------------------------Text Box-----------------------------------*/
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
@@ -197,12 +198,12 @@ class _YoutubeState extends State<Youtube> {
                         );
                       }),
                 ),
-
+                */
                 /*-----------------------------------Text Box-----------------------------------*/
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
                   child: Text(
-                    'Coming Soon',
+                    'Trending Songs on YouTube',
                     style: GoogleFonts.laila(
                       color: Colors.deepPurple,
                       fontSize: 25,
@@ -214,7 +215,7 @@ class _YoutubeState extends State<Youtube> {
             ),
           ),
 
-          /*-----------------------------------Recent Searches-----------------------------------*/
+          /*-----------------------------------Trending Songs-----------------------------------*/
           FutureBuilder(
             future: makeTrendingSongList(),
             builder: (context, snapshot) {
@@ -235,7 +236,7 @@ class _YoutubeState extends State<Youtube> {
                 );
               }
               return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.45,
+                height: MediaQuery.of(context).size.height * 0.815,
                 child: ValueListenableBuilder(
                   valueListenable: MyClass.listIndex,
                   builder: (context, value, child) {
