@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/services/global.dart';
@@ -23,6 +24,8 @@ String? currSongUri;
 int currSongIndex = 0;
 bool currSongIsWeb = false;
 late VideoId? currSongVideoIdStremable;
+Uint8List defaultBG = Uint8List.fromList([]);
+Uint8List currBG = Uint8List.fromList([]);
 getCurrSongInfo({
   required String id,
   required name,

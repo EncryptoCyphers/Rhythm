@@ -9,6 +9,7 @@ import 'package:music_player_app/services/switch_pages.dart';
 // import 'package:music_player_app/widgets/b_nav.dart';
 import '../services/colours.dart';
 // import '../widgets/circular_mini_player.dart';
+import '../services/player_logic.dart';
 import '../widgets/drawer_menu.dart';
 //import '../widgets/bottomNavigationBar.dart';
 import '../widgets/search_floating_button.dart';
@@ -33,6 +34,15 @@ class _HomePageState extends State<HomePage> {
   // final _musicController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  getCurrBG() async {
+    final ByteData bytes = await rootBundle.load('assets/logo.jpg');
+    defaultBG = bytes.buffer.asUint8List();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(

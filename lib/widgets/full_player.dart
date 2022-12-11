@@ -472,26 +472,17 @@ class AnimatedBackGroundContainer extends StatefulWidget {
 
 class _AnimatedBackGroundContainerState
     extends State<AnimatedBackGroundContainer> {
-  var child1 = Container(
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('svg/black-background.jpg'),
-        fit: BoxFit.cover,
-      ),
-    ),
-  );
-  var child2 = Container(
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('svg/white.jpg'),
-        fit: BoxFit.cover,
-      ),
-    ),
-  );
-  late var child = child1;
   setStateForBackground() {
     setState(() {
       (child == child1) ? (child = child2) : (child = child1);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      setStateForBackground();
     });
   }
 
@@ -503,3 +494,21 @@ class _AnimatedBackGroundContainerState
     );
   }
 }
+
+var child1 = Container(
+  decoration: const BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('svg/black-background.jpg'),
+      fit: BoxFit.cover,
+    ),
+  ),
+);
+var child2 = Container(
+  decoration: const BoxDecoration(
+    image: DecorationImage(
+      image: AssetImage('svg/white.jpg'),
+      fit: BoxFit.cover,
+    ),
+  ),
+);
+var child = child1;
