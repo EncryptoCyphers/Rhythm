@@ -22,10 +22,11 @@ List songsList = [];
 var dummy = bool;
 // final listIndex = ValueNotifier<int>(0);
 void listTileColorChange(int index) {
-  MyClass.listIndex.value = index;
+  MyClass.localListIndex.value = index;
   MyClass.firstLoad = false;
   MyClass.dismissedSong = false;
-  if (index == MyClass.listIndex.value &&
+  MyClass.listIndex.value = -1;
+  if (index == MyClass.localListIndex.value &&
       MyClass.firstLoad == false &&
       MyClass.dismissedSong == false) {
     MyClass.isSelected.value = true;
@@ -323,7 +324,7 @@ class _TracksState extends State<Tracks> {
                       //...... List builder  Widget......................................//
                       //
                       return ValueListenableBuilder(
-                        valueListenable: MyClass.listIndex,
+                        valueListenable: MyClass.localListIndex,
                         builder: (context, value, child) {
                           return SizedBox.expand(
                             child: Stack(
@@ -471,7 +472,8 @@ class _TracksState extends State<Tracks> {
                                               allSongsDevice);
                                         },
                                         selected: MyClass.isSelected.value &&
-                                            index == MyClass.listIndex.value,
+                                            index ==
+                                                MyClass.localListIndex.value,
                                         selectedTileColor: Colors.grey.shade200,
                                       ),
                                     );
