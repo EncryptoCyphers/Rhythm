@@ -512,3 +512,11 @@ var child2 = Container(
   ),
 );
 var child = child1;
+
+getCurrBG() async {
+  currBG = await audioQuery.getArtwork(
+    size: const Size(550, 550),
+    type: ResourceType.SONG,
+    id: currSongId,
+  );
+}
