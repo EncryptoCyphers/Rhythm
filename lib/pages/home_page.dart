@@ -39,6 +39,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getCurrBG();
     getDeviceInfo();
+    // MyClass.apiLevel = Platform.version;
+    // print("API Level: " + MyClass.apiLevel);
   }
 
   getCurrBG() async {
@@ -48,6 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    getDeviceInfo();
     return Stack(
       alignment: Alignment.bottomRight,
       children: [

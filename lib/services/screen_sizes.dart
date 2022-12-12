@@ -30,18 +30,19 @@ var safeHeight = logicalHeight - paddingTop - paddingBottom;
 // ignore: prefer_typing_uninitialized_variables
 late var platformVersion;
 // ignore: prefer_typing_uninitialized_variables
-late var imeiNo;
+// late var imeiNo;
 // ignore: prefer_typing_uninitialized_variables
 late var modelName;
 // ignore: prefer_typing_uninitialized_variables
 late var manufacturer;
 // ignore: prefer_typing_uninitialized_variables
-late var apiLevel;
+var apiLevel = 1;
 
 Future getDeviceInfo() async {
   platformVersion = await DeviceInformation.platformVersion;
-  imeiNo = await DeviceInformation.deviceIMEINumber;
+  // imeiNo = await DeviceInformation.deviceIMEINumber;
   modelName = await DeviceInformation.deviceModel;
   manufacturer = await DeviceInformation.deviceManufacturer;
   apiLevel = await DeviceInformation.apiLevel;
+  // print("API: $apiLevel");
 }

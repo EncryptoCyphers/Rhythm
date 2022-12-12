@@ -1,8 +1,6 @@
 //import 'dart:io';
 //import 'dart:typed_data';
 
-import 'dart:developer';
-import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,20 +12,18 @@ import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/search_page.dart';
 import 'package:music_player_app/pages/songs.dart';
 import 'package:music_player_app/services/colours.dart';
-import 'package:music_player_app/services/global.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
-import 'package:device_information/device_information.dart';
 
 ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
 ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
 var bgBlur = ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0);
 
 class Player extends StatefulWidget {
-  Player({
+  const Player({
     Key? key,
     // required this.statusBarColor,
   }) : super(key: key);
@@ -435,56 +431,60 @@ class ArtWork extends StatelessWidget {
                         // (newDepricatedSongList[currSongIndex].albumArtwork ==
                         //         null)
                         //     ?
-                        // (apiLevel >= 29)
-                        //     ?
-                        FutureBuilder<Uint8List>(
-                            future: audioQuery.getArtwork(
-                                size: Size(
-                                    logicalWidth * 0.75, logicalWidth * 0.75),
-                                type: ResourceType.SONG,
-                                id: newDepricatedSongList[currSongIndex].id),
-                            builder: (_, snapshot) {
-                              if (snapshot.data == null) {
-                                // print(newDepricatedSongList[currSongIndex].id);
-                                return const SizedBox(
-                                  height: 250.0,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                );
-                              }
-
-                              return SizedBox(
-                                height: logicalWidth * 0.75,
-                                width: logicalWidth * 0.75,
-                                child: Image.memory(
-                                  snapshot.data!,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                      child: SizedBox(
-                                        height: logicalWidth * 0.75,
-                                        width: logicalWidth * 0.75,
-                                        child: Image.asset(
-                                          'svg/No-Artwork-square-transparent.png',
-                                          fit: BoxFit.contain,
-                                          scale: 0.5,
-                                        ),
+                        (apiLevel >= 29)
+                            ? FutureBuilder<Uint8List>(
+                                future: audioQuery.getArtwork(
+                                    size: Size(logicalWidth * 0.75,
+                                        logicalWidth * 0.75),
+                                    type: ResourceType.SONG,
+                                    id: newDepricatedSongList[currSongIndex]
+                                        .id),
+                                builder: (_, snapshot) {
+                                  if (snapshot.data == null) {
+                                    // print(newDepricatedSongList[currSongIndex].id);
+                                    return const SizedBox(
+                                      height: 250.0,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
                                       ),
                                     );
-                                  },
+                                  }
+
+                                  return SizedBox(
+                                    height: logicalWidth * 0.75,
+                                    width: logicalWidth * 0.75,
+                                    child: Image.memory(
+                                      snapshot.data!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          child: SizedBox(
+                                            height: logicalWidth * 0.75,
+                                            width: logicalWidth * 0.75,
+                                            child: Image.asset(
+                                              'svg/No-Artwork-square-transparent.png',
+                                              fit: BoxFit.contain,
+                                              scale: 0.5,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                })
+                            : QueryArtworkWidget(
+                                id: int.parse(currSongId),
+                                type: ArtworkType.AUDIO,
+                                artworkHeight: logicalWidth * 0.75,
+                                artworkWidth: logicalWidth * 0.75,
+                                nullArtworkWidget: const Image(
+                                  image: AssetImage(
+                                      'svg/No-Artwork-square-transparent.png'),
                                 ),
-                              );
-                            })
-                    //     :
-                    //     QueryArtworkWidget(
-                    //   id: int.parse(currSongId),
-                    //   type: ArtworkType.AUDIO,
-                    //   artworkHeight: logicalWidth * 0.75,
-                    //   artworkWidth: logicalWidth * 0.75,
-                    // )
+                              )
                     // : Image.file(
                     //     File(newDepricatedSongList[currSongIndex].uri)),
                     );
