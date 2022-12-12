@@ -88,6 +88,7 @@
 //   }
 // }
 import 'package:flutter/material.dart';
+import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player.dart';
 import 'package:music_player_app/pages/songs.dart';
@@ -169,6 +170,11 @@ class CustomSearchDelegate extends SearchDelegate {
             onTap: () {
               // print(query);
               Navigator.pop(context);
+              bNavPaddingListenable.value =
+                  const EdgeInsets.fromLTRB(0, 0, 0, 0);
+              Future.delayed(const Duration(milliseconds: 330), () {
+                miniPlayerVisibilityListenable.value = true;
+              });
               int index = indexFinder(result.toString());
               isPlayingListenable.value = true;
               miniPlayerVisibilityListenable.value = true;

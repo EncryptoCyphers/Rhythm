@@ -220,10 +220,13 @@ class _YoutubeState extends State<Youtube> {
             future: makeTrendingSongList(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: LoadingAnimationWidget.inkDrop(
-                    color: Colors.deepPurple,
-                    size: 50,
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: Center(
+                    child: LoadingAnimationWidget.inkDrop(
+                      color: Colors.deepPurple,
+                      size: 50,
+                    ),
                   ),
                 );
               } else if (snapshot.hasError) {
