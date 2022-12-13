@@ -75,7 +75,7 @@ playSong({required AudioPlayer audioPlayer}) {
 }
 
 void skipToPrev() {
-  if (currSongIndex >= 0 &&
+  if (currSongIndex > 0 &&
       currSongIndex < currSongList!.length &&
       currSongList!.length > 1) {
     // print(currSongIndex);
@@ -110,7 +110,7 @@ void skipToPrev() {
 
 void skipToNext() {
   if (currSongIndex >= 0 &&
-      currSongIndex < currSongList!.length &&
+      currSongIndex < currSongList!.length - 1 &&
       currSongList!.length > 1) {
     // print(currSongIndex);
 
@@ -143,14 +143,16 @@ void skipToNext() {
 }
 
 Future<Uint8List> getCurrBG() async {
-  currBG.clear();
-  // currBG = defaultBG;
-  currBG = await audioQuery.getArtwork(
-      size: const Size(550, 550),
-      type: ResourceType.SONG,
-      id: newDepricatedSongList[currSongIndex].id);
-  // if (currBG.isEmpty) {
-  //   currBG = defaultBG;
-  // }
+  if (currSongIndex >= 0 && currSongIndex < currSongList!.length) {
+    currBG.clear();
+    // currBG = defaultBG;
+    currBG = await audioQuery.getArtwork(
+        size: const Size(550, 550),
+        type: ResourceType.SONG,
+        id: newDepricatedSongList[currSongIndex].id);
+    // if (currBG.isEmpty) {
+    //   currBG = defaultBG;
+    // }
+  }
   return currBG;
 }

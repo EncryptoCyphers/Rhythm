@@ -274,6 +274,7 @@ class _PlayerState extends State<Player> {
                                   setState(() {
                                     skipToPrev();
                                   });
+                                  // print(currSongIndex);
                                 },
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_previous_rounded),
@@ -342,6 +343,7 @@ class _PlayerState extends State<Player> {
                                   setState(() {
                                     skipToNext();
                                   });
+                                  // print(currSongIndex);
                                 },
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_next_rounded),
@@ -524,7 +526,7 @@ class _AnimatedBackGroundContainerState
   @override
   void initState() {
     super.initState();
-    //getCurrBG();
+    // getCurrBG();
   }
 
   @override
@@ -547,7 +549,14 @@ class _AnimatedBackGroundContainerState
                 future: audioQuery.getArtwork(
                   size: const Size(550, 550),
                   type: ResourceType.SONG,
-                  id: newDepricatedSongList[currSongIndex].id,
+                  id:
+                      //(currSongIndex >= 0 &&
+                      //         currSongIndex < currSongList!.length)
+                      //     ?
+                      newDepricatedSongList[currSongIndex].id,
+                  // : ((currSongIndex == 0)
+                  //     ? newDepricatedSongList[0].id
+                  //     : newDepricatedSongList[currSongList!.length - 1].id),
                 ),
                 builder: (_, snapshot) {
                   if (snapshot.data == null) {
