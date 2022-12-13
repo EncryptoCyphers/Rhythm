@@ -7,10 +7,25 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/services/global.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+// import 'package:functional_listener/functional_listener.dart';
 
 import '../pages/songs.dart';
 import '../widgets/full_player.dart';
 import '../pages/mini_player.dart';
+
+ValueNotifier<int> loopOfSongNotifier =
+    ValueNotifier<int>(0); // 0-> no loop, 1-> Same Song, 2-> all Songs
+// ValueNotifier<Duration> triggerNextSongInLoopListenable =
+//     ValueNotifier<Duration>(
+//         const Duration(milliseconds: 0)); // 0-> no trigger, 1-> yes tgrigger
+
+// final subscription = triggerNextSongInLoopListenable.listen((x, _) {
+//   if (x > currSongDuration - const Duration(microseconds: 200) &&
+//       loopOfSongNotifier.value == 2) {
+//     print("djkwashduik");
+//     skipToNext();
+//   }
+// });
 
 AudioPlayer audioPlayer = AudioPlayer();
 // bool of is Playing
@@ -49,9 +64,25 @@ getCurrSongInfo({
   currSongVideoIdStremable = streamId;
 }
 
+seekToDurationZero() {
+  audioPlayer.seek(Duration.zero);
+}
+
 playSong({required AudioPlayer audioPlayer}) {
+  // Define the playlist
+  final playlist = ConcatenatingAudioSource(
+    children: [
+      AudioSource.uri(Uri.parse(currSongUri!)),
+    ],
+  );
   try {
-    audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(currSongUri!)));
+    audioPlayer.setAudioSource(playlist,
+        initialIndex: 0, initialPosition: Duration.zero);
+    if (loopOfSongNotifier.value == 0 || loopOfSongNotifier.value == 2) {
+      audioPlayer.setLoopMode(LoopMode.off);
+    } else if (loopOfSongNotifier.value == 1) {
+      audioPlayer.setLoopMode(LoopMode.one);
+    }
     audioPlayer.play();
     isPlaying = true;
   } on Exception {
@@ -64,12 +95,12 @@ playSong({required AudioPlayer audioPlayer}) {
       // });
     },
   );
+
   audioPlayer.positionStream.listen(
     (currPosition) {
-      // setState(() {
       songPositionListenable.value = currPosition;
       songPosition = currPosition;
-      // });
+      // triggerNextSongInLoopListenable.value = currPosition;
     },
   );
 }
@@ -155,4 +186,10 @@ Future<Uint8List> getCurrBG() async {
     // }
   }
   return currBG;
+}
+
+onLoopButtonPress() {
+  (loopOfSongNotifier.value == 2)
+      ? (loopOfSongNotifier.value = 0)
+      : loopOfSongNotifier.value++;
 }
