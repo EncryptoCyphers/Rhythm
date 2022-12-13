@@ -183,7 +183,7 @@ class AppInfo extends StatelessWidget {
           GestureDetector(
             onTap: _launchUrl4,
             child: const Text(
-              'Bisal Karmakar',
+              'Bishal Karmakar',
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.blue,
