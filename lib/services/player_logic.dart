@@ -7,7 +7,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/services/global.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-// import 'package:functional_listener/functional_listener.dart';
+import 'package:functional_listener/functional_listener.dart';
 
 import '../pages/songs.dart';
 import '../widgets/full_player.dart';
@@ -27,7 +27,7 @@ ValueNotifier<int> loopOfSongNotifier =
 //   }
 // });
 
-AudioPlayer audioPlayer = AudioPlayer();
+var audioPlayer = AudioPlayer();
 // bool of is Playing
 bool isPlaying = false;
 Duration songPosition = const Duration(seconds: 0);
@@ -43,7 +43,7 @@ int currSongIndex = 0;
 bool currSongIsWeb = false;
 late VideoId? currSongVideoIdStremable;
 late Uint8List defaultBG;
-late Uint8List currBG;
+Uint8List currBG = Uint8List.fromList([]);
 getCurrSongInfo({
   required String id,
   required name,
@@ -69,6 +69,7 @@ seekToDurationZero() {
 }
 
 playSong({required AudioPlayer audioPlayer}) {
+  currSongIndexListenable.value = currSongIndex;
   // Define the playlist
   final playlist = ConcatenatingAudioSource(
     children: [
@@ -78,11 +79,12 @@ playSong({required AudioPlayer audioPlayer}) {
   try {
     audioPlayer.setAudioSource(playlist,
         initialIndex: 0, initialPosition: Duration.zero);
-    if (loopOfSongNotifier.value == 0 || loopOfSongNotifier.value == 2) {
-      audioPlayer.setLoopMode(LoopMode.off);
-    } else if (loopOfSongNotifier.value == 1) {
-      audioPlayer.setLoopMode(LoopMode.one);
-    }
+    // if (loopOfSongNotifier.value == 0 || loopOfSongNotifier.value == 2) {
+    //   audioPlayer.setLoopMode(LoopMode.off);
+    // } else if (loopOfSongNotifier.value == 1) {
+    //   audioPlayer.setLoopMode(LoopMode.one);
+    // }
+    audioPlayer.setLoopMode(LoopMode.one);
     audioPlayer.play();
     isPlaying = true;
   } on Exception {
@@ -95,27 +97,38 @@ playSong({required AudioPlayer audioPlayer}) {
       // });
     },
   );
-
+  // audioPlayer.playerStateStream.listen((playerState) {
+  //   if (playerState.processingState == ProcessingState.completed) {
+  //     seekToDurationZero();
+  //     print("1");
+  //     // autoNextSong();
+  //     print("2");
+  //   }
+  // });
   audioPlayer.positionStream.listen(
     (currPosition) {
       songPositionListenable.value = currPosition;
       songPosition = currPosition;
-      // triggerNextSongInLoopListenable.value = currPosition;
-      if (songDuration - songPosition <= const Duration(milliseconds: 200)) {
-        debugPrint("CurrIndex: $currSongIndex");
-        autoNextSong();
-        // skipToNext();
-      }
+      // if (
+      //     // loopOfSongNotifier.value == 2 &&
+      //     songDuration - currPosition <= const Duration(milliseconds: 200)) {
+      //   // audioPlayer.pause();
+      //   // autoPlayerValueListenable.value = true;
+      //   autoNextSong();
+      // }
       // });
     },
   );
 }
 
 void autoNextSong() {
-  autoPlayerValueListenable.value = true;
+  // final function = autoPlayerValueListenable.listen((x, _) => print(x));
   skipToNext();
-  currSongName = currSongList![currSongIndex].title;
-  currSongArtistName = currSongList![currSongIndex].artist;
+  var state = keyOfBackGround.currentState;
+  state!.setState(() {});
+  // print(currSongName);
+  // currSongName = currSongList![currSongIndex].title;
+  // currSongArtistName = currSongList![currSongIndex].artist;
   autoPlayerValueListenable.value = false;
 }
 
@@ -160,9 +173,9 @@ void skipToNext() {
     // print(currSongIndex);
 
     currSongIndex++;
+    currSongIndexListenable.value = currSongIndex;
     if (currSongIsWeb) {
       MyClass.listIndex.value = currSongIndex;
-      currSongIndexListenable.value = currSongIndex;
       fetchSongUriForCurrList(currSongIndex);
       // setState(() {
       //   currSongList![currSongIndex].title =
