@@ -69,6 +69,9 @@ playSong({required AudioPlayer audioPlayer}) {
       // setState(() {
       songPositionListenable.value = currPosition;
       songPosition = currPosition;
+      if (songDuration - songPosition <= const Duration(milliseconds: 200)) {
+        skipToNext();
+      }
       // });
     },
   );
@@ -147,9 +150,10 @@ Future<Uint8List> getCurrBG() async {
     currBG.clear();
     // currBG = defaultBG;
     currBG = await audioQuery.getArtwork(
-        size: const Size(550, 550),
-        type: ResourceType.SONG,
-        id: newDepricatedSongList[currSongIndex].id);
+      size: const Size(550, 550),
+      type: ResourceType.SONG,
+      id: newDepricatedSongList[currSongIndex].id,
+    );
     // if (currBG.isEmpty) {
     //   currBG = defaultBG;
     // }
