@@ -70,11 +70,21 @@ playSong({required AudioPlayer audioPlayer}) {
       songPositionListenable.value = currPosition;
       songPosition = currPosition;
       if (songDuration - songPosition <= const Duration(milliseconds: 200)) {
-        skipToNext();
+        debugPrint("CurrIndex: $currSongIndex");
+        autoNextSong();
+        // skipToNext();
       }
       // });
     },
   );
+}
+
+void autoNextSong() {
+  autoPlayerValueListenable.value = true;
+  skipToNext();
+  currSongName = currSongList![currSongIndex].title;
+  currSongArtistName = currSongList![currSongIndex].artist;
+  autoPlayerValueListenable.value = false;
 }
 
 void skipToPrev() {

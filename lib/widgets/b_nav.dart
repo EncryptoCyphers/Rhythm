@@ -88,9 +88,7 @@ class _BNavState extends State<BNav> {
                   return NavBarButton(
                     icon: (index == 0)
                         ? (FontAwesomeIcons.youtube)
-                        : ((index == 1)
-                            ? (Icons.play_lesson)
-                            : (Icons.settings)),
+                        : ((index == 1) ? (Icons.play_lesson) : (Icons.person)),
                     size: 30,
                     title: (index == 0)
                         ? ("YT Music")

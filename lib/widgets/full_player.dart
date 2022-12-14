@@ -21,12 +21,15 @@ import '../services/player_logic.dart';
 ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
 ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
 var bgBlur = ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0);
+// final autoPlayerKey = GlobalKey<_PlayerState>();
+final autoPlayerValueListenable = ValueNotifier<bool>(false);
+final keyOfBackGround = GlobalKey<_AnimatedBackGroundContainerState>();
 
 class Player extends StatefulWidget {
   const Player({
-    Key? key,
+    Key? globalKey,
     // required this.statusBarColor,
-  }) : super(key: key);
+  }) : super(key: globalKey);
   // final Color statusBarColor;
   @override
   State<Player> createState() => _PlayerState();
@@ -42,7 +45,6 @@ class _PlayerState extends State<Player> {
     bgBlur = ImageFilter.blur(sigmaX: 14.0, sigmaY: 14.0);
   }
 
-  final keyOfBackGround = GlobalKey<_AnimatedBackGroundContainerState>();
   Future setStatusBackGroundTransParent() async {
     Future.delayed(const Duration(milliseconds: 400), () {
       setState(() {
@@ -74,7 +76,35 @@ class _PlayerState extends State<Player> {
     return
         // SafeArea(
         //   child:
-        Stack(
+        ValueListenableBuilder(
+      valueListenable: autoPlayerValueListenable,
+      builder: (context, value, child) {
+        if (value == true) {
+          return Container();
+        }
+        return const PlayerBody();
+      },
+    );
+  }
+}
+
+class PlayerBody extends StatefulWidget {
+  const PlayerBody({super.key});
+
+  @override
+  State<PlayerBody> createState() => _PlayerBodyState();
+}
+
+class _PlayerBodyState extends State<PlayerBody> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
       children: [
         AnimatedBackGroundContainer(
           key: keyOfBackGround,
@@ -132,6 +162,7 @@ class _PlayerState extends State<Player> {
                               valueListenable: currSongIndexListenable,
                               builder: (BuildContext context, int songIndex,
                                   Widget? child) {
+                                // () => debugPrint(currSongIdListenable.value);
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -365,11 +396,11 @@ class _PlayerState extends State<Player> {
       ],
     );
   }
+}
 
-  changeToSeconds(int seconds) {
-    Duration duration = Duration(seconds: seconds);
-    audioPlayer.seek(duration);
-  }
+changeToSeconds(int seconds) {
+  Duration duration = Duration(seconds: seconds);
+  audioPlayer.seek(duration);
 }
 
 class ArtWork extends StatelessWidget {
