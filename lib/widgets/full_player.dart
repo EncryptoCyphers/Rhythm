@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:music_player_app/pages/mini_player.dart';
@@ -16,6 +17,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
 
 ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
@@ -298,6 +300,32 @@ class _PlayerBodyState extends State<PlayerBody> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              IconButton(
+                                onPressed: () {
+                                  // audioPlayer.seek(Duration.zero);
+                                  // setState(() {
+                                  onLoopButtonPress();
+                                  if (loopOfSongNotifier.value == 0) {
+                                    audioPlayer.setLoopMode(LoopMode.off);
+                                  } else if (loopOfSongNotifier.value == 1) {
+                                    audioPlayer.setLoopMode(LoopMode.one);
+                                  }
+                                  // });
+
+                                  // print(currSongIndex);
+                                },
+                                color: Colors.white,
+                                icon: Column(
+                                  children: [
+                                    // const Icon(FontAwesomeIcons
+                                    //     .personWalkingArrowLoopLeft),
+                                    Text(loopOfSongNotifier.value.toString(),
+                                        style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                                iconSize: 20,
+                              ),
+
                               // Previous Song Button..........................................//
 
                               IconButton(

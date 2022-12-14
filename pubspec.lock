@@ -324,6 +324,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  functional_listener:
+    dependency: "direct main"
+    description:
+      name: functional_listener
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   getwidget:
     dependency: "direct main"
     description:
