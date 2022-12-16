@@ -303,31 +303,34 @@ class _PlayerBodyState extends State<PlayerBody> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              // IconButton(
-                              //   onPressed: () {
-                              //     // audioPlayer.seek(Duration.zero);
-                              //     // setState(() {
-                              //     onLoopButtonPress();
-                              //     if (loopOfSongNotifier.value == 0) {
-                              //       audioPlayer.setLoopMode(LoopMode.off);
-                              //     } else if (loopOfSongNotifier.value == 1) {
-                              //       audioPlayer.setLoopMode(LoopMode.one);
-                              //     }
-                              //     // });
-
-                              //     // print(currSongIndex);
-                              //   },
-                              //   color: Colors.white,
-                              //   icon: Column(
-                              //     children: [
-                              //       // const Icon(FontAwesomeIcons
-                              //       //     .personWalkingArrowLoopLeft),
-                              //       Text(loopOfSongNotifier.value.toString(),
-                              //           style: TextStyle(color: Colors.white)),
-                              //     ],
-                              //   ),
-                              //   iconSize: 20,
-                              // ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    // audioPlayer.seek(Duration.zero);
+                                    // setState(() {
+                                    onLoopButtonPress();
+                                    if (loopOfSongNotifier.value == 0) {
+                                      audioPlayer.setLoopMode(LoopMode.off);
+                                    } else if (loopOfSongNotifier.value == 1) {
+                                      audioPlayer.setLoopMode(LoopMode.one);
+                                    } else if (loopOfSongNotifier.value == 2) {
+                                      audioPlayer.setLoopMode(LoopMode.off);
+                                    }
+                                    // });
+                                  });
+                                  // print(currSongIndex);
+                                },
+                                color: Colors.white,
+                                icon: Column(
+                                  children: [
+                                    // const Icon(FontAwesomeIcons
+                                    //     .personWalkingArrowLoopLeft),
+                                    Text(loopOfSongNotifier.value.toString(),
+                                        style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                                iconSize: 20,
+                              ),
 
                               // Previous Song Button..........................................//
 
@@ -408,6 +411,35 @@ class _PlayerBodyState extends State<PlayerBody> {
                                 color: Colors.white,
                                 icon: const Icon(Icons.skip_next_rounded),
                                 iconSize: 60,
+                              ),
+                              Opacity(
+                                opacity: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    // audioPlayer.seek(Duration.zero);
+                                    // setState(() {
+                                    onLoopButtonPress();
+                                    if (loopOfSongNotifier.value == 0) {
+                                      audioPlayer.setLoopMode(LoopMode.off);
+                                    } else if (loopOfSongNotifier.value == 1) {
+                                      audioPlayer.setLoopMode(LoopMode.one);
+                                    }
+                                    // });
+
+                                    // print(currSongIndex);
+                                  },
+                                  color: Colors.white,
+                                  icon: Column(
+                                    children: [
+                                      // const Icon(FontAwesomeIcons
+                                      //     .personWalkingArrowLoopLeft),
+                                      Text(loopOfSongNotifier.value.toString(),
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ],
+                                  ),
+                                  iconSize: 20,
+                                ),
                               ),
                             ],
                           ),

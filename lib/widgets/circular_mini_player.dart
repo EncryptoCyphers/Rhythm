@@ -25,7 +25,8 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
   void initState() {
     super.initState();
     audioPlayer.playerStateStream.listen((playerState) {
-      if (playerState.processingState == ProcessingState.completed) {
+      if (loopOfSongNotifier.value == 2 &&
+          playerState.processingState == ProcessingState.completed) {
         setState(() {
           skipToNext();
         });
