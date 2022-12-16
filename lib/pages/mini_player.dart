@@ -315,16 +315,19 @@ class MiniArtWork extends StatelessWidget {
               return SizedBox(
                 height: 3,
                 child: CircularProgressIndicator(
-                    strokeWidth: 6,
-                    // backgroundColor: Colors.transparent,
-                    backgroundColor: const Color.fromARGB(25, 0, 0, 0),
-                    color: fgPurple,
-                    value:
-                        // 0,
-                        songPosition.inSeconds.toDouble() /
-                            ((songDuration.inSeconds.toDouble() == 0.0)
-                                ? 0.1
-                                : songDuration.inSeconds.toDouble())),
+                  strokeWidth: 6,
+                  // backgroundColor: Colors.transparent,
+                  backgroundColor: const Color.fromARGB(25, 0, 0, 0),
+                  color: fgPurple,
+                  value:
+                      // 0,
+                      ((songDuration.inSeconds.toDouble() == 0.0)
+                              ? (songPosition.inMilliseconds.toDouble())
+                              : songPosition.inSeconds.toDouble()) /
+                          ((songDuration.inSeconds.toDouble() == 0.0)
+                              ? (songDuration.inMilliseconds.toDouble())
+                              : songDuration.inSeconds.toDouble()),
+                ),
               );
             },
           ),

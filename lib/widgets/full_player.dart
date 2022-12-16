@@ -282,14 +282,21 @@ class _PlayerBodyState extends State<PlayerBody> {
                             builder: (BuildContext context,
                                 Duration songPosition, Widget? child) {
                               return Slider(
-                                  min: const Duration(microseconds: 0)
-                                      .inSeconds
-                                      .toDouble(),
-                                  value: songPosition.inSeconds.toDouble(),
-                                  max:
-                                      (songDuration.inSeconds.toDouble() == 0.0)
-                                          ? 0.1
-                                          : songDuration.inSeconds.toDouble(),
+                                  min: (songDuration.inSeconds.toDouble() == 0)
+                                      ? const Duration(milliseconds: 0)
+                                          .inMilliseconds
+                                          .toDouble()
+                                      : const Duration(seconds: 0)
+                                          .inSeconds
+                                          .toDouble(),
+                                  value: (songDuration.inSeconds.toDouble() ==
+                                          0)
+                                      ? songPosition.inMilliseconds.toDouble()
+                                      : songPosition.inSeconds.toDouble(),
+                                  max: (songDuration.inSeconds.toDouble() ==
+                                          0.0)
+                                      ? songDuration.inMilliseconds.toDouble()
+                                      : songDuration.inSeconds.toDouble(),
                                   activeColor: Colors.white,
                                   inactiveColor: veryLightPurple,
                                   onChanged: (val) {
@@ -462,9 +469,14 @@ class _PlayerBodyState extends State<PlayerBody> {
   }
 }
 
-changeToSeconds(int seconds) {
-  Duration duration = Duration(seconds: seconds);
-  audioPlayer.seek(duration);
+changeToSeconds(int x) {
+  if (songDuration.inSeconds.toDouble() == 0) {
+    Duration duration = Duration(milliseconds: x);
+    audioPlayer.seek(duration);
+  } else {
+    Duration duration = Duration(seconds: x);
+    audioPlayer.seek(duration);
+  }
 }
 
 class ArtWork extends StatelessWidget {

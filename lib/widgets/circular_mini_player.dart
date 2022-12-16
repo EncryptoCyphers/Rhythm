@@ -24,14 +24,28 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
   @override
   void initState() {
     super.initState();
-    audioPlayer.playerStateStream.listen((playerState) {
-      if (loopOfSongNotifier.value == 2 &&
-          playerState.processingState == ProcessingState.completed) {
-        setState(() {
-          skipToNext();
-        });
+    audioPlayer.positionStream.listen((currPosition) {
+      if (songDuration - currPosition < const Duration(milliseconds: 100)) {
+        if (loopOfSongNotifier.value == 2) {
+          setState(() {
+            skipToNext();
+          });
+        } else if (loopOfSongNotifier.value == 1) {
+          seekToDurationZero();
+        } else {
+          seekToDurationZero();
+          audioPlayer.pause();
+        }
       }
     });
+    // audioPlayer.playerStateStream.listen((playerState) {
+    //   if (loopOfSongNotifier.value == 2 &&
+    //       playerState.processingState == ProcessingState.completed) {
+    //     setState(() {
+    //       skipToNext();
+    //     });
+    //   }
+    // });
   }
 
   @override
