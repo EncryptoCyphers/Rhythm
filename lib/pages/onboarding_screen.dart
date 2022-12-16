@@ -13,7 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 // ignore: prefer_typing_uninitialized_variables
 var username;
 bool obscureText = true;
-IconData _icon = Icons.visibility_off_outlined;
+IconData _icon = Icons.visibility_outlined;
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({

@@ -117,6 +117,9 @@ playSong({required AudioPlayer audioPlayer}) {
       //   autoNextSong();
       // }
       // });
+      if ((songDuration.inSeconds - currPosition.inSeconds) == 1) {
+        //Code Here
+      }
     },
   );
 }
