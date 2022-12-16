@@ -283,10 +283,13 @@ class _PlayerBodyState extends State<PlayerBody> {
                                 Duration songPosition, Widget? child) {
                               return Slider(
                                   min: const Duration(microseconds: 0)
-                                      .inMilliseconds
+                                      .inSeconds
                                       .toDouble(),
-                                  value: songPosition.inMilliseconds.toDouble(),
-                                  max: songDuration.inMilliseconds.toDouble(),
+                                  value: songPosition.inSeconds.toDouble(),
+                                  max:
+                                      (songDuration.inSeconds.toDouble() == 0.0)
+                                          ? 0.1
+                                          : songDuration.inSeconds.toDouble(),
                                   activeColor: Colors.white,
                                   inactiveColor: veryLightPurple,
                                   onChanged: (val) {
@@ -459,8 +462,8 @@ class _PlayerBodyState extends State<PlayerBody> {
   }
 }
 
-changeToSeconds(int milliseconds) {
-  Duration duration = Duration(milliseconds: milliseconds);
+changeToSeconds(int seconds) {
+  Duration duration = Duration(seconds: seconds);
   audioPlayer.seek(duration);
 }
 
