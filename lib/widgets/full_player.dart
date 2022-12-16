@@ -25,14 +25,16 @@ ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
 var bgBlur = ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0);
 // final autoPlayerKey = GlobalKey<_PlayerState>();
 final autoPlayerValueListenable = ValueNotifier<bool>(false);
-final keyOfBackGround = GlobalKey<_AnimatedBackGroundContainerState>();
+final currBGListenable = ValueNotifier<bool>(false);
+// final keyOfBackGround = GlobalKey<_AnimatedBackGroundContainerState>();
 
 class Player extends StatefulWidget {
   const Player({
-    Key? globalKey,
+    Key? autoPlayerKey,
     // required this.statusBarColor,
-  }) : super(key: globalKey);
+  }) : super(key: autoPlayerKey);
   // final Color statusBarColor;
+
   @override
   State<Player> createState() => _PlayerState();
 }
@@ -42,7 +44,9 @@ class _PlayerState extends State<Player> {
   void initState() {
     super.initState();
     // currBG = defaultBG;
-    getCurrBG();
+    // getCurrBG();
+    getBG();
+
     setStatusBackGroundTransParent();
     bgBlur = ImageFilter.blur(sigmaX: 14.0, sigmaY: 14.0);
   }
@@ -92,7 +96,6 @@ class _PlayerState extends State<Player> {
 
 class PlayerBody extends StatefulWidget {
   const PlayerBody({super.key});
-
   @override
   State<PlayerBody> createState() => _PlayerBodyState();
 }
@@ -101,7 +104,7 @@ class _PlayerBodyState extends State<PlayerBody> {
   @override
   void initState() {
     super.initState();
-    setState(() {});
+    // setState(() {});
   }
 
   @override
@@ -109,8 +112,8 @@ class _PlayerBodyState extends State<PlayerBody> {
     return Stack(
       children: [
         AnimatedBackGroundContainer(
-          key: keyOfBackGround,
-        ),
+            // key: keyOfBackGround,
+            ),
         BackdropFilter(
           filter: bgBlur,
           child: GestureDetector(
@@ -280,10 +283,10 @@ class _PlayerBodyState extends State<PlayerBody> {
                                 Duration songPosition, Widget? child) {
                               return Slider(
                                   min: const Duration(microseconds: 0)
-                                      .inSeconds
+                                      .inMilliseconds
                                       .toDouble(),
-                                  value: songPosition.inSeconds.toDouble(),
-                                  max: songDuration.inSeconds.toDouble(),
+                                  value: songPosition.inMilliseconds.toDouble(),
+                                  max: songDuration.inMilliseconds.toDouble(),
                                   activeColor: Colors.white,
                                   inactiveColor: veryLightPurple,
                                   onChanged: (val) {
@@ -368,20 +371,18 @@ class _PlayerBodyState extends State<PlayerBody> {
                                           bool isPlaying, Widget? child) {
                                         return IconButton(
                                           onPressed: () {
+                                            // setState(() {
+                                            if (isPlaying) {
+                                              isPlayingListenable.value = false;
+                                              audioPlayer.pause();
+                                            } else {
+                                              isPlayingListenable.value = true;
+                                              audioPlayer.play();
+                                            }
                                             setState(() {
-                                              if (isPlaying) {
-                                                isPlayingListenable.value =
-                                                    false;
-                                                audioPlayer.pause();
-                                              } else {
-                                                isPlayingListenable.value =
-                                                    true;
-                                                audioPlayer.play();
-                                              }
-                                              setState(() {
-                                                isPlaying = !isPlaying;
-                                              });
+                                              isPlaying = !isPlaying;
                                             });
+                                            // });
                                           },
                                           color: Colors.white,
                                           icon: isPlaying
@@ -604,66 +605,7 @@ class _AnimatedBackGroundContainerState
             );
           } else {
             if (!currSongIsWeb) {
-              return FutureBuilder<Uint8List>(
-                future: audioQuery.getArtwork(
-                  size: const Size(550, 550),
-                  type: ResourceType.SONG,
-                  id:
-                      //(currSongIndex >= 0 &&
-                      //         currSongIndex < currSongList!.length)
-                      //     ?
-                      newDepricatedSongList[currSongIndex].id,
-                  // : ((currSongIndex == 0)
-                  //     ? newDepricatedSongList[0].id
-                  //     : newDepricatedSongList[currSongList!.length - 1].id),
-                ),
-                builder: (_, snapshot) {
-                  if (snapshot.data == null) {
-                    // print("fjkahfjk\n\n\n\n");
-                    return Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: MemoryImage(defaultBG),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  }
-                  return Stack(
-                    children: [
-                      (!currSongIsWeb)
-                          ? Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: (snapshot.data!.isEmpty)
-                                      ? MemoryImage(defaultBG)
-                                      : MemoryImage(snapshot.data!),
-                                  fit: BoxFit.cover,
-                                ),
-                                color: const Color.fromARGB(119, 0, 0, 0),
-                              ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    YoutubeThumbnail(
-                                            youtubeId: currSongId.toString())
-                                        .mq(),
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                                color: const Color.fromARGB(119, 0, 0, 0),
-                              ),
-                            ),
-                      Container(
-                        color: const Color.fromARGB(119, 0, 0, 0),
-                      ),
-                    ],
-                  );
-                  // print(currBG.toString());
-                },
-              );
+              return const LocalBG();
             } else {
               return Container(
                 decoration: BoxDecoration(
@@ -679,5 +621,50 @@ class _AnimatedBackGroundContainerState
             }
           }
         });
+  }
+}
+
+class LocalBg extends StatelessWidget {
+  const LocalBg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class LocalBG extends StatelessWidget {
+  const LocalBG({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: currSongIndexListenable,
+      builder: (context, value, child) {
+        return FutureBuilder(
+          future: getBG(),
+          builder: (context, snapshot) {
+            if (currBG.isNotEmpty) {
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: MemoryImage(currBG),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            }
+            return Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: MemoryImage(defaultBG),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

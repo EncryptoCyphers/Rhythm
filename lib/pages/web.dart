@@ -49,8 +49,8 @@ Future playSongAfterFetchWeb(int index) async {
     streamId: trendingSongList[index].videoIdForFetchStream,
   );
   playSong(
-    audioPlayer: audioPlayer,
-  );
+      // audioPlayer: audioPlayer,
+      );
   getLocalMiniPlayerSongList(
     trendingSongList,
   );

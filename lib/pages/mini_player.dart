@@ -40,8 +40,8 @@ Future playSongAfterFetch(int index) async {
     streamId: currSongList![index].videoIdForFetchStream,
   );
   playSong(
-    audioPlayer: audioPlayer,
-  );
+      // audioPlayer: audioPlayer,
+      );
 }
 
 List<CustomSongModel>? currSongList;
@@ -321,8 +321,8 @@ class MiniArtWork extends StatelessWidget {
                   color: fgPurple,
                   value:
                       // 0,
-                      songPosition.inSeconds.toDouble() /
-                          songDuration.inSeconds.toDouble(),
+                      songPosition.inMilliseconds.toDouble() /
+                          songDuration.inMilliseconds.toDouble(),
                 ),
               );
             },

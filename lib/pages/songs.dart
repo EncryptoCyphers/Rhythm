@@ -435,6 +435,7 @@ class _TracksState extends State<Tracks> {
                                         //...... Song OnTap ......................................//
                                         //
                                         onTap: () {
+                                          prevBG = defaultBG;
                                           listTileColorChange(index);
                                           isPlayingListenable.value = true;
                                           bNavPaddingListenable.value =
@@ -467,7 +468,9 @@ class _TracksState extends State<Tracks> {
                                             songIndex: index,
                                           );
                                           // print(allSongsDevice[index].title);
-                                          playSong(audioPlayer: audioPlayer);
+                                          playSong(
+                                              // audioPlayer: audioPlayer
+                                              );
                                           getLocalMiniPlayerSongList(
                                               allSongsDevice);
                                         },

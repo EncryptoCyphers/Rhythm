@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:music_player_app/widgets/full_player.dart';
 import 'package:music_player_app/pages/mini_player_and_b_nav.dart';
 import 'package:music_player_app/pages/search_page.dart';
@@ -20,6 +21,18 @@ class CircularMiniPlayer extends StatefulWidget {
 }
 
 class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer.playerStateStream.listen((playerState) {
+      if (playerState.processingState == ProcessingState.completed) {
+        setState(() {
+          skipToNext();
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -147,7 +160,9 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
                           );
                           currSongIdListenable.value =
                               currSongList![currSongIndex].id.toString();
-                          playSong(audioPlayer: audioPlayer);
+                          playSong(
+                              // audioPlayer: audioPlayer,
+                              );
                         }
                       }
                     },

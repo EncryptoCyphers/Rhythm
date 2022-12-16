@@ -40,8 +40,8 @@ Future playSongAfterFetch(int index) async {
     streamId: ytSearchResultsCustom[index].videoIdForFetchStream,
   );
   playSong(
-    audioPlayer: audioPlayer,
-  );
+      // audioPlayer: audioPlayer,
+      );
   getLocalMiniPlayerSongList(
     ytSearchResultsCustom,
   );

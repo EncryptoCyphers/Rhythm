@@ -190,7 +190,9 @@ class CustomSearchDelegate extends SearchDelegate {
                 songIndex: index,
               );
               // print(allSongsDevice[index].title);
-              playSong(audioPlayer: audioPlayer);
+              playSong(
+                  // audioPlayer: audioPlayer,
+                  );
               getLocalMiniPlayerSongList(allSongsDevice);
             },
           );
