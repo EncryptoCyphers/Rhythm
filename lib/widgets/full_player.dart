@@ -427,8 +427,8 @@ class _PlayerBodyState extends State<PlayerBody> {
   }
 }
 
-changeToSeconds(int seconds) {
-  Duration duration = Duration(seconds: seconds);
+changeToSeconds(int milliseconds) {
+  Duration duration = Duration(milliseconds: milliseconds);
   audioPlayer.seek(duration);
 }
 
