@@ -3,6 +3,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:music_player_app/services/colours.dart';
 import 'package:music_player_app/services/screen_sizes.dart';
 // import 'package:music_player_app/widgets/bottomNavigationBar.dart';
@@ -60,28 +61,28 @@ class DrawerMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              // ListTile(
-              //   leading: const Icon(
-              //     Icons.home,
-              //     color: Colors.deepPurple,
-              //   ),
-              //   title: const Text(
-              //     'Home',
-              //     style: TextStyle(
-              //       fontSize: 18,
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              //   onTap: () {
-              //     navIndexListener.value = 0; //To build navbar
-              //     pageController.animateToPage(
-              //       0,
-              //       duration: const Duration(milliseconds: 300),
-              //       curve: Curves.easeOutQuad,
-              //     );
-              //     Navigator.pop(context); //to pop out the drawer instantly
-              //   },
-              // ),
+              ListTile(
+                leading: const Icon(
+                  FontAwesomeIcons.youtube,
+                  color: Colors.deepPurple,
+                ),
+                title: const Text(
+                  'YouTube Music',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () {
+                  navIndexListener.value = 0; //To build navbar
+                  pageController.animateToPage(
+                    0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOutQuad,
+                  );
+                  Navigator.pop(context); //to pop out the drawer instantly
+                },
+              ),
               ListTile(
                 leading: const Icon(
                   Icons.storage,
