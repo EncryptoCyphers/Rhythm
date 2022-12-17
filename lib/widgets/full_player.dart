@@ -331,20 +331,20 @@ class _PlayerBodyState extends State<PlayerBody> {
                                   });
                                   // print(currSongIndex);
                                 },
-                                // color: Colors.white,
                                 icon: (loopOfSongNotifier.value == 0)
                                     ? SvgPicture.asset(
-                                        "svg/repeat-one-line.svg",
-                                        // color: Colors.transparent,
+                                        "svg/repeat_all_songs.svg",
+                                        color: Colors.grey.shade700,
                                       )
                                     : ((loopOfSongNotifier.value == 1)
                                         ? SvgPicture.asset(
-                                            "svg/repeat-one-line.svg",
+                                            "svg/repeat-one-songs.svg",
+                                            color: Colors.white,
                                             // color: Colors.white,
                                           )
                                         : SvgPicture.asset(
-                                            "svg/repeat-2-line.svg",
-                                            // color: Colors.white,
+                                            "svg/repeat_all_songs.svg",
+                                            color: Colors.white,
                                           )),
 
                                 // Text(loopOfSongNotifier.value.toString(),

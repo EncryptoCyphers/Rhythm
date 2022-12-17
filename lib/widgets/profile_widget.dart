@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/services/colours.dart';
+import 'package:music_player_app/services/screen_sizes.dart';
 import '../pages/user_profile.dart';
 
 class MyProfile extends StatefulWidget {
@@ -30,10 +31,13 @@ class _MyProfileState extends State<MyProfile> {
           //     color: Colors.red,
           //   ),
           // );
-          return Center(
-            child: LoadingAnimationWidget.inkDrop(
-              color: Colors.deepPurple,
-              size: 50,
+          return SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Center(
+              child: LoadingAnimationWidget.inkDrop(
+                color: Colors.deepPurple,
+                size: 50,
+              ),
             ),
           );
         }
