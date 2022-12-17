@@ -112,6 +112,7 @@ playSong(
               // : Uri.parse("File:/" +
               //     newDepricatedSongList[currSongIndex].filePath.toString()),
               // : Uri.parse(allSongsDevice[currSongIndex].uri.toString()),
+              // ignore: unnecessary_string_interpolations
               : Uri.parse('$currBGFile'),
         ),
       ),
