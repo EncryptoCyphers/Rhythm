@@ -473,6 +473,7 @@ class _TracksState extends State<Tracks> {
                                               );
                                           getLocalMiniPlayerSongList(
                                               allSongsDevice);
+                                          getBG();
                                         },
                                         selected: MyClass.isSelected.value &&
                                             index ==

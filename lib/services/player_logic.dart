@@ -48,8 +48,7 @@ late Uint8List prevBG;
 Uint8List currBG = Uint8List.fromList([]);
 late final Directory tempDir;
 // final File currBGFile = File('${tempDir.path}/images/currBG.png');
-final File currBGFile = File('storage/emulated/0/Rhythm/CurrBG.png');
-
+var currBGFile = 'file:///storage/emulated/0/Rhythm/currBG.jpg';
 getCurrSongInfo({
   required String id,
   required name,
@@ -77,6 +76,11 @@ seekToDurationZero() {
 playSong(
     // {required AudioPlayer audioPlayer}
     ) async {
+  currBGFile = 'hello';
+  currBGFile = 'file:///storage/emulated/0/Rhythm/$currSongId.jpg';
+
+  // print("Hello" + newDepricatedSongList[currSongIndex].filePath.toString());
+  // print("Hello" + currBGFile.path.toString());
   // print("Hello " +
   //     Uri.parse("File:/" +
   //             newDepricatedSongList[currSongIndex].filePath.toString())
@@ -100,7 +104,7 @@ playSong(
           title: currSongName,
           artist: currSongArtistName,
           duration: currSongDuration,
-          extras: {'LoadThumbnailUri': true},
+          // extras: {'LoadThumbnailUri': true},
           artUri: (currSongIsWeb)
               ? Uri.parse(
                   'https://img.youtube.com/vi/$currSongId/maxresdefault.jpg',
@@ -108,7 +112,7 @@ playSong(
               // : Uri.parse("File:/" +
               //     newDepricatedSongList[currSongIndex].filePath.toString()),
               // : Uri.parse(allSongsDevice[currSongIndex].uri.toString()),
-              : Uri.parse(currBGFile.path),
+              : Uri.parse('$currBGFile'),
         ),
       ),
       // AudioSource.uri(
@@ -251,22 +255,20 @@ getBG() async {
     id: newDepricatedSongList[currSongIndex].id,
   );
 
-  // final path = Directory("storage/emulated/0/Rhythm");
-  // var status = await Permission.storage.status;
-  // if (!status.isGranted) {
-  //   await Permission.storage.request();
-  // }
-  // if ((await path.exists())) {
-  //   // if (await File('$path/CurrBG.png').exists()) {
-  //   // } else {
-  //   //   File('$path/CurrBG.png').create();
-  //   // }
-  //   // return path.path;
-  // } else {
-  //   path.create(recursive: true);
-  //   // return path.path;
-  // }
-  // tempDir = await getLibraryDirectory();
-
+  File imgFile = File('storage/emulated/0/Rhythm/$currSongId.jpg');
+  if (await imgFile.exists()) {
+    if (currBG.isEmpty) {
+      await imgFile.writeAsBytes(defaultBG);
+    } else {
+      await imgFile.writeAsBytes(currBG);
+    }
+  } else {
+    imgFile.create();
+    if (currBG.isEmpty) {
+      await imgFile.writeAsBytes(defaultBG);
+    } else {
+      await imgFile.writeAsBytes(currBG);
+    }
+  }
   //currBGListenable.value = false;
 }
