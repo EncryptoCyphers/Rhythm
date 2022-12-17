@@ -54,7 +54,9 @@ late Uint8List defaultBG;
 late Uint8List prevBG;
 Uint8List currBG = Uint8List.fromList([]);
 late final Directory tempDir;
-final File currBGFile = File('${tempDir.path}/images/currBG.png');
+// final File currBGFile = File('${tempDir.path}/images/currBG.png');
+final File currBGFile = File('storage/emulated/0/Rhythm/CurrBG.png');
+
 getCurrSongInfo({
   required String id,
   required name,
@@ -82,6 +84,7 @@ seekToDurationZero() {
 playSong(
     // {required AudioPlayer audioPlayer}
     ) async {
+  print("Hello" + newDepricatedSongList[currSongIndex].filePath.toString());
   print("Hello" + currBGFile.path.toString());
   // print("Hello " +
   //     Uri.parse("File:/" +
