@@ -7,7 +7,7 @@ final Uri _url2 = Uri.parse('https://www.linkedin.com/in/arpan-de-001ab31b9/');
 final Uri _url3 = Uri.parse('https://www.linkedin.com/in/arnab7070/');
 final Uri _url4 =
     Uri.parse('https://www.linkedin.com/in/bishal-karmakar-2a234623a/');
-final Uri _url5 = Uri.parse('https://github.com/arnab7070/music_player_app');
+final Uri _url5 = Uri.parse('https://github.com/EncryptoCyphers/Rhythm');
 
 class AppInfo extends StatelessWidget {
   const AppInfo({Key? key}) : super(key: key);

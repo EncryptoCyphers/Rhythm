@@ -9,8 +9,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:permission_handler/permission_handler.dart';
 import './firebase_options.dart';
 // import 'firebase_options.dart';
-import 'package:path_provider/path_provider.dart';
-import './services/player_logic.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

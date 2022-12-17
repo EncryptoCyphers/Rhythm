@@ -17,7 +17,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:youtube/youtube_thumbnail.dart';
 import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -112,7 +111,7 @@ class _PlayerBodyState extends State<PlayerBody> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        AnimatedBackGroundContainer(
+        const AnimatedBackGroundContainer(
             // key: keyOfBackGround,
             ),
         BackdropFilter(
@@ -460,8 +459,8 @@ class _PlayerBodyState extends State<PlayerBody> {
                                       // const Icon(FontAwesomeIcons
                                       //     .personWalkingArrowLoopLeft),
                                       Text(loopOfSongNotifier.value.toString(),
-                                          style:
-                                              TextStyle(color: Colors.white)),
+                                          style: const TextStyle(
+                                              color: Colors.white)),
                                     ],
                                   ),
                                   iconSize: 20,

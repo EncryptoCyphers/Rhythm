@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music_player_app/services/colours.dart';
-import 'package:music_player_app/services/screen_sizes.dart';
 import '../pages/user_profile.dart';
 
 class MyProfile extends StatefulWidget {

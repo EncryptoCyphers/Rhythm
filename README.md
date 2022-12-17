@@ -1,15 +1,67 @@
-# rhythm
 
-A new Flutter project.
+# Rhythm 
 
-## Getting Started
+Open-Source Music App and MP3 player for your entertainment
 
-This project is a starting point for a Flutter application.
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+[![made-with-flutter](https://img.shields.io/badge/Made%20with-Flutter-1f425f.svg)](https://flutter.dev/)
+![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/EncryptoCyphers/Rhythm?include_prereleases)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Don't forget to fork our repository
+
+![GitHub forks](https://img.shields.io/github/forks/EncryptoCyphers/Rhythm?style=plastic)
+## Download
+
+[<img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white"
+     alt="Download from GitHub"
+     height="60">](https://github.com/EncryptoCyphers/Rhythm/releases)
+    
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Features
+
+- Best Streaming Quality (320kbps aac)
+- Song, Album, Artist Search
+- Trending Songs
+- Play Online as well as Offline Songs
+- Trending Search Results
+- YouTube Search Support
+- Play videos as audio
+- Cache support
+- No Subscription
+- No Ads
+
+
+## Building from Source
+
+If you don't have Flutter SDK installed, please visit official [Flutter](https://flutter.dev/) site.
+
+Fetch latest source code from master branch.
+
+```
+git clone https://github.com/EncryptoCyphers/Rhythm.git
+```
+
+Run the app with Android Studio or VS Code. Or the command line:
+
+```
+flutter pub get
+flutter run
+```
+
+
+## Authors
+
+- [@Ankit Paul](https://github.com/Ankit-AP-Paul)
+- [@Arnab Nandi](https://github.com/arnab7070)
+- [@Bishal Karmakar](https://github.com/BishalK007)
+
+
+## Contact Us!
+
+If you have any feedback ➤ [Contact us](https://forms.gle/5RbJEDzrVn5HWEZKA)
+
+

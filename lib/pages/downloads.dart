@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:music_player_app/services/colours.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:flutter_audio_query/flutter_audio_query.dart';
