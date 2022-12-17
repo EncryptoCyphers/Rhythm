@@ -142,6 +142,9 @@ class _TracksState extends State<Tracks> {
       localSong.id = allSongs[i].id;
       localSong.title = allSongs[i].displayNameWOExt.toString();
       localSong.artist = allSongs[i].artist.toString();
+      if (allSongs[i].duration == 0) {
+        continue;
+      }
       localSong.duration = allSongs[i].duration;
       localSong.uri = allSongs[i].uri;
       localSong.isPlaying = false;
@@ -155,11 +158,23 @@ class _TracksState extends State<Tracks> {
   Future getCustomSongModelFromDepricatedList() async {
     allSongsDevice.clear();
     for (int i = 0; i < newDepricatedSongList.length; i++) {
+      //print(i);
       CustomSongModel localSong = CustomSongModel();
       localSong.id = newDepricatedSongList[i].id;
       localSong.title = newDepricatedSongList[i].title.toString();
       localSong.artist = newDepricatedSongList[i].artist.toString();
-      localSong.duration = int.parse(newDepricatedSongList[i].duration);
+      //print(allSongs[i].duration);
+      if (newDepricatedSongList[i].duration == null) {
+        //i++;
+        continue;
+      }
+      localSong.duration = int.parse(newDepricatedSongList[i].duration); //error
+      /*
+      if (localSong.duration == 0 || localSong.duration == null) {
+        i++;
+        continue;
+      }
+      */
       localSong.uri = newDepricatedSongList[i].uri;
       localSong.isPlaying = false;
       localSong.isWeb = false;
