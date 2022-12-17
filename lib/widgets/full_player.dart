@@ -19,6 +19,7 @@ import '../services/screen_sizes.dart';
 import '../services/player_logic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 ValueNotifier<String> currSongIdListenable = ValueNotifier<String>(currSongId);
 ValueNotifier<int> currSongIndexListenable = ValueNotifier<int>(currSongIndex);
@@ -331,14 +332,24 @@ class _PlayerBodyState extends State<PlayerBody> {
                                   // print(currSongIndex);
                                 },
                                 color: Colors.white,
-                                icon: Column(
-                                  children: [
-                                    // const Icon(FontAwesomeIcons
-                                    //     .personWalkingArrowLoopLeft),
-                                    Text(loopOfSongNotifier.value.toString(),
-                                        style: TextStyle(color: Colors.white)),
-                                  ],
-                                ),
+                                icon: (loopOfSongNotifier.value == 0)
+                                    ? SvgPicture.asset(
+                                        "svg/repeat-one-line.svg",
+                                        // color: Colors.transparent,
+                                      )
+                                    : ((loopOfSongNotifier.value == 1)
+                                        ? SvgPicture.asset(
+                                            "svg/repeat-one-line.svg",
+                                            // color: Colors.white,
+                                          )
+                                        : SvgPicture.asset(
+                                            "svg/repeat-2-line.svg",
+                                            // color: Colors.white,
+                                          )),
+
+                                // Text(loopOfSongNotifier.value.toString(),
+                                //     style: TextStyle(color: Colors.white)),
+
                                 iconSize: 20,
                               ),
 
