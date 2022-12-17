@@ -12,6 +12,7 @@ import '../services/player_logic.dart';
 
 int horizontalSwipeVariable = 0;
 EdgeInsets miniPlayerPadding = const EdgeInsets.all(0);
+bool variable = true;
 
 class CircularMiniPlayer extends StatefulWidget {
   const CircularMiniPlayer({super.key});
@@ -24,44 +25,53 @@ class _CircularMiniPlayerState extends State<CircularMiniPlayer> {
   @override
   void initState() {
     super.initState();
-    // audioPlayer.positionStream.listen((currPosition) {
-    //   if (!currSongIsWeb &&
-    //       songDuration - currPosition < const Duration(milliseconds: 100)) {
-    //     if (loopOfSongNotifier.value == 2) {
-    //       setState(() {
-    //         skipToNext();
-    //       });
-    //     } else if (loopOfSongNotifier.value == 1) {
-    //       seekToDurationZero();
-    //     } else {
-    //       seekToDurationZero();
-    //       audioPlayer.pause();
-    //     }
-    //   }
-    //   // if (currSongIsWeb &&
-    //   //     songDuration - currPosition < const Duration(milliseconds: 150)) {
-    //   //   if (loopOfSongNotifier.value == 2) {
-    //   //     setState(() {
-    //   //       skipToNext();
-    //   //     });
-    //   //   } else if (loopOfSongNotifier.value == 1) {
-    //   //     seekToDurationZero();
-    //   //   } else {
-    //   //     seekToDurationZero();
-    //   //     audioPlayer.pause();
-    //   //   }
-    //   // }
-    // });
-    audioPlayer.playerStateStream.listen((playerState) {
-      if (
-          // currSongIsWeb &&
-          loopOfSongNotifier.value == 2 &&
-              playerState.processingState == ProcessingState.completed) {
-        setState(() {
-          skipToNext();
-        });
+    audioPlayer.positionStream.listen((currPosition) {
+      if (!currSongIsWeb &&
+          songDuration - currPosition < const Duration(milliseconds: 100)) {
+        if (loopOfSongNotifier.value == 2) {
+          setState(() {
+            skipToNext();
+          });
+        } else if (loopOfSongNotifier.value == 1) {
+          seekToDurationZero();
+        } else {
+          seekToDurationZero();
+          audioPlayer.pause();
+        }
+      }
+      if (variable &&
+          currSongIsWeb &&
+          songDuration - currPosition < const Duration(milliseconds: 210)) {
+        variable = false;
+        if (loopOfSongNotifier.value == 2) {
+          setState(() {
+            skipToNext();
+          });
+        } else if (loopOfSongNotifier.value == 1) {
+          seekToDurationZero();
+        } else {
+          seekToDurationZero();
+          audioPlayer.pause();
+        }
+        Future.delayed(const Duration(milliseconds: 400), (() {
+          variable = true;
+        }));
       }
     });
+    // audioPlayer.playerStateStream.listen((playerState) {
+    //   if (variable &&
+    //       // currSongIsWeb &&
+    //       loopOfSongNotifier.value == 2 &&
+    //       playerState.processingState == ProcessingState.completed) {
+    //     variable = false;
+    //     setState(() {
+    //       skipToNext();
+    //     });
+    //     Future.delayed(const Duration(milliseconds: 400), () {
+    //       variable = true;
+    //     });
+    //   }
+    // });
   }
 
   @override

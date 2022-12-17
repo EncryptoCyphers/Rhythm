@@ -116,7 +116,8 @@ playSong(
   audioPlayer.durationStream.listen(
     (duration) {
       // setState(() {
-      songDuration = currSongDuration + const Duration(milliseconds: 100);
+      songDuration = currSongDuration;
+      // + const Duration(milliseconds: 100);
       // });
     },
   );

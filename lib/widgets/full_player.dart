@@ -331,7 +331,7 @@ class _PlayerBodyState extends State<PlayerBody> {
                                   });
                                   // print(currSongIndex);
                                 },
-                                color: Colors.white,
+                                // color: Colors.white,
                                 icon: (loopOfSongNotifier.value == 0)
                                     ? SvgPicture.asset(
                                         "svg/repeat-one-line.svg",
