@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_player_app/services/get_yt_searches.dart';
 import 'package:music_player_app/services/global.dart';
 import 'package:music_player_app/services/trending_songs.dart';
@@ -80,7 +81,19 @@ playSong(
   final playlist = ConcatenatingAudioSource(
     children: [
       // AudioSource.uri(Uri.parse(currSongUri!)),
-      AudioSource.uri(Uri.parse(currSongUri!)),
+      AudioSource.uri(
+        Uri.parse(currSongUri!),
+        //
+        //
+        /*----------------------------Notification----------------------------------------*/
+        //
+        tag: MediaItem(
+          id: currSongId,
+          title: currSongName,
+          artist: currSongArtistName,
+          duration: currSongDuration,
+        ),
+      ),
       // AudioSource.uri(
       //     Uri.parse(allSongsDevice[currSongIndex + 1].uri.toString())),
       // AudioSource.uri(
