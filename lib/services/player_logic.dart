@@ -1,26 +1,18 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:music_player_app/services/get_yt_searches.dart';
 import 'package:music_player_app/services/global.dart';
-import 'package:music_player_app/services/trending_songs.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-import 'package:functional_listener/functional_listener.dart';
-import '../pages/search_page.dart';
 import '../pages/songs.dart';
 import '../widgets/full_player.dart';
 import '../pages/mini_player.dart';
 import 'dart:io';
-import 'package:image/image.dart';
 // https://pub.dev/packages/path_provider
-import 'package:path_provider/path_provider.dart';
 
 ValueNotifier<int> loopOfSongNotifier =
     ValueNotifier<int>(0); // 0-> no loop, 1-> Same Song, 2-> all Songs
@@ -85,8 +77,6 @@ seekToDurationZero() {
 playSong(
     // {required AudioPlayer audioPlayer}
     ) async {
-  print("Hello" + newDepricatedSongList[currSongIndex].filePath.toString());
-  print("Hello" + currBGFile.path.toString());
   // print("Hello " +
   //     Uri.parse("File:/" +
   //             newDepricatedSongList[currSongIndex].filePath.toString())
@@ -253,7 +243,6 @@ onLoopButtonPress() {
 }
 
 getBG() async {
-  print("Hello t");
   //currBGListenable.value = true;
   currBG = Uint8List.fromList([]);
   currBG = await audioQuery.getArtwork(
@@ -280,5 +269,4 @@ getBG() async {
   // tempDir = await getLibraryDirectory();
 
   //currBGListenable.value = false;
-  print("Hello f");
 }
