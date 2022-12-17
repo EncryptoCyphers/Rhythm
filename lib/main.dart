@@ -29,21 +29,21 @@ Future<void> main() async {
   // await newDir.create(recursive: true);
   // tempDir = await getTemporaryDirectory();
   // const folderName = 'Rhythm';
-//   final path = Directory("storage/emulated/0/Rhythm/CurrBG.png");
-//   var status = await Permission.storage.status;
-//   if (!status.isGranted) {
-//     await Permission.storage.request();
-//   }
-//   if ((await path.exists())) {
-//     // if (await File('$path/CurrBG.png').exists()) {
-//     // } else {
-//     //   File('$path/CurrBG.png').create();
-//     // }
-//     // return path.path;
-//   } else {
-//     path.create(recursive: true);
-//     // return path.path;
-//   }
+  final path = Directory("storage/emulated/0/Rhythm");
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
+  if ((await path.exists())) {
+    // if (await File('$path/CurrBG.png').exists()) {
+    // } else {
+    //   File('$path/CurrBG.png').create();
+    // }
+    // return path.path;
+  } else {
+    path.create(recursive: true);
+    // return path.path;
+  }
 //   // tempDir = await getLibraryDirectory();
   runApp(const MyApp());
 }
