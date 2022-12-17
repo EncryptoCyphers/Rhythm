@@ -112,6 +112,7 @@ class _SearchPageState extends State<SearchPage> {
                 Container(
               padding: const EdgeInsets.fromLTRB(6, 12, 5, 10),
               child: TextField(
+                textInputAction: TextInputAction.search,
                 controller: _musicController,
                 onSubmitted: (value) {
                   isSearchLoading.value = true;
@@ -134,7 +135,7 @@ class _SearchPageState extends State<SearchPage> {
                       width: 2.5,
                     ),
                   ),
-                  labelText: 'Enter a search term',
+                  labelText: 'Search a song',
                   labelStyle: TextStyle(
                     color: bgPurple,
                   ),
