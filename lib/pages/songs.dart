@@ -18,6 +18,7 @@ import '../services/player_logic.dart';
 
 late List<SongModel> allSongs;
 List<CustomSongModel> allSongsDevice = [];
+late List<SongInfo> newDepricatedSongList;
 List songsList = [];
 var dummy = bool;
 // final listIndex = ValueNotifier<int>(0);
@@ -37,7 +38,6 @@ void listTileColorChange(int index) {
 }
 
 final FlutterAudioQuery audioQuery = FlutterAudioQuery();
-late List<SongInfo> newDepricatedSongList;
 
 //Trailing Icon Selector function
 // Widget iconSelector(int index, int listIndexValue, List<CustomSongModel> allSongsDevice) {

@@ -533,16 +533,13 @@ class ArtWork extends StatelessWidget {
                             fit: BoxFit.contain,
                             child: ClipRRect(
                               borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(20),
+                                topLeft: Radius.circular(55),
+                                topRight: Radius.circular(110),
+                                bottomRight: Radius.circular(55),
+                                bottomLeft: Radius.circular(110),
                               ),
                               child: Image.network(
-                                YoutubeThumbnail(
-                                        youtubeId: currSongId.toString())
-                                    .hd(),
-                              ),
+                                  'https://img.youtube.com/vi/$currSongId/maxresdefault.jpg'),
                             ),
                           ),
                         ),
@@ -580,6 +577,8 @@ class ArtWork extends StatelessWidget {
                                     width: logicalWidth * 0.75,
                                     child: Image.memory(
                                       snapshot.data!,
+                                      height: 2000,
+                                      width: 2000,
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -76,6 +77,12 @@ seekToDurationZero() {
 playSong(
     // {required AudioPlayer audioPlayer}
     ) async {
+  print("Hello " +
+      Uri.parse("File:/" +
+              newDepricatedSongList[currSongIndex].filePath.toString())
+          .toString());
+  print("Hello " +
+      Uri.parse(allSongsDevice[currSongIndex].uri.toString()).toString());
   // currSongIndexListenable.value = currSongIndex;
   // Define the playlist
   final playlist = ConcatenatingAudioSource(
@@ -83,16 +90,25 @@ playSong(
       // AudioSource.uri(Uri.parse(currSongUri!)),
       AudioSource.uri(
         Uri.parse(currSongUri!),
+
         //
         //
         /*----------------------------Notification----------------------------------------*/
         //
         tag: MediaItem(
-            id: currSongId,
-            title: currSongName,
-            artist: currSongArtistName,
-            duration: currSongDuration,
-            artUri: Uri.parse('https://img.youtube.com/vi/$currSongId/0.jpg')),
+          id: currSongId,
+          title: currSongName,
+          artist: currSongArtistName,
+          duration: currSongDuration,
+          extras: {'LoadThumbnailUri': true},
+          artUri: (currSongIsWeb)
+              ? Uri.parse(
+                  'https://img.youtube.com/vi/$currSongId/maxresdefault.jpg',
+                )
+              // : Uri.parse("File:/" +
+              //     newDepricatedSongList[currSongIndex].filePath.toString()),
+              : Uri.parse(allSongsDevice[currSongIndex].uri.toString()),
+        ),
       ),
       // AudioSource.uri(
       //     Uri.parse(allSongsDevice[currSongIndex + 1].uri.toString())),
