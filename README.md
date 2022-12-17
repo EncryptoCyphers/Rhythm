@@ -5,7 +5,7 @@ Open-Source Music App and MP3 player for your entertainment
 
 
 [![made-with-flutter](https://img.shields.io/badge/Made%20with-Flutter-1f425f.svg)](https://flutter.dev/)
-[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/EncryptoCyphers/Rhythm?include_prereleases)](https://github.com/EncryptoCyphers/Rhythm/releases)
+[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/EncryptoCyphers/Rhythm?include_prereleases)](https://github.com/EncryptoCyphers/Rhythm/releases/download/V1/Rhythm-v8a-release.apk)
 
 ## Don't forget to fork our repository
 
@@ -23,7 +23,17 @@ Open-Source Music App and MP3 player for your entertainment
 <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/fRBXWbs4/S4.png" alt="S4"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/0N4wmHrc/S5.png" alt="S5"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/ZqnNWhYW/S6.png" alt="S6"/></a><br/><br/>
 <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/vHw53jhK/S7.png" alt="S7"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/CLCktN6x/S8.png" alt="S8"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/QdX1rTRk/S9.png" alt="S9"/></a><br/><br/>
 
+### Controls
+> Miniplayer Gesture Tutorial
 
+| Gesture     | Functionality|
+| ----------- | ----------- |
+| Single Tap      | Play/Pause     |
+| Double Tap   | Next Song       |
+| Swipe Right   | Next Song      |
+| Swipe Left  | Previous Song    |
+| Swipe Up   | Full Player Enabled  |
+| Swipe Down  | Exit Song      |
 
 ## Features
 
