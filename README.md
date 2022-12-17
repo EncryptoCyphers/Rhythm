@@ -17,9 +17,7 @@ Open-Source Music App and MP3 player for your entertainment
      height="60">](https://github.com/EncryptoCyphers/Rhythm/releases)
     
 ## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
+<img src="https://github.com/EncryptoCyphers/Rhythm/blob/master/screenshots/Screenshot_1671288545.png?raw=true" width="32%">
 
 ## Features
 
