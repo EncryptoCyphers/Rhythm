@@ -88,11 +88,11 @@ playSong(
         /*----------------------------Notification----------------------------------------*/
         //
         tag: MediaItem(
-          id: currSongId,
-          title: currSongName,
-          artist: currSongArtistName,
-          duration: currSongDuration,
-        ),
+            id: currSongId,
+            title: currSongName,
+            artist: currSongArtistName,
+            duration: currSongDuration,
+            artUri: Uri.parse('https://img.youtube.com/vi/$currSongId/0.jpg')),
       ),
       // AudioSource.uri(
       //     Uri.parse(allSongsDevice[currSongIndex + 1].uri.toString())),
