@@ -12,11 +12,14 @@ import 'package:music_player_app/services/global.dart';
 import 'package:music_player_app/services/trending_songs.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:functional_listener/functional_listener.dart';
-
 import '../pages/search_page.dart';
 import '../pages/songs.dart';
 import '../widgets/full_player.dart';
 import '../pages/mini_player.dart';
+import 'dart:io';
+import 'package:image/image.dart';
+// https://pub.dev/packages/path_provider
+import 'package:path_provider/path_provider.dart';
 
 ValueNotifier<int> loopOfSongNotifier =
     ValueNotifier<int>(0); // 0-> no loop, 1-> Same Song, 2-> all Songs
@@ -50,6 +53,8 @@ late VideoId? currSongVideoIdStremable;
 late Uint8List defaultBG;
 late Uint8List prevBG;
 Uint8List currBG = Uint8List.fromList([]);
+late final Directory tempDir;
+final File currBGFile = File('${tempDir.path}/images/currBG.png');
 getCurrSongInfo({
   required String id,
   required name,
@@ -77,12 +82,13 @@ seekToDurationZero() {
 playSong(
     // {required AudioPlayer audioPlayer}
     ) async {
-  print("Hello " +
-      Uri.parse("File:/" +
-              newDepricatedSongList[currSongIndex].filePath.toString())
-          .toString());
-  print("Hello " +
-      Uri.parse(allSongsDevice[currSongIndex].uri.toString()).toString());
+  print("Hello" + currBGFile.path.toString());
+  // print("Hello " +
+  //     Uri.parse("File:/" +
+  //             newDepricatedSongList[currSongIndex].filePath.toString())
+  //         .toString());
+  // print("Hello " +
+  //     Uri.parse(allSongsDevice[currSongIndex].uri.toString()).toString());
   // currSongIndexListenable.value = currSongIndex;
   // Define the playlist
   final playlist = ConcatenatingAudioSource(
@@ -107,7 +113,8 @@ playSong(
                 )
               // : Uri.parse("File:/" +
               //     newDepricatedSongList[currSongIndex].filePath.toString()),
-              : Uri.parse(allSongsDevice[currSongIndex].uri.toString()),
+              // : Uri.parse(allSongsDevice[currSongIndex].uri.toString()),
+              : Uri.parse(currBGFile.path),
         ),
       ),
       // AudioSource.uri(
@@ -250,6 +257,16 @@ getBG() async {
     type: ResourceType.SONG,
     id: newDepricatedSongList[currSongIndex].id,
   );
+
+  if (await currBGFile.exists()) {
+    // Use the cached images if it exists
+    currBGFile.writeAsBytesSync(currBG);
+  } else {
+    // Image doesn't exist in cache
+    await currBGFile.create(recursive: true);
+    // Download the image and write to above file
+    currBGFile.writeAsBytesSync(currBG);
+  }
   //currBGListenable.value = false;
   print("Hello f");
 }

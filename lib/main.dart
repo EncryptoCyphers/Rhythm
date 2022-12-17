@@ -6,6 +6,8 @@ import 'package:music_player_app/pages/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './firebase_options.dart';
 // import 'firebase_options.dart';
+import 'package:path_provider/path_provider.dart';
+import './services/player_logic.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +19,7 @@ Future<void> main() async {
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
+  tempDir = await getTemporaryDirectory();
   runApp(const MyApp());
 }
 
