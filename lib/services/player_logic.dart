@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_audio_query/flutter_audio_query.dart';
@@ -263,18 +264,19 @@ getBG() async {
     type: ResourceType.SONG,
     id: newDepricatedSongList[currSongIndex].id,
   );
-
+  final ByteData bytes =
+      await rootBundle.load('svg/no-artwork-black-background.png');
   File imgFile = File('storage/emulated/0/Rhythm/$currSongId.jpg');
   if (await imgFile.exists()) {
     if (currBG.isEmpty) {
-      await imgFile.writeAsBytes(defaultBG);
+      await imgFile.writeAsBytes(bytes.buffer.asUint8List());
     } else {
       await imgFile.writeAsBytes(currBG);
     }
   } else {
     imgFile.create();
     if (currBG.isEmpty) {
-      await imgFile.writeAsBytes(defaultBG);
+      await imgFile.writeAsBytes(bytes.buffer.asUint8List());
     } else {
       await imgFile.writeAsBytes(currBG);
     }
