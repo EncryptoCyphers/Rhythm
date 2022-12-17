@@ -335,16 +335,21 @@ class _PlayerBodyState extends State<PlayerBody> {
                                     ? SvgPicture.asset(
                                         "svg/repeat_all_songs.svg",
                                         color: Colors.grey.shade700,
+                                        height: 30,
+                                        width: 30,
                                       )
                                     : ((loopOfSongNotifier.value == 1)
                                         ? SvgPicture.asset(
                                             "svg/repeat-one-songs.svg",
                                             color: Colors.white,
-                                            // color: Colors.white,
+                                            height: 30,
+                                            width: 30,
                                           )
                                         : SvgPicture.asset(
                                             "svg/repeat_all_songs.svg",
                                             color: Colors.white,
+                                            height: 30,
+                                            width: 30,
                                           )),
 
                                 // Text(loopOfSongNotifier.value.toString(),
