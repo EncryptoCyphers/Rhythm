@@ -10,6 +10,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_player_app/services/get_yt_searches.dart';
 import 'package:music_player_app/services/global.dart';
 import 'package:music_player_app/services/trending_songs.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:functional_listener/functional_listener.dart';
 import '../pages/search_page.dart';
@@ -261,15 +262,23 @@ getBG() async {
     id: newDepricatedSongList[currSongIndex].id,
   );
 
-  if (await currBGFile.exists()) {
-    // Use the cached images if it exists
-    currBGFile.writeAsBytesSync(currBG);
-  } else {
-    // Image doesn't exist in cache
-    await currBGFile.create(recursive: true);
-    // Download the image and write to above file
-    currBGFile.writeAsBytesSync(currBG);
+  final path = Directory("storage/emulated/0/Rhythm");
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
   }
+  if ((await path.exists())) {
+    // if (await File('$path/CurrBG.png').exists()) {
+    // } else {
+    //   File('$path/CurrBG.png').create();
+    // }
+    // return path.path;
+  } else {
+    path.create(recursive: true);
+    // return path.path;
+  }
+  // tempDir = await getLibraryDirectory();
+
   //currBGListenable.value = false;
   print("Hello f");
 }
