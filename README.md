@@ -17,11 +17,14 @@ Open-Source Music App and MP3 player for your entertainment
      height="60">](https://github.com/EncryptoCyphers/Rhythm/releases)
     
 ## Screenshots
-<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/3wfg1xfj/S1.png" alt="S1"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/ZntvsB8N/S10.png" alt="S10"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/zBRRkSg5/S11.png" alt="S11"/></a><br/><br/>
-<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/qqshPJw5/S12.png" alt="S12"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/WpgkF8Vw/S13.png" alt="S13"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/GhRskDhw/S14.png" alt="S14"/></a><br/><br/>
-<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/jdhnvjLW/S15.png" alt="S15"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/qRt25HWP/S2.png" alt="S2"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/tTLF0mjY/S3.png" alt="S3"/></a><br/><br/>
-<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/fRBXWbs4/S4.png" alt="S4"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/0N4wmHrc/S5.png" alt="S5"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/ZqnNWhYW/S6.png" alt="S6"/></a><br/><br/>
-<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/vHw53jhK/S7.png" alt="S7"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/CLCktN6x/S8.png" alt="S8"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/QdX1rTRk/S9.png" alt="S9"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/3wfg1xfj/S1.png" alt="S1"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/ZntvsB8N/S10.png" alt="S10"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/zBRRkSg5/S11.png" alt="S11"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/qqshPJw5/S12.png" alt="S12"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/WpgkF8Vw/S13.png" alt="S13"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/GhRskDhw/S14.png" alt="S14"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/jdhnvjLW/S15.png" alt="S15"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/qRt25HWP/S2.png" alt="S2"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/tTLF0mjY/S3.png" alt="S3"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/fRBXWbs4/S4.png" alt="S4"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/0N4wmHrc/S5.png" alt="S5"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/ZqnNWhYW/S6.png" alt="S6"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/vHw53jhK/S7.png" alt="S7"/></a> <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/CLCktN6x/S8.png" alt="S8"/></a><br/><br/>
+<a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/QdX1rTRk/S9.png" alt="S9"/></a> 
 
 ### Controls
 > Miniplayer Gesture Tutorial
