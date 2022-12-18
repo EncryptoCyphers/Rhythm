@@ -49,11 +49,11 @@ class _MyProfileState extends State<MyProfile> {
           //   ),
           // );
           return SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height * 0.8,
             child: Center(
               child: LoadingAnimationWidget.inkDrop(
                 color: Colors.deepPurple,
-                size: 50,
+                size: 30,
               ),
             ),
           );
