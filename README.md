@@ -5,7 +5,7 @@ Open-Source Music App and MP3 player for your entertainment
 
 
 [![made-with-flutter](https://img.shields.io/badge/Made%20with-Flutter-1f425f.svg)](https://flutter.dev/)
-[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/EncryptoCyphers/Rhythm?include_prereleases)](https://github.com/EncryptoCyphers/Rhythm/releases/download/V1/Rhythm-v8a-release.apk)
+[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/EncryptoCyphers/Rhythm?include_prereleases)](https://github.com/EncryptoCyphers/Rhythm/releases)
 
 ## Don't forget to fork our repository
 
