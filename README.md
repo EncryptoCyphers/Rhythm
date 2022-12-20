@@ -1,3 +1,4 @@
+![repo-banner](https://user-images.githubusercontent.com/83993904/208692944-71d50df5-000e-4232-8211-e645143b6e23.png)
 
 # Rhythm 
 
